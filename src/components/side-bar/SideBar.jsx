@@ -1,7 +1,9 @@
 import Image from "next/image";
-
-const arr = [1, 2, 3, 4, 5, 6];
+import { usePathname } from "next/navigation";
+import { menus } from "@/utils/seed";
 const SideBar = () => {
+  const path = usePathname();
+
   return (
     <div className="bg-[color:white] text-black w-[287px] h-[100vh]">
       <div className="px-3 py-5 flex flex-col gap-16">
@@ -13,12 +15,12 @@ const SideBar = () => {
             alt="Marina"></Image>
         </div>
         <div className="flex flex-col gap-3">
-          {arr.map((ea) => {
+          {menus.map((menu, i) => {
             return (
               <div
-                key={ea}
-                className={`flex gap-3 text-white py-2 pl-6 rounded-2xl ${
-                  ea == 1 && "bg-[color:var(--goldColor)]"
+                key={i}
+                className={`flex gap-2 text-black py-2 pl-6 rounded-2xl ${
+                  i == 1 && "bg-[color:var(--goldColor)]"
                 }`}>
                 <Image
                   src={"/dashboard.svg"}
@@ -26,7 +28,7 @@ const SideBar = () => {
                   height={20}
                   alt="dashboard"
                 />
-                <span className="text-sm font-medium">Dashboard</span>
+                <span className="text-sm font-medium">{menu.name}</span>
               </div>
             );
           })}
