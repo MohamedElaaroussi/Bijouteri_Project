@@ -21,7 +21,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <AuthProvider>
           <div className="flex">
-            <ShowSideBar />
             <div className="bg-[color:#F4F7FE] w-[100vw] h-[100vh]">
               {children}
             </div>

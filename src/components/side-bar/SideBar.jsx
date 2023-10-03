@@ -1,9 +1,10 @@
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { menus } from "@/utils/seed";
-const SideBar = () => {
-  const path = usePathname();
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 
+const SideBar = async () => {
   return (
     <div className="bg-[color:white] text-black w-[287px] h-[100vh]">
       <div className="px-3 py-5 flex flex-col gap-16">

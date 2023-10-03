@@ -13,7 +13,7 @@ export const POST = async (req: NextRequest) => {
 
     const { username, email, phone, password, roleId } = body;
 
-    const hashedPassword = await hashSync(password, 8);
+    const hashedPassword = hashSync(password, 8);
     // Create a new user
     const user = new User({
       username,
@@ -29,7 +29,6 @@ export const POST = async (req: NextRequest) => {
       { status: 201 }
     );
   } catch (error) {
-    console.log(error);
 
     return new NextResponse(
       JSON.stringify({ error: "An error occurred while creating the user." }),
