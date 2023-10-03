@@ -1,16 +1,17 @@
 import { AuthOptions } from "next-auth";
+import { getServerSession } from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDatabase } from "../../../../../db/connection";
 import { User } from "../../../../../models/User";
 import { compare } from "bcryptjs";
 
 export const authOptions: AuthOptions = {
-    secret:process.env.AUTH_SECRET,
+    secret: process.env.AUTH_SECRET,
     providers: [
         CredentialsProvider({
             name: "Credentials",
             credentials: {
-                email: { label: "Email", type: "text"},
+                email: { label: "Email", type: "text" },
                 password: { label: "Password", type: "password" },
             },
             // @ts-ignore
@@ -41,3 +42,5 @@ export const authOptions: AuthOptions = {
         }),
     ],
 };
+
+export const getSession = async () => await getServerSession(authOptions)

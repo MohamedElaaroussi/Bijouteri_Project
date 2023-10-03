@@ -5,6 +5,9 @@
 :root {
   --goldColor: #D9A528;
   --softGoldColor: #d9a428e5;
+  --green : #05CD99;
+  --textColor:#787878;
+  --softTextColor:#C1C4C7;
 }
 
 
@@ -13,4 +16,5 @@ body {
   padding: 0;
   box-sizing: border-box;
   margin: 0;
+  overflow-x: hidden;
 }
