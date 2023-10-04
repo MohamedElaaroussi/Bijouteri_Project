@@ -2,11 +2,12 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { connectToDatabase } from '../../../../db/connection';
 import { PackOfArticles } from '../../../../models/PackOfArticles';
 import { Article } from '../../../../models/Article';
-import { getSession } from 'next-auth/client';
+import { getServerSession } from 'next-auth/next';
+import { options } from '../auth/[...nextauth]/routes';
 
 connectToDatabase();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session = await getSession({ req });
+  const session = await getServerSession(req,res,options);
 
   if (!session) {
     return res.status(403).json({ error: 'Not authenticated' });
@@ -25,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Wait for all sell promises to complete
       await Promise.all(packPromises);
       // Create a new packOfArticles
-      const packOfArticles = new PackOfArticles({ name, price, articles: articleIds, user: session.user._id  });
+      const packOfArticles = new PackOfArticles({ name, price, articles: articleIds, user: session.user  });
       await packOfArticles.save();
 
       res.status(201).json({ message: 'packOfArticles created successfully.', packOfArticles });

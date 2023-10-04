@@ -1,11 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { connectToDatabase } from '../../../../db/connection';
 import { Client } from '../../../../models/Client';
-import { getSession } from 'next-auth/client';
+import { getServerSession } from 'next-auth/next';
+import { options } from '../auth/[...nextauth]/routes';
 
 connectToDatabase();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session = await getSession({ req });
+  const session = await getServerSession(req,res,options);
 
   if (!session) {
     return res.status(403).json({ error: 'Not authenticated' });
@@ -18,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       // Create a new client
-      const client = new Client({ name, email, phone, user: session.user._id  });
+      const client = new Client({ name, email, phone, user: session.user  });
       await client.save();
 
       res.status(201).json({ message: 'client created successfully.', client });

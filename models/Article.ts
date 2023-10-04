@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 import { CategoryOfArticlesModel } from "./CategoryOfArticles";
 import { UserModel } from "./User";
+
 // Define Article Schema with SelledStatus
 export interface ArticleModel extends Document {
   name: string;

@@ -8,10 +8,6 @@ export interface UserModel extends Document {
   email: string;
   phone: number;
   password: string;
-  resetToken: string ;
-  update: string ;
-  validEmail: string ;
-  emailToken: string ;
   role: mongoose.Types.ObjectId | RoleModel;
 }
 
@@ -25,10 +21,6 @@ const userSchema = new Schema<UserModel>({
   },
   phone: { type: Number, unique: true },
   password: { type: String, required: true },
-  resetToken: { type: String },
-  update: { type: String },
-  validEmail: { type: String, default: "not" },
-  emailToken: { type: String },
   role: { type: Schema.Types.ObjectId, ref: "Role", required: true },
 });
 

@@ -5,7 +5,7 @@ import { connectToDatabase } from '../../../../../db/connection'
 import { User,UserModel } from '../../../../../models/User'
 
 
-const options: NextAuthOptions = {
+export const options: NextAuthOptions = {
     secret: process.env.SECRET,
     providers: [
         CredentialsProvider({

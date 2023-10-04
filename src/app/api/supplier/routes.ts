@@ -1,11 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { connectToDatabase } from '../../../../db/connection';
 import { Supplier } from '../../../../models/Supplier';
-import { getSession } from 'next-auth/client';
+import { getServerSession } from 'next-auth/next';
+import { options } from '../auth/[...nextauth]/routes';
 
 connectToDatabase();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session = await getSession({ req });
+  const session = await getServerSession(req,res,options);
 
   if (!session) {
     return res.status(403).json({ error: 'Not authenticated' });
@@ -18,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       // Create a new supplier
-      const supplier = new Supplier({ name, email, phone, user: session.user._id  });
+      const supplier = new Supplier({ name, email, phone, user: session.user });
       await supplier.save();
 
       res.status(201).json({ message: 'supplier created successfully.', supplier });

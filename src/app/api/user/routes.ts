@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { connectToDatabase } from '../../../../db/connection';
 import { User } from '../../../../models/User';
-import { getSession } from 'next-auth/client';
+import { getServerSession } from 'next-auth/next';
 import  bcrypt  from 'bcryptjs'
+import { options } from '../auth/[...nextauth]/routes';
 
 connectToDatabase();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session = await getSession({ req });
+  const session = await getServerSession(req,res,options);
 
   if (!session) {
     return res.status(403).json({ error: 'Not authenticated' });
