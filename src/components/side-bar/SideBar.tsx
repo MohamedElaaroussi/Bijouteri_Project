@@ -6,8 +6,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 
 const SideBar = async () => {
   return (
-    <div className="bg-[color:white] text-black w-[287px] h-[100vh]">
-      <div className="px-3 py-5 flex flex-col gap-16">
+    <div className="bg-[color:white] text-black w-[300px] h-[100vh] sidebar">
+      <div className="px-3 py-5 flex flex-col gap-16 ">
         <div className="text-[color:var(--goldColor)] flex items-center justify-center">
           <Image
             src={"/logo.svg"}

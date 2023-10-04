@@ -1,4 +1,17 @@
-export default async function Home() {
+"use client";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-  return <>hello</>;
+export default function Home() {
+  const { status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status == "unauthenticated") router.push("/login");
+  }, [status, router]);
+  console.log(status);
+
+  if (status == "loading") return <div>Loding...</div>;
+  return <>heLLO</>;
 }

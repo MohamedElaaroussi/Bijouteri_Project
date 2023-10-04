@@ -1,20 +1,20 @@
-import CatalogueCard from "@/components/catalogue/CatalogueCard";
+"use client"
+
 import CatalogueCardItem from "@/components/catalogue/CatalogueCardItem";
-import ExportBtn from "@/components/ui/button/ExportBtn";
-import GoldBtn from "@/components/ui/button/GoldBtn";
-import Modal from "@/components/ui/button/modal/Modal";
+import SecondSectionGroupComponent from "@/components/second-section/SecondSectionGroupComponent";
+import Modal from "@/components/ui/modal/Modal";
 import { NextPage } from "next";
-import Image from "next/image";
+import { useState } from "react";
 
 const Catalogue: NextPage = () => {
+    const [openModal, setOpenModal] = useState(false)
+
     return (
         <div>
             <div>header</div>
-
-
-
+            <SecondSectionGroupComponent setOpenModal={setOpenModal} />
             <CatalogueCardItem />
-            {<Modal />}
+            {openModal && <Modal setCloseModal={setOpenModal} />}
         </div>
     );
 };

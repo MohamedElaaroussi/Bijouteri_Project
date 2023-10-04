@@ -1,7 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import ShowSideBar from "@/components/side-bar/ShowSideBar";
 import AuthProvider from "@/providers/AuthProvider";
 import SideBar from "@/components/side-bar/SideBar";
 import { getSession } from "./api/auth/[...nextauth]/authOptions";
