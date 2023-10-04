@@ -16,6 +16,7 @@ export interface PackOfArticlesModel extends Document {
   ];
   category: mongoose.Types.ObjectId | CategoryOfPackModel;
   user: mongoose.Types.ObjectId | UserModel;
+  articles: mongoose.Types.ObjectId[] | ArticleModel[];
 }
 
 const packOfArticlesSchema = new Schema<PackOfArticlesModel>({

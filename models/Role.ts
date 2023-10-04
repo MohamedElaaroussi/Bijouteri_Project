@@ -9,7 +9,7 @@ export interface RoleModel extends Document {
 
 const roleSchema = new Schema<RoleModel>({
   name: { type: String, required: true },
-  menus: [{ type: Schema.Types.ObjectId, ref: "Menu"}],
+  menus: [{ type: Schema.Types.ObjectId, ref: "Menu", required: true }],
 });
 
 export const Role =
