@@ -20,7 +20,7 @@ const userSchema = new Schema<UserModel>({
     validate: [validator.isEmail, "Please enter valid email address"],
   },
   phone: { type: Number, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, required: true, select: false},
   role: { type: Schema.Types.ObjectId, ref: "Role", required: true },
 });
 

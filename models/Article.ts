@@ -22,7 +22,6 @@ const articleSchema = new Schema<ArticleModel>({
   material: { type: String, required: true },
   date: { type: Date, default: Date.now },
   selled: { type: Boolean, default: false },
-  selledStatus: { type: Boolean, default: false },
   inPack: { type: Boolean, default: false },
   category: {
     type: Schema.Types.ObjectId,
