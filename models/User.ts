@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 import { RoleModel } from "./Role";
+import isEmail from "validator/lib/isEmail";
 
 // Define User Schema with Admin Role
 export interface UserModel extends Document {
@@ -12,9 +13,14 @@ export interface UserModel extends Document {
 
 const userSchema = new Schema<UserModel>({
   username: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: [isEmail, "Please enter valid email address"],
+  },
   phone: { type: Number, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, required: true, select: false},
   role: { type: Schema.Types.ObjectId, ref: "Role", required: true },
 });
 

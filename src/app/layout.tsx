@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import AuthProvider from "@/providers/AuthProvider";
 import SideBar from "@/components/side-bar/SideBar";
-import { getSession } from "./api/auth/[...nextauth]/authOptions";
+import { OPTIONS } from "./api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
 
-  const data = await getSession()
+  const data = await getServerSession(OPTIONS)
   const session = !!(data?.user?.email);
 
   return (

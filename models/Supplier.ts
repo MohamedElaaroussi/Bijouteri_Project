@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { UserModel } from "./User";
 
 // Define User Schema with Admin Role
 export interface SupplierModel extends Document {
@@ -6,6 +7,7 @@ export interface SupplierModel extends Document {
   email: string;
   phone: number;
   deal: Date;
+  user: mongoose.Types.ObjectId | UserModel;
 }
 
 const supplierSchema = new Schema<SupplierModel>({
@@ -13,6 +15,7 @@ const supplierSchema = new Schema<SupplierModel>({
   email: { type: String, required: true },
   phone: { type: Number },
   deal: { type: Date, default: Date.now },
+  user: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
 export const Supplier =

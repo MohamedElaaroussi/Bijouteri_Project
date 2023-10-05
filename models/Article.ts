@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 import { CategoryOfArticlesModel } from "./CategoryOfArticles";
-import { SelledArticleModel } from "./SelledArticle";
+import { UserModel } from "./User";
+
 // Define Article Schema with SelledStatus
 export interface ArticleModel extends Document {
   name: string;
@@ -8,9 +9,10 @@ export interface ArticleModel extends Document {
   weight: number;
   material: string;
   date: Date;
-  selledStatus: boolean;
+  selled: boolean;
   inPack: boolean;
   category: mongoose.Types.ObjectId | CategoryOfArticlesModel;
+  user: mongoose.Types.ObjectId | UserModel;
 }
 
 const articleSchema = new Schema<ArticleModel>({
@@ -19,13 +21,14 @@ const articleSchema = new Schema<ArticleModel>({
   weight: { type: Number, required: true },
   material: { type: String, required: true },
   date: { type: Date, default: Date.now },
-  selledStatus: { type: Boolean, default: false },
+  selled: { type: Boolean, default: false },
   inPack: { type: Boolean, default: false },
   category: {
     type: Schema.Types.ObjectId,
     ref: "CategoryOfArticles",
     required: true,
   },
+  user: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
 // type `mongoose.models.Customer` same as `CustomerModel`
