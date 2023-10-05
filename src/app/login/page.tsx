@@ -87,7 +87,6 @@ const Login = (): JSX.Element | void => {
                 <input
                   {...register("email")}
                   placeholder="Identifiant ou adresse e-mail"
-                  name="email"
                   className={`text-neutral-600 border-none outline-none p-3 placeholder:text-xs ${errors.email ? "text-red-600" : ""
                     }`}
                 />
@@ -112,7 +111,6 @@ const Login = (): JSX.Element | void => {
                     }`}
                   type="password"
                   placeholder="Mot de passe"
-                  name="password"
                 />
 
               </div>

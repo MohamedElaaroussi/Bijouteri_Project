@@ -28,7 +28,7 @@ export default async function RootLayout({
         <AuthProvider>
           <div className="flex">
             {session && <SideBar />}
-            <div className="bg-[color:#EDF0F8] w-[100vw]">
+            <div className={`bg-[color:#EDF0F8] ${session ? "w-[calc(100%-250px)]" : "w-[100vw]"}`}>
               {children}
             </div>
           </div>

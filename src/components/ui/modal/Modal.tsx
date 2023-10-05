@@ -10,8 +10,10 @@ const Modal = ({
     return (
         <>
             <div
-                className="absolute bg-white top-1/2 left-1/2 z-50 p-6 rounded-[20px]"
+                className="fixed bg-white top-1/2 left-1/2 z-50 p-6 rounded-[20px]"
                 style={{ transform: "translate(-50%, -50%)" }}>
+
+                {/* Modal header */}
                 <div className="flex justify-between items-center">
                     <h1 className="text-xl font-medium">Ajouter un catalogue</h1>
                     <div className="hover:cursor-pointer" onClick={() => setCloseModal((prev) => false)}>
@@ -24,9 +26,10 @@ const Modal = ({
                         />
                     </div>
                 </div>
-
+                {/* Modal content */}
                 <CatalogueModalContent />
             </div>
+            {/* modal overlay */}
             <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
     );
