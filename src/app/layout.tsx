@@ -2,9 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import AuthProvider from "@/providers/AuthProvider";
-import SideBar from "@/components/side-bar/SideBar";
-import { OPTIONS } from "./api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,18 +16,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
 
-  const data = await getServerSession(OPTIONS)
-  const session = !!(data?.user?.email);
-
   return (
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <div className="flex">
-            {session && <SideBar />}
-            <div className={`bg-[color:#EDF0F8] ${session ? "w-[calc(100%-250px)]" : "w-[100vw]"}`}>
-              {children}
-            </div>
+          <div>
+            {children}
           </div>
         </AuthProvider>
       </body>

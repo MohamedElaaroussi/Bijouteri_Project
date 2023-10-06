@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import CustomSelect from '../select/CustomSelect'
 
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import catalogueSchema, { Catalogue } from '@/schema/catalogueSchema';
 import Select from 'react-select';
+import { colorArr, colorObject } from '@/utils/seed';
 
 const options = [
     { value: '1', label: 'Chocolate' },
@@ -15,6 +16,11 @@ const options = [
 ]
 
 const CatalogueModalContent = () => {
+
+    const [selectedColor, SetSelectedColor] = useState("yellow")
+    const changeColorHandler = (color: string) => {
+        SetSelectedColor(color)
+    }
 
     // VALIDATE THE catalogue
     const form = useForm<Catalogue>({
@@ -30,10 +36,10 @@ const CatalogueModalContent = () => {
 
     } = form
 
+
     // SEND the catalogue data TO BACKEND
     const handleFormSubmit: SubmitHandler<Catalogue> = async (data) => {
         console.log(data);
-
     };
     return (
         <div className="mt-5">
@@ -51,20 +57,18 @@ const CatalogueModalContent = () => {
                                 <div>
                                     <p className="text-sm mb-1">Couleur</p>
                                     <div className="flex gap-1">
-                                        <div className="bg-[color:#AB5884] h-[20px] w-[35px] rounded-full mt-[2px] relative">
-                                            <div className="bg-green-500 absolute -right-1 -top-1 rounded-full w-[11px] h-[11px] flex justify-center items-center">
-                                                <Image
-                                                    src={"/checked.svg"}
-                                                    alt="check mark"
-                                                    width={8}
-                                                    height={4}></Image>
+                                        {colorArr.map((color) => {
+                                            return <div onClick={() => changeColorHandler(color)
+                                            } key={color} className={`${colorObject[color]} h-[20px] w-[35px] rounded-full mt-[2px] relative`}>
+                                                {color === selectedColor && <div className="bg-green-500 absolute -right-1 -top-1 rounded-full w-[11px] h-[11px] flex justify-center items-center">
+                                                    <Image
+                                                        src={"/checked.svg"}
+                                                        alt="check mark"
+                                                        width={8}
+                                                        height={4} />
+                                                </div>}
                                             </div>
-                                        </div>
-                                        <div className="bg-[color:#D69670] h-[20px] w-[35px] rounded-full mt-[2px]"></div>
-                                        <div className="bg-[color:#D62832] h-[20px] w-[35px] rounded-full mt-[2px]"></div>
-                                        <div className="bg-[color:#ff38a2] h-[20px] w-[35px] rounded-full mt-[2px]"></div>
-                                        <div className="bg-[color:#5640a3] h-[20px] w-[35px] rounded-full mt-[2px]"></div>
-                                        <div className="bg-[color:#70d361] h-[20px] w-[35px] rounded-full mt-[2px]"></div>
+                                        })}
                                     </div>
                                 </div>
                                 <input
@@ -83,14 +87,14 @@ const CatalogueModalContent = () => {
                                 <Controller
                                     name="categorie"
                                     control={control}
-                                    render={({ field }) => <Select {...field} options={options} placeholder={"Catégorie"} />
+                                    render={({ field }) => <Select className='border[var(--borderColor)] ' {...field} options={options} placeholder={"Catégorie"} />
                                     } />
                             </div>
                             <div className="flex flex-col gap-5">
                                 <Controller
                                     name="typeArticle"
                                     control={control}
-                                    render={({ field }) => <Select {...field} options={options} placeholder={"Type d’article"} />
+                                    render={({ field }) => <Select className='border[var(--borderColor)] ' {...field} options={options} placeholder={"Type d’article"} />
                                     } />
                                 <input
                                     className="px-5 py-3 catalogue-input"
@@ -102,7 +106,7 @@ const CatalogueModalContent = () => {
                                 <Controller
                                     name="fornisseur"
                                     control={control}
-                                    render={({ field }) => <Select {...field} options={options} placeholder={"Fournisseur"} />
+                                    render={({ field }) => <Select className='border[var(--borderColor)] ' {...field} options={options} placeholder={"Fournisseur"} />
                                     } />
                                 {/* <div className='flex border-[1px] rounded-[10px] catalogue-input px-5 py-3'>
                                 <input
@@ -140,7 +144,9 @@ const CatalogueModalContent = () => {
                                     src={"/ajouter.svg"}
                                     alt="ajouter"
                                     width={35}
-                                    height={35}></Image>
+                                    height={35}
+                                    className='contrast-50'
+                                />
                                 <p className="text-[color:var(--softTextColor)] text-sm">
                                     Ajouter image
                                 </p>

@@ -50,7 +50,7 @@ const Login = (): JSX.Element | void => {
 
   useEffect((): any => {
     if (status === "authenticated") {
-      return router.push("/");
+      return router.push("/dashboard");
     }
   }, [status, router])
 
