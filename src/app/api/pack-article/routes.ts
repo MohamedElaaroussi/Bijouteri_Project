@@ -3,18 +3,18 @@ import { connectToDatabase } from '../../../../db/connection';
 import { PackOfArticles } from '../../../../models/PackOfArticles';
 import { Article } from '../../../../models/Article';
 import { getServerSession } from 'next-auth/next';
-import { options } from '../auth/[...nextauth]/routes';
+import { OPTIONS } from '../auth/[...nextauth]/routes';
 
 connectToDatabase();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session = await getServerSession(req,res,options);
+  const session = await getServerSession(req, res, OPTIONS);
 
   if (!session) {
     return res.status(403).json({ error: 'Not authenticated' });
   }
   if (req.method === 'POST') {
     try {
-      const { name, price, articleIds} = req.body;
+      const { name, price, articleIds } = req.body;
       if (!name || !price || !articleIds) {
         return res.status(400).json({ error: 'Missing or invalid input data.' });
       }
@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Wait for all sell promises to complete
       await Promise.all(packPromises);
       // Create a new packOfArticles
-      const packOfArticles = new PackOfArticles({ name, price, articles: articleIds, user: session.user  });
+      const packOfArticles = new PackOfArticles({ name, price, articles: articleIds, user: session.user });
       await packOfArticles.save();
 
       res.status(201).json({ message: 'packOfArticles created successfully.', packOfArticles });

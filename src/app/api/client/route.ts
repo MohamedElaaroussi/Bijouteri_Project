@@ -2,24 +2,24 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { connectToDatabase } from '../../../../db/connection';
 import { Client } from '../../../../models/Client';
 import { getServerSession } from 'next-auth/next';
-import { options } from '../auth/[...nextauth]/route';
+import { OPTIONS } from '../auth/[...nextauth]/route';
 
 connectToDatabase();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session = await getServerSession(req,res,options);
+  const session = await getServerSession(req, res, OPTIONS);
 
   if (!session) {
     return res.status(403).json({ error: 'Not authenticated' });
   }
   if (req.method === 'POST') {
     try {
-      const { name, email, phone} = req.body;
+      const { name, email, phone } = req.body;
       if (!name || !email || !phone) {
         return res.status(400).json({ error: 'Missing or invalid input data.' });
       }
 
       // Create a new client
-      const client = new Client({ name, email, phone, user: session.user  });
+      const client = new Client({ name, email, phone, user: session.user });
       await client.save();
 
       res.status(201).json({ message: 'client created successfully.', client });

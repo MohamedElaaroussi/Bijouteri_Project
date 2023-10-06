@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { connectToDatabase } from "../../../../../db/connection";
 import { Client } from "../../../../../models/Client";
 import { getServerSession } from 'next-auth/next';
-import { options } from "../../auth/[...nextauth]/route";
+import { OPTIONS } from "../../auth/[...nextauth]/route";
 
 connectToDatabase();
 export default async function handler(
@@ -10,7 +10,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { id } = req.query;
-  const session = await getServerSession(req,res,options);
+  const session = await getServerSession(req, res, OPTIONS);
 
   if (!session) {
     return res.status(403).json({ error: 'Not authenticated' });
@@ -43,7 +43,7 @@ export default async function handler(
   } else if (req.method === 'PUT') {
     try {
       const { id } = req.query;
-      const { name, email, phone} = req.body;
+      const { name, email, phone } = req.body;
 
       // Update a client
       const updatedclient = await Client.findByIdAndUpdate(
@@ -56,7 +56,7 @@ export default async function handler(
     } catch (error) {
       res.status(500).json({ error: 'An error occurred while updating the client.' });
     }
-  }else {
+  } else {
     res.status(405).json({ error: 'Method not allowed.' });
   }
 }

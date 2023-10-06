@@ -4,11 +4,11 @@ import { SelledArticle } from '../../../../models/SelledArticle';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { connectToDatabase } from '../../../../db/connection';
 import { getServerSession } from 'next-auth/next';
-import { options } from '../auth/[...nextauth]/routes';
+import { OPTIONS } from '../auth/[...nextauth]/routes';
 
 connectToDatabase();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session = await getServerSession(req,res,options);
+  const session = await getServerSession(req, res, OPTIONS);
 
   if (!session) {
     return res.status(403).json({ error: 'Not authenticated' });
@@ -17,11 +17,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       const { description, items, name, email, phone } = req.body;
       let clientId = req.body.clientId;
-      if (!description || !items ) {
+      if (!description || !items) {
         return res.status(400).json({ error: 'Missing or invalid sell input data.' });
       }
 
-      const sellPromises = items.map(async(item:{article:string,quantity:number}) => {
+      const sellPromises = items.map(async (item: { article: string, quantity: number }) => {
         await Article.findByIdAndUpdate(item.article, { selled: true });
       });
 
@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const client = new Client({ name, email, phone, user: session.user });
         await client.save();
         clientId = client;
-        
+
       }
 
       const selledArticle = new SelledArticle({ description, items: items, client: clientId, user: session.user });

@@ -3,7 +3,7 @@ import { connectToDatabase } from "../../../../../../db/connection";
 import { Role } from "../../../../../../models/Role";
 import { Menu } from "../../../../../../models/Menu";
 import { getServerSession } from 'next-auth/next';
-import { options } from "@/app/api/auth/[...nextauth]/route";
+import { OPTIONS } from "@/app/api/auth/[...nextauth]/route";
 
 connectToDatabase();
 export default async function handler(
@@ -11,7 +11,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { roleId } = req.query;
-  const session = await getServerSession(req,res,options);
+  const session = await getServerSession(req, res, OPTIONS);
 
   if (!session) {
     return res.status(403).json({ error: 'Not authenticated' });
@@ -24,12 +24,12 @@ export default async function handler(
       }
 
       // Create a new Menu
-      const menu = new Menu({ name,permissions:[] });
+      const menu = new Menu({ name, permissions: [] });
       await menu.save();
       await Role.findByIdAndUpdate(
         roleId,
         {
-          $addToSet: { menus: menu._id  },
+          $addToSet: { menus: menu._id },
         },
         { new: true },
       );
@@ -42,15 +42,15 @@ export default async function handler(
     }
   } else if (req.method === 'GET') {
     try {
-        const roleFound = await Role.findById(roleId);
-  
-        const menus = roleFound?.menus;
+      const roleFound = await Role.findById(roleId);
+
+      const menus = roleFound?.menus;
 
       res.status(200).json(menus);
     } catch (error) {
       res.status(500).json({ error: 'An error occurred while fetching menus.' });
     }
-  }else {
+  } else {
     res.status(405).json({ error: 'Method not allowed.' });
   }
 }

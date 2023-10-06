@@ -2,11 +2,11 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { connectToDatabase } from '../../../../db/connection';
 import { CategoryOfArticles } from '../../../../models/CategoryOfArticles';
 import { getServerSession } from 'next-auth/next';
-import { options } from '../auth/[...nextauth]/route';
+import { OPTIONS } from '../auth/[...nextauth]/route';
 
 connectToDatabase();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session = await getServerSession(req,res,options);
+  const session = await getServerSession(req, res, OPTIONS);
 
   if (!session) {
     return res.status(403).json({ error: 'Not authenticated' });
@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       // Create a new categoryOfArticles
-      const categoryOfArticles = new CategoryOfArticles({ name, description, user: session.user  });
+      const categoryOfArticles = new CategoryOfArticles({ name, description, user: session.user });
       await categoryOfArticles.save();
 
       res.status(201).json({ message: 'categoryOfArticles created successfully.', categoryOfArticles });

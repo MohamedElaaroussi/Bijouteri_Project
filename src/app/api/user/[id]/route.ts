@@ -2,12 +2,12 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { connectToDatabase } from '../../../../../db/connection';
 import { User } from '../../../../../models/User';
 import { getServerSession } from 'next-auth/next';
-import { options } from '../../auth/[...nextauth]/route';
+import { OPTIONS } from '../../auth/[...nextauth]/route';
 
 connectToDatabase();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-  const session = await getServerSession(req,res,options);
+  const session = await getServerSession(req, res, OPTIONS);
 
   if (!session) {
     return res.status(403).json({ error: 'Not authenticated' });
@@ -54,11 +54,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       // Retrieve the existing user data from the database
       const { username: existingUsername, email: existingEmail, phone: existingPhone, password: existingPassword, role: existingRoleId } = existingUser;
-       
-      
+
+
       // Get the fields from req.body, or use the existing values if they are not present in req.body
       const { username = existingUsername, email = existingEmail, phone = existingPhone, password = existingPassword, roleId = existingRoleId } = req.body;
-       
+
       // Update the user with the new or existing values
       const updatedUser = await User.findByIdAndUpdate(
         id,

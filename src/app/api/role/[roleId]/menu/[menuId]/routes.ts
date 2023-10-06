@@ -3,12 +3,12 @@ import { connectToDatabase } from '../../../../../../../db/connection';
 import { Menu } from '../../../../../../../models/Menu';
 import { Role } from '../../../../../../../models/Role';
 import { getServerSession } from 'next-auth/next';
-import { options } from '@/app/api/auth/[...nextauth]/routes';
+import { OPTIONS } from '@/app/api/auth/[...nextauth]/routes';
 
 connectToDatabase();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { roleId,menuId } = req.query;
-  const session = await getServerSession(req,res,options);
+  const { roleId, menuId } = req.query;
+  const session = await getServerSession(req, res, OPTIONS);
 
   if (!session) {
     return res.status(403).json({ error: 'Not authenticated' });

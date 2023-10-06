@@ -2,13 +2,13 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { connectToDatabase } from '../../../../../db/connection';
 import { CategoryOfPack } from '../../../../../models/CategoryOfPack';
 import { PackOfArticles } from '../../../../../models/PackOfArticles';
-import { getServerSession} from 'next-auth/next';
-import { options } from '../../auth/[...nextauth]/route';
+import { getServerSession } from 'next-auth/next';
+import { OPTIONS } from '../../auth/[...nextauth]/route';
 
 connectToDatabase();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-  const session = await getServerSession(req,res,options );
+  const session = await getServerSession(req, res, OPTIONS);
 
   if (!session) {
     return res.status(403).json({ error: 'Not authenticated' });
