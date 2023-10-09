@@ -2,7 +2,7 @@ import CatalogueCard from "./CatalogueCard"
 
 const CatalogueCardItem = () => {
     return (
-        <div className="grid grid-cols-3 gap-6 p-10">
+        <div className="grid grid-cols-3 gap-6">
             <CatalogueCard />
             <CatalogueCard />
             <CatalogueCard />

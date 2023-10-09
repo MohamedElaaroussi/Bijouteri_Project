@@ -13,6 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 
+// Edit or show a catalogue
 const DetailCatalogue = () => {
     const [selectedColor, SetSelectedColor] = useState("yellow")
     const changeColorHandler = (color: string) => {
@@ -41,7 +42,7 @@ const DetailCatalogue = () => {
 
     return (
         <form onSubmit={handleSubmit(handleFormSubmit)}>
-            <div className='flex gap-10 p-10'>
+            <div className='flex gap-10'>
                 <div className='flex-col flex gap-5'>
                     <DetailImage src="/article.png"></DetailImage>
                     <DetailStatus></DetailStatus>
