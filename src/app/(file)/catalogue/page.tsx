@@ -10,6 +10,8 @@ import ExportBtn from "@/components/ui/button/ExportBtn";
 import GoldBtn from "@/components/ui/button/GoldBtn";
 import DisplayDate from "@/components/ui/header/IconPlusText";
 import DropDown from "@/components/ui/DropDown";
+import HeaderSection from "@/components/ui/header/HeaderSection";
+import Pagination from "@/components/ui/pagination/Pagination";
 
 
 
@@ -20,13 +22,10 @@ const Catalogue: NextPage = () => {
         <div>
 
             {/* Header Section */}
-            <div className="flex justify-between">
-                <PathName pathName="Catalogue"></PathName>
-                <InputHeader></InputHeader>
-            </div>
+            <HeaderSection pageTitle="Catalogue"></HeaderSection>
 
-            {/* Section 1 contain */}
-            <div className="flex justify-between items-center my-6">
+            {/* Section 1 */}
+            <div className="flex justify-between items-center mb-6">
                 <div className="flex-[2]">
                     <InputHeader placeholder="Rechercher un catalogue"></InputHeader>
                 </div>
@@ -40,10 +39,11 @@ const Catalogue: NextPage = () => {
                     <DisplayDate icon="/filter.svg" text="Filter"></DisplayDate>
                 </div>
             </div>
-            {/* Header Section */}
+            {/* catalogue card */}
             <CatalogueCardItem />
-            {/* Create a catalogue */}
+            {/* modal for creating a catalogue */}
             {openModal && <Modal setCloseModal={setOpenModal} />}
+            <Pagination />
         </div>
     );
 };

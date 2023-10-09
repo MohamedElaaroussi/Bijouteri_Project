@@ -30,3 +30,9 @@ export const colorArr = [
   "blue",
   "gray",
 ];
+
+export const numbers = [1, 2, 3, 4, 5]
+export const numberPerPage = [{ value: 1, label: 5 }, { value: 2, label: 10 }, { value: 3, label: 15 }]
+
+
+

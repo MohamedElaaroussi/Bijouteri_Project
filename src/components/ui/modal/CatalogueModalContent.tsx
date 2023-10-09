@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
-import CustomSelect from '../select/CustomSelect'
 
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
