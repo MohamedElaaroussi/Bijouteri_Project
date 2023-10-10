@@ -22,7 +22,7 @@ export const GET = async (req: NextRequest, { params }: { params: Record<string,
         if (!permission) {
             return NextResponse.json({ message: "Permission Not Found" }, { status: 404 })
         }
-        return NextResponse.json({ permission })
+        return NextResponse.json(permission)
     } catch (error) {
         return NextResponse.json(
             { error: "An error occurred while searching the role." },
@@ -68,7 +68,7 @@ export const PUT = async (req: NextRequest, { params }: { params: Record<string,
 }
 
 // Delete a permission by ID
-export const DELETE = async ({ params }: { params: Record<string, string> }) => {
+export const DELETE = async (req: NextRequest, { params }: { params: Record<string, string> }) => {
 
     const permId = params.permId;
     const session = await getServerSession(OPTIONS);

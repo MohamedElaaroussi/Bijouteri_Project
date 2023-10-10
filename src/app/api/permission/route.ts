@@ -22,7 +22,7 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
   }
 }
 
-// creete a permission
+// create a permission
 export const POST = async (req: NextRequest, res: NextResponse) => {
   const session = await getServerSession(OPTIONS);
 

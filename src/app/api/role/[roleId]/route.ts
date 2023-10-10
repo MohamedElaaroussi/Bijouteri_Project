@@ -45,22 +45,17 @@ export const PUT = async (req: NextRequest, { params }: { params: Record<string,
   }
 
   try {
-
-    // Find the role by roleId
     const existingrole = await Role.findById(roleId);
-
     if (!existingrole) {
       return NextResponse.json({ message: "Role Not Found" }, { status: 404 })
     }
 
-    // Get the fields from req.body, or use the existing values if they are not present in req.body
-    const { name, permission = [] } = await req.json();
+    // extract the name from the body
+    const { name } = await req.json();
 
     if (name) {
       existingrole.name = name
     }
-    // existingrole.permission.push(...permission)
-
     await existingrole.save()
 
     return NextResponse.json({
@@ -74,7 +69,7 @@ export const PUT = async (req: NextRequest, { params }: { params: Record<string,
 }
 
 // Delete a role by ID
-export const DELETE = async ({ params }: { params: Record<string, string> }) => {
+export const DELETE = async (req: NextRequest, { params }: { params: Record<string, string> }) => {
 
   const roleId = params.roleId;
   const session = await getServerSession(OPTIONS);
@@ -97,6 +92,7 @@ export const DELETE = async ({ params }: { params: Record<string, string> }) => 
       message: "Role deleted successfully",
     }, { status: 200 })
   } catch (error) {
+    console.log(error);
     return NextResponse.json({
       message: "An error occurred while updating the role",
     }, { status: 500 })
