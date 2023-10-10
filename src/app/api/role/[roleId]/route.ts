@@ -1,70 +1,105 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import { connectToDatabase } from '../../../../../db/connection';
 import { Role } from '../../../../../models/Role';
 import { getServerSession } from 'next-auth/next';
 import { OPTIONS } from '../../auth/[...nextauth]/route';
+import { NextRequest, NextResponse } from 'next/server';
 
 connectToDatabase();
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { roleId } = req.query;
-  const session = await getServerSession(req, res, OPTIONS);
+
+// GET a role By ID
+export const GET = async (req: NextRequest, { params }: { params: Record<string, string> }) => {
+  const roleId = params.roleId;
+  const session = await getServerSession(OPTIONS);
 
   if (!session) {
-    return res.status(403).json({ error: 'Not authenticated' });
+    return NextResponse.json(
+      { message: "Not authenticated" },
+      { status: 403 },
+    );
   }
-  if (req.method === 'GET') {
-    try {
-      // Fetch all roles
-      const role = await Role.findById(roleId).populate('menus').exec();
-      if (!role) {
-        return res.status(404).json({ error: 'role not found' });
-      }
-
-      return res.status(200).json(role);
-    } catch (error) {
-      res.status(500).json({ error: 'An error occurred while fetching role.' });
+  try {
+    const role = await Role.findById(roleId).populate("permission").exec()
+    if (!role) {
+      return NextResponse.json({ message: "Role Not Found" }, { status: 404 })
     }
-  } else if (req.method === 'DELETE') {
-    try {
-      // Delete a role
-      await Role.findByIdAndDelete(roleId);
-
-      res.status(200).json({ message: 'role deleted successfully.' });
-    } catch (error) {
-      res.status(500).json({ error: 'An error occurred while deleting the role.' });
-    }
-  } else if (req.method === "PUT") {
-    try {
-
-      // Find the role by roleId
-      const existingrole = await Role.findById(roleId);
-
-      if (!existingrole) {
-        return res.status(404).json({ error: 'role not found.' });
-      }
-
-      // Retrieve the existing role data from the database
-      const { name: existingName, menus: existingMenus } = existingrole;
-
-      // Get the fields from req.body, or use the existing values if they are not present in req.body
-      const { name, menus } = req.body || {};
-      // Update a role
-      const updatedrole = await Role.findByIdAndUpdate(
-        roleId,
-        { name: name || existingName, menus: menus || existingMenus },
-        { new: true }
-      );
-
-      res.status(200).json({
-        message: "role updated successfully.",
-        role: updatedrole,
-      });
-    } catch (error) {
-      res
-        .status(500)
-        .json({ error: "An error occurred while updating the role." });
-    }
-  } else {
-    res.status(405).json({ error: "Method not allowed." });
+    return NextResponse.json({ role })
+  } catch (error) {
+    return NextResponse.json(
+      { error: "An error occurred while searching the role." },
+      { status: 500 },
+    );
   }
 }
+
+// Update a role by ID
+export const PUT = async (req: NextRequest, { params }: { params: Record<string, string> }) => {
+
+  const roleId = params.roleId;
+  const session = await getServerSession(OPTIONS);
+
+  if (!session) {
+    return NextResponse.json(
+      { message: "Not authenticated" },
+      { status: 403 },
+    );
+  }
+
+  try {
+
+    // Find the role by roleId
+    const existingrole = await Role.findById(roleId);
+
+    if (!existingrole) {
+      return NextResponse.json({ message: "Role Not Found" }, { status: 404 })
+    }
+
+    // Get the fields from req.body, or use the existing values if they are not present in req.body
+    const { name, permission = [] } = await req.json();
+
+    if (name) {
+      existingrole.name = name
+    }
+    // existingrole.permission.push(...permission)
+
+    await existingrole.save()
+
+    return NextResponse.json({
+      message: "role updated successfully",
+    }, { status: 201 })
+  } catch (error) {
+    return NextResponse.json({
+      message: "An error occurred while updating the role",
+    }, { status: 500 })
+  }
+}
+
+// Delete a role by ID
+export const DELETE = async ({ params }: { params: Record<string, string> }) => {
+
+  const roleId = params.roleId;
+  const session = await getServerSession(OPTIONS);
+
+  if (!session) {
+    return NextResponse.json(
+      { message: "Not authenticated" },
+      { status: 403 },
+    );
+  }
+  try {
+    const deletedRole = await Role.findByIdAndDelete(roleId);
+    if (!deletedRole) {
+      return NextResponse.json({
+        message: "Role not found",
+      }, { status: 404 })
+    }
+
+    return NextResponse.json({
+      message: "Role deleted successfully",
+    }, { status: 200 })
+  } catch (error) {
+    return NextResponse.json({
+      message: "An error occurred while updating the role",
+    }, { status: 500 })
+  }
+}
+

@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "../../../../db/connection";
-import { Role } from "../../../../models/Role";
 import { getServerSession } from "next-auth/next";
 import { OPTIONS } from "../auth/[...nextauth]/route";
+import { Permission } from "../../../../models/Permission";
 
 connectToDatabase();
 
-// get all roles
+// get all permissions
 export const GET = async (req: NextRequest, res: NextResponse) => {
   const session = await getServerSession(OPTIONS);
 
@@ -14,15 +14,15 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 403 });
   }
   try {
-    const role = await Role.find().sort({ createdAt: -1 });
+    const permission = await Permission.find().sort({ createdAt: -1 });
 
-    return NextResponse.json({ role }, { status: 200 });
+    return NextResponse.json({ permission }, { status: 200 });
   } catch (error) {
     NextResponse.json({ error: 'An error occurred while fetching roles' }, { status: 500 });
   }
 }
 
-// creete a role
+// creete a permission
 export const POST = async (req: NextRequest, res: NextResponse) => {
   const session = await getServerSession(OPTIONS);
 
@@ -37,19 +37,19 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     }
 
     // check if role exist
-    const roleAlreadyExist = await Role.findOne({ name })
-    if (roleAlreadyExist) {
+    const permissionAlreadyExist = await Permission.findOne({ name })
+    if (permissionAlreadyExist) {
       return NextResponse.json(
-        { message: "Role already exist" },
-        { status: 400 },
+        { message: "Permission already exist" },
+        { status: 401 },
       );
     }
 
-    const role = new Role({ name, permission: [] });
-    await role.save();
+    const permission = new Permission({ name});
+    await permission.save();
 
     return NextResponse.json(
-      { message: "Role created successfully", role },
+      { message: "Permission created successfully", permission },
       { status: 201 },
     );
   } catch (error) {
