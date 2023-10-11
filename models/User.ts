@@ -6,7 +6,7 @@ import validator from "validator"
 export interface UserModel extends Document {
   username: string;
   email: string;
-  phone: number;
+  phone: string;
   password: string;
   role: mongoose.Types.ObjectId | RoleModel;
 }
@@ -19,7 +19,7 @@ const userSchema = new Schema<UserModel>({
     unique: true,
     validate: [validator.isEmail, "Please enter valid email address"],
   },
-  phone: { type: Number, unique: true },
+  phone: { type: String, unique: true },
   password: { type: String, required: true, select: false },
   role: { type: Schema.Types.ObjectId, ref: "Role", required: true },
 });

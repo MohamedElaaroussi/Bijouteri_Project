@@ -22,7 +22,7 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
   }
 }
 
-// creete a role
+// create a role
 export const POST = async (req: NextRequest, res: NextResponse) => {
   const session = await getServerSession(OPTIONS);
 
