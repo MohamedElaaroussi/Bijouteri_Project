@@ -1,3 +1,10 @@
+import React from "react";
+
+// import {Paginate} from "@/component/Paginate/Paginate.js"
+import "../component/Header/style.css";
+import "../component/section1/style.css";
+import "../component/User/style.css";
+import "../component/Header/style.css";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -28,5 +35,6 @@ export default async function RootLayout({
         </AuthProvider>
       </body>
     </html>
+    
   );
 }
