@@ -8,7 +8,7 @@ const Detail_1 = () => {
       <Header />
       </div>
     <div className="flex  justify-between">
-      <div className=" pt-8  pr-20 flex justify-start pl-8 mt-4">
+      <div className=" pt-14  pr-20 flex justify-start pl-8 mt-4">
         {/* Card start */}
         <div>
           <div className="w-[300px] mx-auto h-[210px] bg-white rounded-lg pb-3 shadow-lg">

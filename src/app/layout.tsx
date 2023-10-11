@@ -1,30 +1,24 @@
-import React from 'react';
-import Header from "@/component/Header/Header"
-import Section1 from "@/component/section1/Section1"
-import User_Info from "@/component/User/user_info"
-import Detail_1 from "@/component/details_user/detail_1"
+import React from "react";
+
 // import {Paginate} from "@/component/Paginate/Paginate.js"
-import "../component/Header/style.css"
-import "../component/section1/style.css"
-import "../component/User/style.css"
-import "../component/Header/style.css"
-import "./globals.css"
+import "../component/Header/style.css";
+import "../component/section1/style.css";
+import "../component/User/style.css";
+import "../component/Header/style.css";
+import "./globals.css";
+import {Providers} from "./providers";
 
-
-
-const layout = () => {
+const layout = ({children}: { children: React.ReactNode }) => {
   return (
-    <div className="container">
-      
-      <Header />
-      <Section1 />
-      <User_Info />
-          
-        {
-          // <Detail_1/>
-        }
-    </div>
+    <html lang="en" className='bg-white'>
+      <body>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
+    </html>
+    
   );
-}
+};
 
 export default layout;

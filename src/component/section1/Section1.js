@@ -10,7 +10,7 @@ const Section1 = () => {
   return (
     <section className="h-[8rem] w-[94%]"
     >
-      <div className="flex justify-start">
+      <div className="flex justify-start ml-[-1.4rem]">
         {<SearchBar />}
 
         <div className="flex align-center ml-10">

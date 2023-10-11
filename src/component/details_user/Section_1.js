@@ -15,7 +15,7 @@ const Section_1 = () => {
   ];
   return (
     <div>
-      <div className="h-screen pt-12 pr-20 flex justify-start pl-0 mt-[-7px]">
+      <div className="h-screen pt-14 pr-20 flex justify-start pl-0 mt-[20px]">
         {/* Card start */}
         <div>
           <div className="w-[600px] h-[180px] mx-auto bg-white rounded-lg pb-6 shadow-lg">

@@ -2,7 +2,7 @@ import React from "react";
 
 const Paginate = () => {
   return (
-    <div className="flex items-center px-2 ml-4 py-3 sm:px-6">
+    <div className="flex justify-between items-center px-2 ml-4 py-3 sm:px-6">
       <div className="flex flex-1 sm:hidden">
         <a
           href="#"
