@@ -8,7 +8,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    if (status == "authenticated") router.push("/dashboard")
+    if (status == "authenticated") router.push("/dashboard");
     if (status == "unauthenticated") router.push("/login");
   }, [status, router]);
   if (status == "loading") return <div>Loding...</div>;

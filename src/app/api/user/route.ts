@@ -4,6 +4,7 @@ import { User } from "../../../../models/User";
 import { getServerSession } from "next-auth/next";
 import { OPTIONS } from "../auth/[...nextauth]/route";
 import userSchema from "@/schema/userSchema";
+import { hashSync } from "bcryptjs";
 
 connectToDatabase()
 
@@ -55,7 +56,10 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
         return NextResponse.json({ "message": "email already exist" }, { status: 400 })
     }
 
+
     try {
+        const hashedPassword = hashSync(user.password)
+        user.password = hashedPassword;
         const createdUser = new User(user)
         await createdUser.save()
         return NextResponse.json({ "message": "User created successfully" }, { status: 201 })
