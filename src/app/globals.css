@@ -10,11 +10,12 @@
   --softTextColor:#C1C4C7;
 }
 
-
-
-body {
-  padding: 0;
-  box-sizing: border-box;
-  margin: 0;
-  overflow-x: hidden;
+.container {
+  background-color: #F4F7FE;
+  padding: 20px;
+  width: 1132px;
+  height: auto;  
+  margin-left: 240px;
+  margin-right: -10px;
+  overflow:hidden;
 }

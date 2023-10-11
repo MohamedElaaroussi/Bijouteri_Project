@@ -1,5 +1,5 @@
 // import { useState, useEffect } from 'react';
-import Icon_Update from "@/icon/Layer_1.svg";
+// import Icon_Update from "@/icon/Layer_1.svg";
 // import Detail_1 from "../details_user/detail_1";
 
 import Image from "next/image";
