@@ -1,4 +1,4 @@
-import { string, z, number } from "zod";
+import { string, z } from "zod";
 
 const catalogueSchema = z.object({
     catalogue: string(),
@@ -25,13 +25,6 @@ const catalogueSchema = z.object({
         label: z.string(),
     })
 });
-
-// const catalogueSchema = z.object({
-//     catalogue: z.object({
-//         value: z.string(),
-//         label: z.string(),
-//     }),
-// });
 
 // extracting the type
 export type Catalogue = z.infer<typeof catalogueSchema>;
