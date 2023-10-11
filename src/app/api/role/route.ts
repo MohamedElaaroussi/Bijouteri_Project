@@ -1,47 +1,65 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "../../../../db/connection";
 import { Role } from "../../../../models/Role";
-import { getServerSession } from 'next-auth/next';
-import { options } from "../auth/[...nextauth]/route";
+import { getServerSession } from "next-auth/next";
+import { OPTIONS } from "../auth/[...nextauth]/route";
 
 connectToDatabase();
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const session = await getServerSession(req,res,options);
+
+// get all roles
+export const GET = async (req: NextRequest, res: NextResponse) => {
+  const session = await getServerSession(OPTIONS);
 
   if (!session) {
-    return res.status(403).json({ error: 'Not authenticated' });
+    return NextResponse.json({ error: 'Not authenticated' }, { status: 403 });
   }
-  if (req.method === "POST") {
-    try {
-      const { name } = req.body;
+  try {
+    const role = await Role.find().sort({ createdAt: -1 });
 
-      // Create a new role
-      if (!name) {
-        return res.status(400).json({ error: 'Missing or invalid input data.' });
-      }
-
-      const role = new Role({ name,menus:[] });
-      await role.save();
-
-      res.status(201).json({ message: "role created successfully.", role });
-    } catch (error) {
-      res
-        .status(500)
-        .json({ error: "An error occurred while creating the role." });
-    }
-  } else if (req.method === 'GET') {
-    try {
-      // Fetch all roles
-      const roles = await Role.find().sort({ createdAt: -1 });
-
-      res.status(200).json(roles);
-    } catch (error) {
-      res.status(500).json({ error: 'An error occurred while fetching roles.' });
-    }
-  }else {
-    res.status(405).json({ error: 'Method not allowed.' });
+    return NextResponse.json({ role }, { status: 200 });
+  } catch (error) {
+    NextResponse.json({ error: 'An error occurred while fetching roles' }, { status: 500 });
   }
 }
+
+// creete a role
+export const POST = async (req: NextRequest, res: NextResponse) => {
+  const session = await getServerSession(OPTIONS);
+
+  if (!session) {
+    return NextResponse.json({ error: "Not authenticated" }, { status: 403 });
+  }
+  try {
+    const { name } = await req.json();
+
+    if (!name) {
+      return NextResponse.json({ error: "Missing or invalid input data" });
+    }
+
+    // check if role exist
+    const roleAlreadyExist = await Role.findOne({ name })
+    if (roleAlreadyExist) {
+      return NextResponse.json(
+        { message: "Role already exist" },
+        { status: 400 },
+      );
+    }
+
+    const role = new Role({ name, permission: [] });
+    await role.save();
+
+    return NextResponse.json(
+      { message: "Role created successfully", role },
+      { status: 201 },
+    );
+  } catch (error) {
+    console.log(error);
+
+    return NextResponse.json(
+      { error: "An error occurred while creating the role" },
+      { status: 500 },
+    );
+  }
+}
+
+

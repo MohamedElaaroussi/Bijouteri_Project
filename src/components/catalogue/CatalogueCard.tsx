@@ -61,12 +61,14 @@ const CardItem = () => {
                     </p>
                 </div>
                 <div className="flex justify-end gap-2">
-                    <Image
-                        src={"/edit.svg"}
-                        alt="edit icon"
-                        width={15}
-                        height={15}
-                        className="hover:cursor-pointer" />
+                    <Link href={"/catalogue/id"}>
+                        <Image
+                            src={"/edit.svg"}
+                            alt="edit icon"
+                            width={15}
+                            height={15}
+                            className="hover:cursor-pointer" />
+                    </Link>
                     <Image
                         src={"/delete.svg"}
                         alt="delete icon"
