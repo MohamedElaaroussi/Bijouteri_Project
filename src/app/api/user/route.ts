@@ -67,8 +67,6 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
 
 
     try {
-        const hashedPassword = hashSync(user.password)
-        user.password = hashedPassword;
         const createdUser = new User(user)
         await createdUser.save()
         return NextResponse.json({ "message": "User created successfully" }, { status: 201 })
