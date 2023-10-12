@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth/next";
 import { OPTIONS } from "../auth/[...nextauth]/route";
 import userSchema from "@/schema/userSchema";
 import { hashSync } from "bcryptjs";
+import { getPaginatedResult } from "@/utils/util";
 
 connectToDatabase()
 
@@ -19,16 +20,22 @@ export const GET = async (req: NextRequest) => {
         );
     }
 
+    // getting the page number and limit from the url
     const url = new URL(req.url);
     const searchParams = new URLSearchParams(url.search);
-    const skip = searchParams.get("skip") || 0;
-    const limit = searchParams.get("limit") || 10;
-    const totalUsers = await User.count()
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || 10;
+    const totalUsers = await User.estimatedDocumentCount()
 
+    // calling a method that return start index and end index, 
+    // and results object that may contain next and previous page
+    const { startIndex, endIndex, results } = getPaginatedResult(page, limit, totalUsers)
 
     try {
-        const users = await User.find().skip(Number(skip)).limit(Number(limit));
-        return NextResponse.json({ users, total: totalUsers }, { status: 200 })
+        const users = await User.find().skip(startIndex).limit(endIndex);
+        results.total = totalUsers;
+        results.result = users;
+        return NextResponse.json(results, { status: 200 })
     } catch (error) {
         return NextResponse.json({ message: "Something went wrong" }, { status: 500 })
 
@@ -41,11 +48,13 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     const user = await req.json()
     const response = userSchema.safeParse(user);
 
+    // validate the user detail
     if (!response.success) {
         const { errors } = response.error;
         return NextResponse.json(errors, { status: 400 })
     }
 
+    // check if email or password exist already 
     const phoneExistAlready = await User.findOne({ phone: user?.phone })
     const emailExistAlready = await User.findOne({ email: user?.email })
 
