@@ -1,5 +1,4 @@
 import type { Config } from 'tailwindcss'
-import {nextui} from "@nextui-org/react";
 
 const config: Config = {
   content: [
@@ -61,12 +60,12 @@ const config: Config = {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: 0 },
+          from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
+          to: { height: "0" },
         },
       },
       animation: {
