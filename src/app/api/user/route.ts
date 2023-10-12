@@ -4,7 +4,6 @@ import { User } from "../../../../models/User";
 import { getServerSession } from "next-auth/next";
 import { OPTIONS } from "../auth/[...nextauth]/route";
 import userSchema from "@/schema/userSchema";
-import { hashSync } from "bcryptjs";
 import { getPaginatedResult } from "@/utils/util";
 
 connectToDatabase()
