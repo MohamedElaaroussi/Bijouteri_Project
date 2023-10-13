@@ -3,7 +3,6 @@ import { connectToDatabase } from "../../../../../db/connection";
 import { User } from "../../../../../models/User";
 import { getServerSession } from "next-auth/next";
 import { OPTIONS } from "../../auth/[...nextauth]/route";
-import userSchema from "@/schema/userSchema";
 import { getPaginatedResult } from "@/utils/util";
 
 connectToDatabase();
@@ -53,11 +52,11 @@ export const GET = async (req: NextRequest) => {
       query.where("role").equals(role);
     }
 
-    // see how many users get returned
-    let resultLength = (await query.exec()).length;
+    // see how many users
+    let totalUsers = await User.countDocuments(query);
 
-    // the filter return no data
-    if (!resultLength) {
+    // if the filter return no users
+    if (!totalUsers) {
       return NextResponse.json(
         {
           message: "No user(s) was found matching your criteria",
@@ -70,7 +69,7 @@ export const GET = async (req: NextRequest) => {
     const { startIndex, endIndex, results } = getPaginatedResult(
       page,
       limit,
-      resultLength,
+      totalUsers,
     );
 
     // getting users based on the query + pagination
@@ -87,12 +86,11 @@ export const GET = async (req: NextRequest) => {
       {
         message: "the Filter was applied successfully",
         filtered: results,
-        total: resultLength,
+        total: totalUsers,
       },
       { status: 200 },
     );
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       { message: "Something went wrong" },
       { status: 500 },
