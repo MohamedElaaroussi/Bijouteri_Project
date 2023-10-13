@@ -18,7 +18,7 @@ export const GET = async (
   }
   const userId = params.id;
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate("role").exec();
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
@@ -92,7 +92,7 @@ export const PUT = async (
     if (username) {
       userToBeUpdated.username = username;
     }
-    if (!(await compare(password, userToBeUpdated.password))) {
+    if (password && !(await compare(password, userToBeUpdated.password))) {
       userToBeUpdated.password = password;
     }
     await userToBeUpdated.save();
@@ -101,6 +101,8 @@ export const PUT = async (
       { status: 200 },
     );
   } catch (error) {
+    console.log(error);
+
     return NextResponse.json(
       { message: "something went wrong" },
       { status: 500 },
@@ -108,6 +110,7 @@ export const PUT = async (
   }
 };
 
+// delete a user by id
 export const DELETE = async (
   req: NextRequest,
   { params }: { params: { id: number } },
@@ -120,6 +123,8 @@ export const DELETE = async (
   const userId = params.id;
   try {
     const user = await User.findByIdAndDelete(userId);
+
+    // check if the user was deleted
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }

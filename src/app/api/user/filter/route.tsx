@@ -7,48 +7,88 @@ import userSchema from "@/schema/userSchema";
 import { getPaginatedResult } from "@/utils/util";
 
 connectToDatabase();
-// get all users with pagination
+
+// filter users with pagination
 export const GET = async (req: NextRequest) => {
   const session = await getServerSession(OPTIONS);
   if (!session) {
     return NextResponse.json({ message: "Not authenticated" }, { status: 403 });
   }
 
-  // getting the page number and limit from the url
+  // getting data from the req url
   const url = new URL(req.url);
   const searchParams = new URLSearchParams(url.search);
   const username = searchParams.get("username");
   const phone = searchParams.get("phone");
   const date = searchParams.get("date");
   const role = searchParams.get("role");
+  const page = Number(searchParams.get("page")) || 1;
+  const limit = Number(searchParams.get("limit")) || 10;
 
   try {
-    let queryResult = User.find();
-
-    queryResult.setOptions({ lean: true });
-    // queryResult.where("username").equals(username);
+    // building the query
+    let query = User.find();
 
     if (username) {
-      queryResult.where("username").equals(username);
+      query.where({
+        username: { $regex: ".*" + username + ".*", $options: "i" },
+      });
     }
+
     if (phone) {
-      queryResult.where("phone").equals(phone);
+      query.where({
+        phone: { $regex: ".*" + phone + ".*" },
+      });
     }
+
     if (date) {
       const start = new Date(date);
       const end = new Date(date);
       end.setHours(23, 59, 59, 999);
       // @ts-ignore
-      queryResult.where("createdAt").gte(start).lte(end);
-    }
-    if (role) {
-      queryResult.where("role").equals(role);
+      query.where("createdAt").gte(start).lte(end);
     }
 
-    let query = await queryResult.exec();
+    if (role) {
+      query.where("role").equals(role);
+    }
+
+    // see how many users get returned
+    let resultLength = (await query.exec()).length;
+
+    // the filter return no data
+    if (!resultLength) {
+      return NextResponse.json(
+        {
+          message: "No user(s) was found matching your criteria",
+        },
+        { status: 200 },
+      );
+    }
+
+    // calling a method that return start index and end index and a results which in our case users
+    const { startIndex, endIndex, results } = getPaginatedResult(
+      page,
+      limit,
+      resultLength,
+    );
+
+    // getting users based on the query + pagination
+    const filteredUsers = await User.find()
+      .skip(startIndex)
+      .limit(endIndex)
+      .populate("role")
+      .exec();
+
+    // make the result equal the filteredUsers
+    results.result = filteredUsers;
 
     return NextResponse.json(
-      { message: "alright", filtered: query },
+      {
+        message: "the Filter was applied successfully",
+        filtered: results,
+        total: resultLength,
+      },
       { status: 200 },
     );
   } catch (error) {
