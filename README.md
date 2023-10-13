@@ -16,6 +16,10 @@ docker build -t marina-jewelry .
 docker run -p 3000:3000 marina-jewelry
 ```
 
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the login page.
+
+6. here's an email : marina-jewelry@admin.com, and password : keepItSim
+
 ## Or
 
 First, run the development server:
