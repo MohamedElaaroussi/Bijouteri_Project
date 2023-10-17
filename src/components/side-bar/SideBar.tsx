@@ -59,12 +59,12 @@ const SideBar = () => {
             );
           })}
         </div>
-        <div className="flex justify-between px-3">
-          <div className="flex flex-col gap-1 items-center">
-            <button onClick={handleLogout} className="flex gap-3">
+        <div className="px-3">
+          <div className="">
+            <button onClick={handleLogout} className="flex gap-3 items-center">
               <Image src={"/Deconnexion.svg"} alt="Deconnexion" width={20} height={20}></Image> 
-              <span className="pt-[-2] text-[#787878]">Deconnexion</span>
-              </button>
+              <span className="text-[#787878]">Deconnexion</span>
+            </button>
           </div>
           {/* <div className="self-end flex gap-2 items-center">
             <Link href={"/"}>
