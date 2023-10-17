@@ -12,17 +12,29 @@ import DisplayDate from "@/components/ui/header/IconPlusText";
 import DropDown from "@/components/ui/DropDown";
 import HeaderSection from "@/components/ui/header/HeaderSection";
 import Pagination from "@/components/ui/pagination/Pagination";
+<<<<<<< HEAD
+=======
+import { usePathname } from "next/navigation";
+>>>>>>> a5d386a15d355654de1608e87571be8ce13ba451
 
 
 
 const Catalogue: NextPage = () => {
     const [openModal, setOpenModal] = useState(false)
+<<<<<<< HEAD
 
+=======
+    const path=usePathname().slice(1)
+>>>>>>> a5d386a15d355654de1608e87571be8ce13ba451
     return (
         <div>
 
             {/* Header Section */}
+<<<<<<< HEAD
             <HeaderSection pageTitle="Catalogue"></HeaderSection>
+=======
+            <HeaderSection pageTitle={path}></HeaderSection>
+>>>>>>> a5d386a15d355654de1608e87571be8ce13ba451
 
             {/* Section 1 */}
             <div className="flex justify-between items-center mb-6">

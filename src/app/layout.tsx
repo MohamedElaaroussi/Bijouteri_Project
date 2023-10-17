@@ -7,6 +7,7 @@ import "../component/User/style.css";
 import "../component/Header/style.css";
 import "./globals.css";
 import type { Metadata } from "next";
+import {Providers} from "./providers";
 import { Inter } from "next/font/google";
 import AuthProvider from "@/providers/AuthProvider";
 
@@ -29,9 +30,9 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <div>
+          <Providers>
             {children}
-          </div>
+          </Providers>
         </AuthProvider>
       </body>
     </html>
