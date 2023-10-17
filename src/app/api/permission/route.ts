@@ -36,7 +36,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
       return NextResponse.json({ error: "Missing or invalid input data" });
     }
 
-    // check if role exist
+    // check if permission exist
     const permissionAlreadyExist = await Permission.findOne({ name })
     if (permissionAlreadyExist) {
       return NextResponse.json(
@@ -45,7 +45,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
       );
     }
 
-    const permission = new Permission({ name});
+    const permission = new Permission({ name });
     await permission.save();
 
     return NextResponse.json(
@@ -56,7 +56,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     console.log(error);
 
     return NextResponse.json(
-      { error: "An error occurred while creating the role" },
+      { error: "An error occurred while creating the permission" },
       { status: 500 },
     );
   }

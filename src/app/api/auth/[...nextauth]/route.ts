@@ -20,7 +20,7 @@ export const OPTIONS: NextAuthOptions = {
 
                 const user = await User.findOne({
                     email: credentials?.email
-                }).select("+password")
+                }).select("+password").populate("role")
 
                 if (!user) {
                     throw new Error("Invalid credentials")
@@ -44,13 +44,13 @@ export const OPTIONS: NextAuthOptions = {
     },
     callbacks: {
         jwt: async ({ token, user }) => {
+
             user && (token.user = user)
             return token
         },
         session: async ({ session, token }) => {
             const user = token.user as UserModel
             session.user = user
-
             return session
         }
     }

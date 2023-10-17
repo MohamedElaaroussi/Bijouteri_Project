@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { Permission } from "../models/Permission";
 import { Role } from "../models/Role";
 import { User } from "../models/User";
+import { Supplier } from "../models/Supplier";
 
 export async function connectToDatabase() {
   if (mongoose.connection.readyState === 1) {
