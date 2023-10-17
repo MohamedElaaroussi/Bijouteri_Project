@@ -1,16 +1,19 @@
-import React from 'react'
-import User_Info from './User_Info/user_Info'
-import Header from './USerComponent/Header/Header'
-import Section1 from './USerComponent/section1/Section1'
+"use client";
+import React from "react";
+import User_Info from "./User_Info/user_Info";
+import Header from "./USerComponent/Header/Header";
+import Section1 from "./USerComponent/section1/Section1";
+import { usePathname } from "next/navigation";
 
 const Home = () => {
-    return (    
-        <div>
-            <Header/>
-            <Section1/>
-            <User_Info/>
-        </div>
-    )
-}
+  const path = usePathname().slice(1);
+  return (
+    <div>
+      <Header path={path} />
+      <Section1 />
+      <User_Info />
+    </div>
+  );
+};
 
-export default Home
+export default Home;

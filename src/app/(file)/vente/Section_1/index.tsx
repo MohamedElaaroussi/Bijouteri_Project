@@ -1,5 +1,5 @@
 import React from 'react'
-import Section1 from '../../utilisateur/section1/Section1'
+import Section1 from '../../utilisateur/USerComponent/section1/Section1'
 
 const Section_1 = () => {
     return (
