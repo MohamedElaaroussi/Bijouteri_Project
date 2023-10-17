@@ -73,9 +73,9 @@ export const GET = async (req: NextRequest) => {
     );
 
     // getting users based on the query + pagination
-    const filteredUsers = await User.find()
+    const filteredUsers = await User.find(query)
       .skip(startIndex)
-      .limit(endIndex)
+      .limit(limit)
       .populate("role")
       .exec();
 
