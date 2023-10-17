@@ -2,8 +2,12 @@ import { numberPerPage, numbers } from "@/utils/seed";
 import Image from "next/image";
 import { useState } from "react";
 import Select from "react-select";
+type PaginationProps = {
+  currentPage: number;
+  onPageChange: (newPage: number) => void;
+};
 
-const Pagination = ({ currentPage, onPageChange }) => {
+const Pagination = ({ currentPage, onPageChange }: PaginationProps) => {
   const [page, setPage] = useState<number>(1);
 
   // request for the previous page

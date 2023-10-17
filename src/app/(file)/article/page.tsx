@@ -5,7 +5,7 @@ import Articles_Info from './Info_articles/Index'
 import Articles_Section from './Section_1/Articles_Section'
 import { usePathname } from 'next/navigation'
 
-const page = () => {
+const Page = () => {
     const path=usePathname().slice(1)
     return (
         <div>
@@ -16,4 +16,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

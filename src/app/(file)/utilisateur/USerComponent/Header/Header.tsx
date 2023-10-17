@@ -5,9 +5,11 @@ import SearchBar from "./SearchBar";
 import React from "react";
 
 import { usePathname } from 'next/navigation'
+type HeaderProps = {
+  path: string; 
+}
 
-
-const Header = ({path}) => {
+const Header = ({ path }: HeaderProps) => {
   return (
     <span className="mb-[-45px] flex flex-[3] justify-between px-[130px] ">
       <div>
