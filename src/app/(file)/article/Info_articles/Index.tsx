@@ -14,7 +14,7 @@ import {
 } from "@nextui-org/react";
 const Data = [
   {
-    id:1,
+    id: 1,
     Url: "",
     Nom: "Bague en argent 18 carats ...",
     CodeBar: "#5484168168",
@@ -25,7 +25,7 @@ const Data = [
     Prix_Vente: "210",
   },
   {
-    id:2,
+    id: 2,
     Url: "",
     Nom: "Bague en argent 18 carats ...",
     CodeBar: "#5484168168",
@@ -36,7 +36,7 @@ const Data = [
     Prix_Vente: "210",
   },
   {
-    id:3,
+    id: 3,
     Url: "",
     Nom: "Bague en argent 18 carats ...",
     CodeBar: "#5484168168",
@@ -47,7 +47,7 @@ const Data = [
     Prix_Vente: "210",
   },
   {
-    id:4,
+    id: 4,
     Url: "",
     Nom: "Bague en argent 18 carats ...",
     CodeBar: "#5484168168",
@@ -100,35 +100,58 @@ const Articles_Info = () => {
                 return (
                   <TableRow key={i} className="border-[#F4F7FE]-500 border-b">
                     <TableCell>
-                      <Image
-                      alt="image"
-                        src={`https://s3-alpha-sig.figma.com/img/7ce4/3520/0197468b4cc19788b75ace5c68ec0eea?Expires=1698019200&Signature=DHkjJJtCR7vd6gsUKdwosVbe-rNNxo7W7t~sh0S22E985Rts6BQ~yVtDo0LVM-8bvf0e5aGZGI1UGbcbtS2OhGDsjnLA8dJsrYMXAG2xNOpLq3PlWRQaNIzmfQBxm02lPAw~eCDL0UCBbAGFFGDbrMl6JjW8k3kecE6JbfeodCOp87eTokR1bVLLqjWw8uWEiXTWxNWjJ5ZCdqSuqpq0t2KaC557pIhZNvdv306VjN5FbURvYuG5jqPx9by7nmZB-nUn1nA8oVuzHosUfh0jP4~eK28ODszNwO-Ac0TJnA6V6eRzn~KgVJH7d78B1CaFXpBS5Q50Dis2DSdk8hn3lQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4`}
-                        className="w-17 h-[5rem]"
-                      />
+                      <Link href={`/article/${item.id}`}>
+                        <Image
+                          width={60}
+                          height={90}
+                          alt="image"
+                          src={`https://s3-alpha-sig.figma.com/img/7ce4/3520/0197468b4cc19788b75ace5c68ec0eea?Expires=1698019200&Signature=DHkjJJtCR7vd6gsUKdwosVbe-rNNxo7W7t~sh0S22E985Rts6BQ~yVtDo0LVM-8bvf0e5aGZGI1UGbcbtS2OhGDsjnLA8dJsrYMXAG2xNOpLq3PlWRQaNIzmfQBxm02lPAw~eCDL0UCBbAGFFGDbrMl6JjW8k3kecE6JbfeodCOp87eTokR1bVLLqjWw8uWEiXTWxNWjJ5ZCdqSuqpq0t2KaC557pIhZNvdv306VjN5FbURvYuG5jqPx9by7nmZB-nUn1nA8oVuzHosUfh0jP4~eK28ODszNwO-Ac0TJnA6V6eRzn~KgVJH7d78B1CaFXpBS5Q50Dis2DSdk8hn3lQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4`}
+                        // className="w-17 h-[5rem]"
+                        />
+                      </Link>
                     </TableCell>
                     <TableCell>
-                      <span className="font-inter text-sm"> <Link href={`/article/${item.id}`}>{item?.Nom}</Link></span>
-                      <div className="text-xs text-blue-300">
-                        Code Barre :
-                        <span className="font-inter text-15 font-normal text-[#D9A528] ">
-                          {" "}
-                          {item.CodeBar}{" "}
-                        </span>
-                      </div>
+                      <Link href={`/article/${item.id}`}>
+                        <span className="font-inter text-sm"> {item?.Nom}</span>
+
+                        <div className="text-xs text-blue-300">
+                          Code Barre :
+                          <span className="font-inter text-15 font-normal text-[#D9A528] ">
+                            {" "}
+                            {item.CodeBar}{" "}
+                          </span>
+                        </div>
+                      </Link>
                     </TableCell>
                     <TableCell>
-                      <div
-                        className={"h-4 w-6 rounded-full bg-[#AB5884]"}
-                      ></div>
+                      <Link href={`/article/${item.id}`}>
+                        <div
+                          className={"h-4 w-6 rounded-full bg-[#AB5884]"}
+                        ></div>
+                      </Link>
                     </TableCell>
                     <TableCell>
+                    <Link href={`/article/${item.id}`}>
                       <div className="font-inter text-14 text-var(--TEXT, #787878)  text-center font-normal">
                         {item?.Type}
                       </div>
+                      </Link>
                     </TableCell>
-                    <TableCell>{item?.Poids} g</TableCell>
-                    <TableCell>{item?.Cout} Dhs</TableCell>
-                    <TableCell>{item?.Prix_Vente} Dhs</TableCell>
+                    <TableCell>
+                    <Link href={`/article/${item.id}`}>
+                      {item?.Poids} g
+                      </Link>
+                      </TableCell>
+                    <TableCell>
+                      <Link href={`/article/${item.id}`}>
+                      {item?.Cout} Dhs
+                      </Link>
+                      </TableCell>
+                    <TableCell>
+                    <Link href={`/article/${item.id}`}>
+                      {item?.Prix_Vente} Dhs
+                      </Link>
+                      </TableCell>
                     <TableCell>
                       <span className="flex gap-4">
                         {/* {update Icons } */}
@@ -196,7 +219,7 @@ const Articles_Info = () => {
         </Table>
       </div>
       {/* <Pagination /> */}
-      
+
     </div>
   );
 };
