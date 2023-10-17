@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Pagination from "../../utilisateur/Pagination/Paginate";
+import Pagination from "../../utilisateur/USerComponent/Pagination/Paginate";
 
 import { Link } from "@nextui-org/react";
 import {

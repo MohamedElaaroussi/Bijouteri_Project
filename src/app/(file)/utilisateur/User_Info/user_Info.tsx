@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Paginate from "../Pagination/Paginate";
+import Paginate from "../USerComponent/Pagination/Paginate";
 import axios from "axios";
 import { useState, useEffect } from "react";
 // import { GET_USER } from "@/Url_Api/User";

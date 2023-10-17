@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Section_G from "../Section_gouch/Section_G";
+import Section_G from "../USerComponent/Section_gouch/Section_G";
 
 const page = () => {
   return (
@@ -11,7 +11,7 @@ const page = () => {
         <div>
           <div className="mx-auto h-[210px] w-[90%] rounded-lg bg-white pb-3 shadow-lg">
             <div>
-              <div className="flex justify-end px-3 pt-3">
+              <div className="flex justify-end px-4 pt-3">
                 <svg
                   width="20"
                   height="20"
@@ -37,14 +37,14 @@ const page = () => {
                 </svg>
               </div>
             </div>
-            <div className="flex justify-between w-50 ml-10 px-12 pb-0">
-              <div className="flex justify-between gap-[10rem] my-2  mt-[2.1rem]  pr-10 text-center ">
+            <div className="flex justify-between gap-8 w-50 ml-10 px-12 pb-0">
+              <div className="flex justify-between gap-[15rem] my-2  mt-[2.1rem]  pr-10 text-center ">
                 <div className="ml-[-3rem] h-20  w-20 pt-[1rem] overflow-hidden rounded-full bg-[#F4F7FE]">
                   <span className=" pt-3.5  text-[30px] font-medium font-normal text-[#C1C4C7] ">
                     KH
                   </span>
                 </div>
-                <div className="py-1  pt-4">
+                <div className="py-4  pt-4">
                   <h3 className="mb-1  font-bold text-yellow-500">
                     Khalid ibn-walid
                   </h3>
@@ -53,7 +53,7 @@ const page = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex gap-2 pr-4 pt-12 ">
+              <div className="flex justify-end gap-8 pr-[2rem] pt-12 ">
                 <button className="mr-[50px] flex-1 justify-center h-12 rounded-full bg-[#05CD99]
                  px-4 py-1.5  font-bold text-white ">
                   Administrateur

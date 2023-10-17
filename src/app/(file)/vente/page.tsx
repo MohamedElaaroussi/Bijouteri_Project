@@ -3,7 +3,7 @@ import React from 'react'
 import Info_Vente from './Info_Vente/Info_Vente'
 import Section_1 from './Section_1'
 import { usePathname } from 'next/navigation'
-import Header from '../utilisateur/Header/Header'
+import Header from '../utilisateur/USerComponent/Header/Header'
 
 const Page = () => {
     const path = usePathname().slice(1) // Rename the variable to pathname

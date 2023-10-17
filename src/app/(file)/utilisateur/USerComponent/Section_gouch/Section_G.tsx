@@ -3,15 +3,15 @@ import React from "react";
 const Section_G = () => {
   return (
     <div>
-      <div className="mt-[20px] flex h-screen justify-start pl-0 pr-20 pt-14 ">
+      <div className="mt-[20px] flex h-screen pt-10 ">
         {/* Card start */}
         <div>
-          <div className="mx-auto h-[180px] w-[600px] rounded-lg bg-white pb-6 shadow-lg ml-12 w-[53.5rem]">
+          <div className="mx-auto h-[180px] w-[860px]  rounded-lg bg-white pb-6 shadow-lg ml-12 w-[53.5rem]">
 
-            <div className="flex h-[20px] justify-between p-6 text-[#96B0C4]">
-              <h4 className="w-2"> Email </h4>
+            <div className="flex h-[20px] justify-between p-8 pb-4 text-[#96B0C4]">
+              <h4 className="w-2 pl-[0.7rem]"> Email </h4>
               <span>smith@kpmg.com</span>
-              <span className="pr-2 ">
+              <span className="pr-0 ">
                 <svg
                   width="20"
                   height="20"
@@ -39,7 +39,7 @@ const Section_G = () => {
             </div>
 
             <div className="flex h-[20px] justify-between p-4 pr-8 text-[#96B0C4]">
-              <h4 className=" "> Mot de Pass </h4>
+              <h4 className="pl-[1.7rem]"> Mot de Pass </h4>
               <span className="ml-[-15]">**********</span>
               <span>
                 <svg
@@ -69,7 +69,7 @@ const Section_G = () => {
             </div>
 
             <div className="flex h-[20px] justify-between  p-5 pr-8 text-[#96B0C4]">
-              <h4> Role </h4>
+              <h4 className="pl-[1.7rem]"> Role </h4>
               <span>Administrateur</span>
               <span>
                 <svg
@@ -99,7 +99,7 @@ const Section_G = () => {
             </div>
 
             <div className="flex h-[20px] justify-between p-5 text-[#96B0C4]">
-              <h4> Status </h4>
+              <h4 className="pl-[1.7rem]"> Status </h4>
               <span>
                 <svg
                   width="57"

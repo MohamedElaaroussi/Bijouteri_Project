@@ -3,9 +3,7 @@ import { Link } from "lucide-react";
 import Image from "next/image";
 import SearchBar from "./SearchBar";
 import React from "react";
-import Parametre from "@/components/Icons/Parametre";
-import Notification from "@/components/Icons/Notification";
-import User from "@/components/Icons/User";
+
 import { usePathname } from 'next/navigation'
 
 
