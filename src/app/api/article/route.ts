@@ -7,6 +7,8 @@ import { connectToDatabase } from "../../../../db/connection";
 
 
 connectToDatabase()
+
+// Get article + pagination
 export const GET = async (req: NextRequest) => {
 
     const session = await getServerSession(OPTIONS);
@@ -42,5 +44,13 @@ export const GET = async (req: NextRequest) => {
 
 export const POST = async (req: NextRequest) => {
 
-    return NextResponse.json({ message: "post articles" })
+    try {
+        const articleToBeAdded = await req.json()
+        const article = new Article(articleToBeAdded)
+        article.save()
+        return NextResponse.json({ "message": "Article created successfully" }, { status: 201 })
+    } catch (error) {
+        return NextResponse.json({ "message": "Something went wrong" }, { status: 500 })
+    }
+
 }
