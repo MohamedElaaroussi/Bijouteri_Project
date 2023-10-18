@@ -59,9 +59,9 @@ const SideBar = () => {
             );
           })}
         </div>
-        <div className="px-3">
+        <div className="">
           <div className="">
-            <button onClick={handleLogout} className="flex gap-3 items-center">
+            <button onClick={handleLogout} className="flex gap-3 items-center  ">
               <Image src={"/Deconnexion.svg"} alt="Deconnexion" width={20} height={20}></Image> 
               <span className="text-[#787878]">Deconnexion</span>
             </button>
