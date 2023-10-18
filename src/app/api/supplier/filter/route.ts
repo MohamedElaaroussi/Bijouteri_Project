@@ -78,7 +78,7 @@ export const GET = async (req: NextRequest) => {
         }
 
         // calling a method that return start index and end index and a results which in our case users
-        const { startIndex, endIndex, results } = getPaginatedResult(
+        const { startIndex, results } = getPaginatedResult(
             page,
             limit,
             totalSupplier,
