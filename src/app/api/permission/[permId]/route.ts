@@ -25,13 +25,13 @@ export const GET = async (req: NextRequest, { params }: { params: Record<string,
         return NextResponse.json(permission)
     } catch (error) {
         return NextResponse.json(
-            { error: "An error occurred while searching the role." },
+            { error: "An error occurred while searching the permission." },
             { status: 500 },
         );
     }
 }
 
-// Update a role by ID
+// Update a permission by ID
 export const PUT = async (req: NextRequest, { params }: { params: Record<string, string> }) => {
 
     const permId = params.permId;
@@ -83,16 +83,16 @@ export const DELETE = async (req: NextRequest, { params }: { params: Record<stri
         const permission = await Permission.findByIdAndDelete(permId);
         if (!permission) {
             return NextResponse.json({
-                message: "Role not found",
+                message: "permission not found",
             }, { status: 404 })
         }
 
         return NextResponse.json({
-            message: "Role deleted successfully",
+            message: "permission deleted successfully",
         }, { status: 200 })
     } catch (error) {
         return NextResponse.json({
-            message: "An error occurred while updating the role",
+            message: "An error occurred while updating the permission",
         }, { status: 500 })
     }
 }
