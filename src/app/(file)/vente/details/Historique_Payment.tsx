@@ -71,7 +71,7 @@ export default function Historique_Payment() {
                     </TableBody>
                 </Table>
                 <div>
-                    <button className="flex gap-4 pl-5 items-center rounded-full bg-[#F9FCFF] pl-4 pr-6 mt-4">
+                    <button className="flex gap-4 ml-4 items-center rounded-full bg-[#F9FCFF] pl-4 pr-6 mt-4">
                         <span className="text-[#D9A528] text-3xl ">+</span>
                         <span className="text-[#D9A528]">Ajouter une transaction</span>
                     </button>
@@ -93,7 +93,7 @@ export default function Historique_Payment() {
                             </div>
                         </div>
                     </div>
-                    <div className="pt-5">
+                    <div className="pt-5 ">
                         <div className="ml-[2rem]">
                         <h5 className="text-xs text-[#A3AED0] ">Total</h5>
                             <div className="flex gap-1">
