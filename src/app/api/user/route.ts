@@ -31,7 +31,7 @@ export const GET = async (req: NextRequest) => {
     const { startIndex, endIndex, results } = getPaginatedResult(page, limit, totalUsers)
 
     try {
-        const users = await User.find().skip(startIndex).limit(endIndex).populate("role").exec();
+        const users = await User.find().skip(startIndex).limit(limit).populate("role").exec();
         results.total = totalUsers;
         results.result = users;
         return NextResponse.json(results, { status: 200 })

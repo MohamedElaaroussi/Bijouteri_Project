@@ -30,7 +30,7 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
   const { startIndex, endIndex, results } = getPaginatedResult(page, limit, totalSuppliers)
 
   try {
-    const suppliers = await Supplier.find().skip(startIndex).limit(endIndex).populate({ path: "createdBy", select: "username" }).exec();
+    const suppliers = await Supplier.find().skip(startIndex).limit(limit).populate({ path: "createdBy", select: "username" }).exec();
     results.total = totalSuppliers;
     results.result = suppliers;
     return NextResponse.json(results, { status: 200 })

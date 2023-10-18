@@ -91,6 +91,7 @@ export const GET = async (req: NextRequest) => {
             .exec();
 
 
+
         // make the result equal the filteredSupplier
         results.result = filteredSupplier;
 
