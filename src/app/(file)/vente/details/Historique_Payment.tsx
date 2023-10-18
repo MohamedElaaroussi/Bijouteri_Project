@@ -102,7 +102,7 @@ export default function Historique_Payment() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>  
             </div>
         </>
     );

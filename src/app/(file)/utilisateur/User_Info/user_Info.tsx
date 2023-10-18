@@ -23,9 +23,11 @@ const User_Info = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
+      const Url =   process.env.VERCEL_URL ||   `http://localhost:3000/api`
+      
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/user?page=${currentPage}&limit=10`,
+          `${Url}/user?page=${currentPage}&limit=10`,
         );
         const userData = Array.isArray(response.data.result)
           ? response.data.result
