@@ -42,6 +42,7 @@ export const GET = async (req: NextRequest) => {
     }
 }
 
+// create article
 export const POST = async (req: NextRequest) => {
 
     try {

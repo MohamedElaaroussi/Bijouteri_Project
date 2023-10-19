@@ -25,7 +25,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
         const permissionToBeAdded: string[] = []
 
         // array contain permission To Be removed
-        const permissionToBeremoved: string[] = []
+        const permissionToBeRemoved: string[] = []
 
         // check if the role exist
         const foundRole = await Role.findById(role)
@@ -47,20 +47,23 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
 
         // populate the two array
         permission.forEach((perm: string) => {
+
+            // permission to be removed
             if (foundRole.permission.includes(perm)) {
-                permissionToBeremoved.push(perm)
+                permissionToBeRemoved.push(perm)
             } else {
+                // permission to be added
                 permissionToBeAdded.push(perm)
             }
         });
 
         // add new permission to the role
         foundRole.permission.push(...permissionToBeAdded)
-        if (permissionToBeremoved.length) {
-            await Role.findByIdAndUpdate(role, { $pullAll: { permission: permissionToBeremoved } })
+        if (permissionToBeRemoved.length) {
+            await Role.findByIdAndUpdate(role, { $pullAll: { permission: permissionToBeRemoved } })
         }
         await foundRole.save()
-        return NextResponse.json({ message: `${permissionToBeAdded.length} permission(s) added and ${permissionToBeremoved.length} removed` }, { status: 201 })
+        return NextResponse.json({ message: `${permissionToBeAdded.length} permission(s) added and ${permissionToBeRemoved.length} removed` }, { status: 201 })
     } catch (e) {
         return NextResponse.json(
             { error: "Something went wrong!" },

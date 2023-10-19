@@ -5,6 +5,7 @@ import { getPaginatedResult } from "@/utils/util";
 import { Article } from "../../../../../models/Article";
 
 
+// filter article
 export const GET = async (req: NextRequest) => {
 
     const session = await getServerSession(OPTIONS);
@@ -52,7 +53,7 @@ export const GET = async (req: NextRequest) => {
         // calling a method that return start index and end index and a results which in our case Article
         const { startIndex, results } = getPaginatedResult(page, limit, totalArticles);
 
-        // getting users based on the query + pagination
+        // getting articles based on the query + pagination
         const filteredArticles = await Article.find(query)
             .skip(startIndex)
             .limit(limit)

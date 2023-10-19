@@ -4,6 +4,7 @@ import { OPTIONS } from "../../auth/[...nextauth]/route";
 import { Article } from "../../../../../models/Article";
 
 
+// get article by id
 export const GET = async (req: NextRequest, { params }: { params: { id: string } }
 ) => {
     const articleId = params.id
@@ -25,13 +26,14 @@ export const GET = async (req: NextRequest, { params }: { params: { id: string }
     }
 }
 
+// update article by id
 export const PUT = async (req: NextRequest, { params }: { params: { id: string } }) => {
     try {
         const articleId = params.id
         const updatedField = await req.json()
         await Article.findByIdAndUpdate(articleId, updatedField, { runValidators: true })
         return NextResponse.json(
-            { message: "article was updated successfully" },
+            { message: "Article was updated successfully" },
             { status: 200 },
         );
     } catch (error) {
@@ -42,6 +44,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
     }
 }
 
+// delete article by id
 export const DELETE = async (req: NextRequest, { params }: { params: { id: string } }) => {
     const session = await getServerSession(OPTIONS);
     if (!session) {
@@ -54,10 +57,10 @@ export const DELETE = async (req: NextRequest, { params }: { params: { id: strin
 
         // check if the article was deleted
         if (!article) {
-            return NextResponse.json({ message: "article not found" }, { status: 404 });
+            return NextResponse.json({ message: "Article not found" }, { status: 404 });
         }
         return NextResponse.json(
-            { message: "article was deleted successfully" },
+            { message: "Article was deleted successfully" },
             { status: 200 },
         );
     } catch (error) {

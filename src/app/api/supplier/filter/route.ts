@@ -7,7 +7,7 @@ import { getPaginatedResult } from "@/utils/util";
 
 connectToDatabase();
 
-// filter users with pagination
+// filter supplier with pagination
 export const GET = async (req: NextRequest) => {
     const session = await getServerSession(OPTIONS);
     if (!session) {
@@ -64,10 +64,10 @@ export const GET = async (req: NextRequest) => {
             });
         }
 
-        // see how many users
+        // see how many supplier
         let totalSupplier = await Supplier.countDocuments(query);
 
-        // if the filter return no users
+        // if the filter return no supplier
         if (!totalSupplier) {
             return NextResponse.json(
                 {
@@ -77,14 +77,14 @@ export const GET = async (req: NextRequest) => {
             );
         }
 
-        // calling a method that return start index and end index and a results which in our case users
+        // calling a method that return start index and end index and a results which in our case supplier
         const { startIndex, results } = getPaginatedResult(
             page,
             limit,
             totalSupplier,
         );
 
-        // getting users based on the query + pagination
+        // getting supplier based on the query + pagination
         const filteredSupplier = await query
             .skip(startIndex)
             .limit(limit)

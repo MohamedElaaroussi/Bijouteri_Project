@@ -30,11 +30,13 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
   const { startIndex, endIndex, results } = getPaginatedResult(page, limit, totalSuppliers)
 
   try {
-    const suppliers = await Supplier.find().skip(startIndex).limit(limit).populate({ path: "createdBy", select: "username" }).exec();
+    const suppliers = await Supplier.find().skip(startIndex).limit(limit).populate({ path: "createdBy", select: "username" }).populate("article").exec();
     results.total = totalSuppliers;
     results.result = suppliers;
     return NextResponse.json(results, { status: 200 })
   } catch (error) {
+    console.log(error);
+
     return NextResponse.json({ message: "Something went wrong" }, { status: 500 })
 
   }

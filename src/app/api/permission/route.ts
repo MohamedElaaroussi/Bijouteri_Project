@@ -18,7 +18,7 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
 
     return NextResponse.json({ permission }, { status: 200 });
   } catch (error) {
-    NextResponse.json({ error: 'An error occurred while fetching roles' }, { status: 500 });
+    NextResponse.json({ error: 'An error occurred while fetching permissions' }, { status: 500 });
   }
 }
 
@@ -33,7 +33,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     const { name } = await req.json();
 
     if (!name) {
-      return NextResponse.json({ error: "Missing or invalid input data" });
+      return NextResponse.json({ error: "Permission name is required" });
     }
 
     // check if permission exist
@@ -53,8 +53,6 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
       { status: 201 },
     );
   } catch (error) {
-    console.log(error);
-
     return NextResponse.json(
       { error: "An error occurred while creating the permission" },
       { status: 500 },
