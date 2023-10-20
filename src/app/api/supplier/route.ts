@@ -35,8 +35,6 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     results.result = suppliers;
     return NextResponse.json(results, { status: 200 })
   } catch (error) {
-    console.log(error);
-
     return NextResponse.json({ message: "Something went wrong" }, { status: 500 })
 
   }

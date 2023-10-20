@@ -12,8 +12,6 @@ export interface ClientModel extends Document {
   purchase: number;
   total: number;
   createdBy: mongoose.Types.ObjectId | UserModel;
-  buyList: mongoose.Types.ObjectId[]
-
 }
 
 const clientSchema = new Schema<ClientModel>({
@@ -35,7 +33,6 @@ const clientSchema = new Schema<ClientModel>({
   createdBy: { type: Schema.Types.ObjectId, ref: "User" },
   purchase: { type: Number, min: 0, default: 0 },
   total: { type: Number, min: 0, default: 0 },
-  buyList: [{ type: Schema.Types.ObjectId }],
 }, { timestamps: true });
 
 export const Client =
