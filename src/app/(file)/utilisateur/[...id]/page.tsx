@@ -1,9 +1,31 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Section_G from "../USerComponent/Section_gouch/Section_G";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
-const page = () => {
+const Page = ({params}) => {
+  const [user, setUser] = useState([]);
+  const Roles=user.role ;
+  console.log(user.role)
+  
+  useEffect(() => {
+
+    axios.get(`http://localhost:3000/api/user/${params.id}`)
+      .then(response => {
+        setUser(response.data);
+        // console.log(response.data.)
+      })
+      .catch(error => {
+        console.error('Erreur lors de la récupération des données de l\'utilisateur :', error);
+      });
+  }, []);
+  
+  
+  
+
+
   return (
     <div className=" ">
       <div className=" mt-4  pr-20 pt-14">
@@ -19,7 +41,7 @@ const page = () => {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g clip-path="url(#clip0_112_5294)">
+                  <g clipPath="url(#clip0_112_5294)">
                     <path
                       d="M11.6814 -0.000261885C11.7081 0.0649799 11.778 0.0519422 11.8265 0.0759512C11.9807 0.151629 12.1056 0.275859 12.1822 0.429531C12.2588 0.583204 12.2827 0.757792 12.2503 0.926401C12.2179 1.09501 12.131 1.2483 12.0029 1.36265C11.8749 1.47701 11.7128 1.5461 11.5416 1.55928C11.4706 1.5645 11.3986 1.55928 11.3271 1.55928H4.00536C2.57682 1.55928 1.56584 2.5734 1.56584 4.00663V15.9949C1.56584 17.413 2.581 18.4308 3.997 18.4308H16.0051C17.4222 18.4308 18.4374 17.4141 18.4374 15.996C18.4374 13.5161 18.4374 11.0364 18.4374 8.55686C18.4374 8.20403 18.5845 7.93993 18.9108 7.7964C19.214 7.66278 19.4943 7.7228 19.7458 7.93366C19.8784 8.04483 19.9348 8.20246 20 8.35487V16.5957C19.927 16.6479 19.9478 16.7356 19.9327 16.8045C19.5814 18.6438 17.9979 19.9851 16.1268 19.9883C12.039 19.9966 7.95136 19.9966 3.86391 19.9883C1.74799 19.9825 0.0125601 18.2461 0.00734073 16.1322C-0.00309795 12.0382 -0.00309795 7.94393 0.00734073 3.84953C0.0109943 2.13602 1.18482 0.619278 2.831 0.146927C3.03299 0.0889924 3.24855 0.0858665 3.44115 -0.00390625L11.6814 -0.000261885Z"
                       fill="#C1C4C7"
@@ -41,22 +63,23 @@ const page = () => {
               <div className="flex justify-between gap-[15rem] my-2  mt-[2.1rem]  pr-10 text-center ">
                 <div className="ml-[-3rem] h-20  w-20 pt-[1rem] overflow-hidden rounded-full bg-[#F4F7FE]">
                   <span className=" pt-3.5  text-[30px] font-medium font-normal text-[#C1C4C7] ">
-                    KH
+                    {/* {user.username.substring(0, 2)} */}
                   </span>
                 </div>
                 <div className="py-4  pt-4">
                   <h3 className="mb-1  font-bold text-yellow-500">
-                    Khalid ibn-walid
+                    {user.username}
                   </h3>
                   <div className="inline-flex items-center text-[#787878]">
-                    0664-848-484
+                    {user.phone}
                   </div>
                 </div>
               </div>
               <div className="flex justify-end gap-8 pr-[2rem] pt-12 ">
                 <button className="mr-[50px] flex-1 justify-center h-12 rounded-full bg-[#05CD99]
                  px-4 py-1.5  font-bold text-white ">
-                  Administrateur
+                  {/* {user.role.name}  */}
+                  {user.role && user.role.name } 
                 </button>
               </div>
             </div>
@@ -66,10 +89,10 @@ const page = () => {
       </div>
       <div>
         {/* Section left start  */}
-        <Section_G />
+        <Section_G email={user.email} phone={user.phone} role={user.role && user.role.name} />
       </div>
     </div>
   );
 };
 
-export default page;
+export default Page;

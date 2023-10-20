@@ -1,6 +1,6 @@
 import React from "react";
 
-const Section_G = () => {
+const Section_G = ({email,phone,role}) => {
   return (
     <div>
       <div className="mt-[20px] flex h-screen pt-10 ">
@@ -10,7 +10,7 @@ const Section_G = () => {
 
             <div className="flex h-[20px] justify-between p-8 pb-4 text-[#96B0C4]">
               <h4 className="w-2 pl-[0.7rem]"> Email </h4>
-              <span>smith@kpmg.com</span>
+              <span>{email}</span>
               <span className="pr-0 ">
                 <svg
                   width="20"
@@ -40,7 +40,7 @@ const Section_G = () => {
 
             <div className="flex h-[20px] justify-between p-4 pr-8 text-[#96B0C4]">
               <h4 className="pl-[1.7rem]"> Mot de Pass </h4>
-              <span className="ml-[-15]">**********</span>
+              <span className="ml-[-15]"><input type="password" value={"sfgdjndnv"} /></span>
               <span>
                 <svg
                   width="20"
@@ -70,7 +70,9 @@ const Section_G = () => {
 
             <div className="flex h-[20px] justify-between  p-5 pr-8 text-[#96B0C4]">
               <h4 className="pl-[1.7rem]"> Role </h4>
-              <span>Administrateur</span>
+              <span>
+                {role }
+              </span>
               <span>
                 <svg
                   width="20"

@@ -1,7 +1,8 @@
-"use client";
+
+
 
 import Image from "next/image";
-import Paginate from "../USerComponent/Pagination/Paginate";
+import Paginate from "../Pagination/Paginate";
 import axios from "axios";
 import { useState, useEffect } from "react";
 // import { GET_USER } from "@/Url_Api/User";
@@ -16,6 +17,7 @@ import {
   TableCell,
 } from "@nextui-org/react";
 import { string } from "zod";
+import Instance from "@/components/Axios_Instance/instance"
 
 const User_Info = () => {
   const [user, setUser] = useState<any[]>([]); // Vous pouvez également utiliser une interface pour le typage
@@ -23,11 +25,11 @@ const User_Info = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const URL =   process.env.VERCEL || "http://localhost:3000/"
+      const URL =   process.env.VERCEL 
       console.log(URL)
       try {
-        const response = await axios.get(
-          `${URL}api/user?page=${currentPage}&limit=10`,
+        const response = await Instance.get(
+          `api/user?page=${currentPage}&limit=10`,
         );
         const userData = Array.isArray(response.data.result)
           ? response.data.result
