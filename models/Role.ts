@@ -1,7 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 import { Permission, PermissionModel } from "./Permission";
 
-// Define User Schema with Admin Role
 export interface RoleModel extends Document {
   name: string;
   permission: mongoose.Types.ObjectId[] | PermissionModel[];

@@ -4,7 +4,7 @@ import { Role } from "../models/Role";
 import { User } from "../models/User";
 import { Supplier } from "../models/Supplier";
 import { Article } from "../models/Article";
-
+import { Client } from "../models/Client";
 
 export async function connectToDatabase() {
   if (mongoose.connection.readyState === 1) {

@@ -4,7 +4,6 @@ import { UserModel } from "./User";
 import { ArticleModel } from "./Article";
 
 
-// Define User Schema with Admin Role
 export interface SupplierModel extends Document {
   username: string;
   email: string;

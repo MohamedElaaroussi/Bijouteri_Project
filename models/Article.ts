@@ -3,7 +3,6 @@ import { UserModel } from "./User";
 import { CategoryModel } from "./Category";
 import { SupplierModel } from "./Supplier";
 
-// Define Article Schema with SelledStatus
 export interface ArticleModel extends Document {
   name: string;
   img: string;

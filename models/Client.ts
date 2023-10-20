@@ -9,7 +9,11 @@ export interface ClientModel extends Document {
   address: string;
   status: string;
   clientType: string;
-  createdBy: mongoose.Types.ObjectId | UserModel
+  purchase: number;
+  total: number;
+  createdBy: mongoose.Types.ObjectId | UserModel;
+  buyList: mongoose.Types.ObjectId[]
+
 }
 
 const clientSchema = new Schema<ClientModel>({
@@ -26,10 +30,13 @@ const clientSchema = new Schema<ClientModel>({
     type: String, unique: true, minlength: 10, maxlength: 10,
   },
   address: { type: String },
-  status: { type: String },
+  status: { type: String, enum: ["Enable", "Disable"], default: "Enable" },
   clientType: { type: String },
   createdBy: { type: Schema.Types.ObjectId, ref: "User" },
-});
+  purchase: { type: Number, min: 0, default: 0 },
+  total: { type: Number, min: 0, default: 0 },
+  buyList: [{ type: Schema.Types.ObjectId }],
+}, { timestamps: true });
 
 export const Client =
   mongoose.models.Client || mongoose.model<ClientModel>("Client", clientSchema);
