@@ -91,7 +91,7 @@ const Details_Articles = () => {
                                         </p>
                                         <div className='flex items-center'>
                                             <Image src="/Cercle.svg" width={16} height={10} alt='' />
-                                            <Image src="/Line 36.svg" width={90} height={2} className='bg-[#E9EFF4]' />
+                                            <Image src="/Line 36.svg" width={90} height={2} alt='' className='bg-[#E9EFF4]' />
                                         </div>
                                     </TableCell>
                                     <TableCell> 1 512 Dhs </TableCell>

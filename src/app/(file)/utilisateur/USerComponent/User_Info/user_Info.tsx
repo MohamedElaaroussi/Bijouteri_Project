@@ -16,8 +16,8 @@ import {
   TableRow,
   TableCell,
 } from "@nextui-org/react";
-import { string } from "zod";
-import Instance from "@/components/Axios_Instance/instance"
+
+
 
 const User_Info = () => {
   const [user, setUser] = useState<any[]>([]); // Vous pouvez également utiliser une interface pour le typage
@@ -25,10 +25,10 @@ const User_Info = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const URL =   process.env.VERCEL 
+      const URL =   process.env.VERCEL || "localhost:3000"
       console.log(URL)
       try {
-        const response = await Instance.get(
+        const response = await axios.get(
           `api/user?page=${currentPage}&limit=10`,
         );
         const userData = Array.isArray(response.data.result)
@@ -54,7 +54,7 @@ const User_Info = () => {
   if (user ) { // Vérifiez que user est défini et n'est pas vide
     return (
       <div
-        style={{ margin: "0", padding: "1rem 4rem", right: "2.5rem 2.5rem" }}
+        
       >
         <div className="mt-6 overflow-hidden">
           <Table

@@ -60,8 +60,8 @@ const Data = [
 ];
 const Articles_Info = () => {
   return (
-    <div style={{ margin: "0", padding: "1rem 4rem", right: "2.5rem 2.5rem" }}>
-      <div className="mt-12 overflow-hidden ">
+    <div >
+      <div className="mt-6 overflow-hidden ">
         <Table
           aria-label="Example static collection table"
           style={{

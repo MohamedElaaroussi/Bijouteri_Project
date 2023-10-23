@@ -19,7 +19,7 @@ export default function Historique_Payment() {
 
     const sizes = ["2xl"];
 
-    const handleOpen = (size: string) => {
+    const handleOpen = (size: "md") => {
         setSize(size)
         onOpen();
     }
@@ -117,6 +117,7 @@ export default function Historique_Payment() {
                     </button> */}
                     <div className="flex flex-wrap gap-3">
                         {sizes.map((size) => (
+                            // @ts-ignore
                             <Button key={size} onPress={() => handleOpen(size)}
                                 className="flex gap-4 ml-4 items-center rounded-full bg-[#F9FCFF] pl-4 pr-6 mt-4"
                             >
@@ -126,6 +127,7 @@ export default function Historique_Payment() {
                         ))}
                     </div>
                     <Modal
+                    //  @ts-ignore 
                         size={size}
                         isOpen={isOpen}
                         onClose={onClose}
