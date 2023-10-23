@@ -11,15 +11,6 @@ const roleSchema = new Schema<RoleModel>({
   permission: [{ type: Schema.Types.ObjectId, ref: "Permission" }],
 });
 
-// roleSchema.pre('findOneAndUpdate', function () { 
-//   console.log(this.getUpdate()) 
-// });
-// roleSchema.path("permission").validate(async (value) => {
-//   // return await Permission.findById(value);
-//   console.log(value);
-
-// }, 'User does not exist')
-
 export const Role =
   mongoose.models.Role || mongoose.model<RoleModel>("Role", roleSchema);
 

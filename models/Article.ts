@@ -28,7 +28,7 @@ const articleSchema = new Schema<ArticleModel>({
   weight: { type: Number, min: 1 },
   color: { type: String },
   description: { type: String },
-  nbrOfArticles: { type: Number, min: 1 },
+  nbrOfArticles: { type: Number, min: 0 },
   category: { type: Schema.Types.ObjectId, ref: "Category" },
   supplier: { type: Schema.Types.ObjectId, ref: "Supplier" },
   createdBy: { type: Schema.Types.ObjectId, ref: "User" },

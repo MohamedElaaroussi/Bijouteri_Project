@@ -4,6 +4,7 @@ import { getPaginatedResult } from "@/utils/util";
 import { connectToDatabase } from "../../../../db/connection";
 import { Article } from "../../../../models/Article";
 import { Sale } from "../../../../models/Sale";
+import { getToken } from "next-auth/jwt";
 
 
 connectToDatabase()
@@ -33,20 +34,25 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
 };
 
 export const POST = async (req: NextRequest, res: NextResponse) => {
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
     try {
         const saleToBeAdded = await req.json()
-        console.log(saleToBeAdded);
         const itemsId: string[] = [];
-        saleToBeAdded.items.forEach((item: any) => {
-            itemsId.push(item.article.id);
-        });
-        await Article.updateMany({ _id: { $in: itemsId } }, { $inc: { nbrOfArticles: -1 } })
+        if (saleToBeAdded?.items?.length > 0) {
+            saleToBeAdded.items.forEach((item: any) => {
+                itemsId.push(item.article.id);
+            });
+            await Article.updateMany({ _id: { $in: itemsId } }, { $inc: { nbrOfArticles: -1 } })
+        }
         const sale = new Sale(saleToBeAdded)
+        // @ts-ignore
+        sale.createdBy = token.user._id
         await sale.save()
         return NextResponse.json({ "message": "Sale was created" }, { status: 201 })
 
     } catch (error) {
+        console.log(error);
         return NextResponse.json({ "message": "Something went wrong" }, { status: 500 })
     }
 };
