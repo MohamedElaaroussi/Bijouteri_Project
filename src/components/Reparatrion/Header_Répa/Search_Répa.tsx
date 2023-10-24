@@ -1,9 +1,9 @@
 import React from "react";
 import InputHeader from "@/components/ui/Input/InputHeader";
 
-function SearchBar() {
+function Search_Répa() {
   return (
-    <div className="mr-[-30px] w-[350px] pb-[-90px] pl-[15rem]  pt-0">
+    <div className="mr-[-30px] w-[350px] pb-[-90px] pl-[15rem]  pt-0 ml-[-10rem]">
       <form>
         <div className="flex-[2] pl-[13px]">
           <InputHeader placeholder={"Rechercher une catalogue"}></InputHeader>
@@ -13,4 +13,4 @@ function SearchBar() {
   );
 }
 
-export default SearchBar;
+export default Search_Répa;

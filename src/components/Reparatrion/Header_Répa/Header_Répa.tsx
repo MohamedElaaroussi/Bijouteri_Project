@@ -1,17 +1,18 @@
 "use client";
 
 import Link from 'next/link';
-import SearchBar from "./SearchBar";
+
 import React from "react";
 
 import { usePathname } from "next/navigation";
 import Image from 'next/image';
+import Search_Répa from './Search_Répa';
 type HeaderProps = {
   path: string;
 };
 
 
-const Header = ({ path }: HeaderProps) => {
+const Header_Répa = ({ path }: HeaderProps) => {
 
   const formattedPath = path.charAt(0).toUpperCase() + path.slice(1);
 
@@ -31,7 +32,7 @@ const Header = ({ path }: HeaderProps) => {
         {
           // Search bar
         }
-        <SearchBar  />
+        <Search_Répa  />
       </div>
       <div className="ml-8">
         <div className="flex justify-between gap-4 px-3">
@@ -88,4 +89,4 @@ const Header = ({ path }: HeaderProps) => {
   );
 };
 
-export default Header;
+export default Header_Répa;
