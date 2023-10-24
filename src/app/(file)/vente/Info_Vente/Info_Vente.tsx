@@ -54,7 +54,7 @@ const Info_Vente = () => {
     ]
 
     return (
-        <div style={{ margin: "0", padding: "1rem 4rem", right: "2.5rem 2.5rem" }}>
+        <div >
             <div className="overflow-hidden mt-6 ">
                 <Table
                     aria-label="Example static collection table"

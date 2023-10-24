@@ -63,10 +63,11 @@ const CardItem = () => {
                 <div className="flex justify-end gap-2">
                     <Link href={"/catalogue/id"}>
                         <Image
+                            style={{paddingTop:"2px"}}
                             src={"/edit.svg"}
                             alt="edit icon"
                             width={15}
-                            height={15}
+                            height={17}
                             className="hover:cursor-pointer" />
                     </Link>
                     <Image

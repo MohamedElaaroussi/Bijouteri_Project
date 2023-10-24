@@ -1,22 +1,22 @@
 "use client"
 import React, { useState } from 'react'
 import Details_F from '../Details_Fornisseur/Details_F'
+import Header from '../../utilisateur/USerComponent/Header/Header'
 import TotalPayment_F from '../Details_Fornisseur/TotalPayment_F'
 import Non_Payée_F from '../Details_Fornisseur/Non_Payée_F'
 import Info_F from '../Details_Fornisseur/Info_F'
 import InputHeader_F from '@/components/Fornisseur/Header_F/InputHeader_F'
-import DisplayDate_F from '@/components/detail/'
+import DisplayDate_F from '@/components/Fornisseur/Date_Btn_F/DisplayDate_F'
 import Filter_F from '@/components/Fornisseur/Filter_F/Filter_F'
 import ExportBtn_F from '@/components/Fornisseur/ExportBtn_F/ExportBtn_F'
 import GoldBtn_F from '@/components/Fornisseur/GoldBtn_F/GoldBtn_F'
-import Header_Répa from '@/components/Reparatrion/Header_Répa/Header_Répa'
 
 const Page = () => {
     const [openModal, setOpenModal] = useState(false);
-    const path = "Détails du fournisseur"
+    const path = "Détails du client"
     return (
         <div>
-            <Header_Répa path={path} />
+            <Header path={path} />
             <div className='flex  '>
                 <div className='flex-col mr-6 '>
                     <Details_F />
