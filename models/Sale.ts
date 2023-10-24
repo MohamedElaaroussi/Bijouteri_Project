@@ -3,6 +3,14 @@ import { Article, ArticleModel } from "./Article";
 import { ClientModel } from "./Client";
 import { UserModel } from "./User";
 
+interface Transaction {
+    _id: mongoose.Types.ObjectId;
+    method: string,
+    total: number,
+    date: Date,
+    note: string,
+}
+
 export interface SaleModel extends Document {
     description: string;
     date: Date;
@@ -16,10 +24,18 @@ export interface SaleModel extends Document {
     ];
     totalPrice: number;
     totalWeight: number;
+    transaction: Transaction[];
     client: mongoose.Types.ObjectId | ClientModel;
     createdBy: mongoose.Types.ObjectId | UserModel;
     category: mongoose.Types.ObjectId | UserModel;
 }
+
+const transactionSchema = new Schema<Transaction>({
+    method: { type: String },
+    total: { type: Number, min: 0 },
+    date: { type: Date, default: Date.now },
+    note: { type: String },
+})
 
 const saleSchema = new Schema<SaleModel>({
     description: { type: String },
@@ -36,8 +52,9 @@ const saleSchema = new Schema<SaleModel>({
     createdBy: { type: Schema.Types.ObjectId, ref: "User" },
     category: { type: Schema.Types.ObjectId, ref: "Category" },
     totalPrice: { type: Number, default: 0 },
-    totalWeight: { type: Number, default: 0 }
-});
+    totalWeight: { type: Number, default: 0 },
+    transaction: [{ type: transactionSchema }]
+}, { toJSON: { virtuals: true }, toObject: { virtuals: true } });
 
 saleSchema.pre('save', async function () {
     if (this.isModified("items")) {
@@ -60,5 +77,11 @@ saleSchema.pre('save', async function () {
     }
 })
 
+saleSchema.virtual('paid',).get(function (this: any) {
+
+    return this.transaction.reduce((total: number, item: any) => {
+        return total + item.total;
+    }, 0);
+})
 
 export const Sale = mongoose.models.Sale || mongoose.model<SaleModel>("Sale", saleSchema);
