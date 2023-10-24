@@ -37,7 +37,7 @@ const Catalogue: NextPage = () => {
             icon="/date.svg"
             text="Jan 6, 2023 - Jan 22, 2023"
           ></DisplayDate>
-          <DisplayDate icon="/filter.svg" text="Filter"></DisplayDate>
+          <DisplayDate icon="/Filter_H.svg" text="Filter"></DisplayDate>
         </div>
       </div>
       {/* catalogue card */}

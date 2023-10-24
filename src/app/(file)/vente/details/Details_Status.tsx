@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Details_Status = () => {
+    const newLocal = "Définissez l'état du produit"
     return (
         <div className='bg-white px-10 py-8 rounded-[20px] w-[22rem]'>
             <p className='text-sm text-[color:var(--labelText)]'>Statut</p>
@@ -10,7 +11,7 @@ const Details_Status = () => {
                 <option className='text-[#787878]' value="US">calme</option>
                 <option className='text-[#787878]' value="CA">Arréter</option> 
             </select>
-            <p className='text-sm text-[color:var(--labelText)]'>{"Définissez l'état du produit"}</p>
+            <p className='text-sm text-[color:var(--labelText)]'>{newLocal}</p>
         </div>
     )
 }

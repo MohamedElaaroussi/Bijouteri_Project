@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import User_Info from "./User_Info/user_Info";
+import User_Info from "./USerComponent/User_Info/user_Info";
 import Header from "./USerComponent/Header/Header";
 import Section1 from "./USerComponent/section1/Section1";
 import { usePathname } from "next/navigation";

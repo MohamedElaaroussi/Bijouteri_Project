@@ -1,10 +1,7 @@
-"use client";
-
 import Image from "next/image";
-import Paginate from "../USerComponent/Pagination/Paginate";
+import Paginate from "../Pagination/Paginate";
 import axios from "axios";
 import { useState, useEffect } from "react";
-// import { GET_USER } from "@/Url_Api/User";
 
 import Link from "next/link";
 import {
@@ -15,7 +12,6 @@ import {
   TableRow,
   TableCell,
 } from "@nextui-org/react";
-import { string } from "zod";
 
 const User_Info = () => {
   const [user, setUser] = useState<any[]>([]); // Vous pouvez également utiliser une interface pour le typage
@@ -24,10 +20,10 @@ const User_Info = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const URL =
-        process.env.NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000/";
+        process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
       try {
         const response = await axios.get(
-          `${URL}api/user?page=${currentPage}&limit=10`,
+          `api/user?page=${currentPage}&limit=10`,
         );
         const userData = Array.isArray(response.data.result)
           ? response.data.result
@@ -52,9 +48,7 @@ const User_Info = () => {
   if (user) {
     // Vérifiez que user est défini et n'est pas vide
     return (
-      <div
-        style={{ margin: "0", padding: "1rem 4rem", right: "2.5rem 2.5rem" }}
-      >
+      <div>
         <div className="mt-6 overflow-hidden">
           <Table
             aria-label="Example static collection table"
