@@ -33,7 +33,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     const { name } = await req.json();
 
     if (!name) {
-      return NextResponse.json({ error: "Missing or invalid input data" });
+      return NextResponse.json({ error: "Role name is required" });
     }
 
     // check if role exist
@@ -53,8 +53,6 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
       { status: 201 },
     );
   } catch (error) {
-    console.log(error);
-
     return NextResponse.json(
       { error: "An error occurred while creating the role" },
       { status: 500 },

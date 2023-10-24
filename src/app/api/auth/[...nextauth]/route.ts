@@ -6,7 +6,7 @@ import { User, UserModel } from '../../../../../models/User'
 
 
 export const OPTIONS: NextAuthOptions = {
-    secret: process.env.AUTH_SECRET,
+    secret: process.env.NEXTAUTH_SECRET,
     providers: [
         CredentialsProvider({
             name: "Credentials",
@@ -44,7 +44,6 @@ export const OPTIONS: NextAuthOptions = {
     },
     callbacks: {
         jwt: async ({ token, user }) => {
-
             user && (token.user = user)
             return token
         },

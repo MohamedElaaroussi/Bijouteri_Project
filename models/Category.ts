@@ -1,7 +1,6 @@
 // Import Mongoose
 import mongoose, { Document, Schema } from "mongoose";
 
-// Define CategoryOfArticles Schema
 export interface CategoryModel extends Document {
   name: string;
   description: string;

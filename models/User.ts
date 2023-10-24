@@ -3,7 +3,6 @@ import { RoleModel } from "./Role";
 import validator from "validator"
 import { hashSync } from "bcryptjs";
 
-// Define User Schema with Admin Role
 export interface UserModel extends Document {
   username: string;
   email: string;

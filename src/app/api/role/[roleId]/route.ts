@@ -92,7 +92,6 @@ export const DELETE = async (req: NextRequest, { params }: { params: Record<stri
       message: "Role deleted successfully",
     }, { status: 200 })
   } catch (error) {
-    console.log(error);
     return NextResponse.json({
       message: "An error occurred while updating the role",
     }, { status: 500 })

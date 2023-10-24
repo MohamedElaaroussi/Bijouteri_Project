@@ -1,11 +1,7 @@
-
-
-
 import Image from "next/image";
 import Paginate from "../Pagination/Paginate";
 import axios from "axios";
 import { useState, useEffect } from "react";
-// import { GET_USER } from "@/Url_Api/User";
 
 import Link from "next/link";
 import {
@@ -17,16 +13,14 @@ import {
   TableCell,
 } from "@nextui-org/react";
 
-
-
 const User_Info = () => {
   const [user, setUser] = useState<any[]>([]); // Vous pouvez également utiliser une interface pour le typage
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchUser = async () => {
-      const URL =   process.env.VERCEL || "localhost:3000"
-      console.log(URL)
+      const URL =
+        process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
       try {
         const response = await axios.get(
           `api/user?page=${currentPage}&limit=10`,
@@ -51,11 +45,10 @@ const User_Info = () => {
     setCurrentPage(newPage);
   };
 
-  if (user ) { // Vérifiez que user est défini et n'est pas vide
+  if (user) {
+    // Vérifiez que user est défini et n'est pas vide
     return (
-      <div
-        
-      >
+      <div>
         <div className="mt-6 overflow-hidden">
           <Table
             aria-label="Example static collection table"
@@ -84,27 +77,26 @@ const User_Info = () => {
                       ></div>
                     </TableCell>
                     <TableCell>
-                      <Link href={`/utilisateur/${item._id || ''}`}>
+                      <Link href={`/utilisateur/${item._id || ""}`}>
                         {item.username}
                       </Link>
                     </TableCell>
                     <TableCell>
-                      <Link href={`/utilisateur/${item._id || ''}`}>
+                      <Link href={`/utilisateur/${item._id || ""}`}>
                         {item.phone}
                       </Link>
                     </TableCell>
                     <TableCell>
-                      <Link href={`/utilisateur/${item._id || ''}`}>
+                      <Link href={`/utilisateur/${item._id || ""}`}>
                         {item.createdAt}
                       </Link>
                     </TableCell>
                     <TableCell>
-                      <Link href={`/utilisateur/${item._id || ''}`}>
+                      <Link href={`/utilisateur/${item._id || ""}`}>
                         {item.role?.name}
                       </Link>
                     </TableCell>
                     <TableCell>
-
                       <span className="flex gap-4">
                         {/* {update Icons } */}
                         {/* {Delate Icons } */}
@@ -116,10 +108,7 @@ const User_Info = () => {
             </TableBody>
           </Table>
         </div>
-        <Paginate
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-        />
+        <Paginate currentPage={currentPage} onPageChange={handlePageChange} />
       </div>
     );
   } else {
