@@ -29,7 +29,7 @@ const DisplayFilter = ({ text, icon }: { text: string; icon: string }) => {
                     <Button
                         key={size}
                         onPress={() => handleOpen(size)}
-                        className="hover:cursor-pointer flex items-center bg-white rounded-[60px] h-[3.5rem]
+                        className="hover:cursor-pointer flex items-center bg-white rounded-[60px] h-[3.5rem] mt-[8px]
                          border-[1px] p-3 border-[var(--borderColor)] gap-2"
                     >
                         <div className="hover:cursor-pointer flex items-center bg-white
@@ -46,15 +46,15 @@ const DisplayFilter = ({ text, icon }: { text: string; icon: string }) => {
                 // @ts-ignore
                 size={size} isOpen={isOpen} onClose={onClose}>
                     <ModalContent>
-                        <ModalHeader>Modal Title</ModalHeader>
+                        
                         <ModalBody>
                             <div>
-                                <div className="flex gap-10 pt-8">
+                                <div className="flex gap-10 pt-8 ">
                                     <div>
                                         <input
                                             type="text"
                                             id="first_name"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-2.5"
+                                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-2.5"
                                             placeholder="ID"
                                             required
                                         />
@@ -63,7 +63,7 @@ const DisplayFilter = ({ text, icon }: { text: string; icon: string }) => {
                                         <input
                                             type="text"
                                             id="first_name"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-2.5"
+                                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-2.5"
                                             placeholder="Clients"
                                             required
                                         />
@@ -84,7 +84,7 @@ const DisplayFilter = ({ text, icon }: { text: string; icon: string }) => {
                                             type="date"
                                             id="first_name"
                                             value={"date"}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-2.5"
+                                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-2.5"
                                             required
                                         />
                                     </div>
@@ -92,7 +92,7 @@ const DisplayFilter = ({ text, icon }: { text: string; icon: string }) => {
                                         <input
                                             type="text"
                                             id="first_name"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[11rem] p-2.5"
+                                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[11rem] p-2.5"
                                             placeholder="Poids D’or total"
                                             required
                                         />
