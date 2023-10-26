@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { Sale, SaleModel } from "../../../../../../models/Sale"
+import { Sale } from "../../../../../../models/Sale"
 import { connectToDatabase } from "../../../../../../db/connection"
 
 
@@ -7,7 +7,6 @@ connectToDatabase()
 export const POST = async (req: NextRequest, { params }: { params: { id: string } }) => {
 
     try {
-
         const idSale = params.id
         const transaction = await req.json()
         //search for the sale
@@ -20,13 +19,12 @@ export const POST = async (req: NextRequest, { params }: { params: { id: string 
             const noPaidAmount = sale.totalPrice - sale.paid
             return NextResponse.json({ "message": "You going above total price, the client amount left to pay is " + noPaidAmount }, { status: 201 })
         }
+        sale.transaction.push(transaction)
 
         // the client paid the total price
         if (sale.paid === sale.totalPrice) {
             sale.status = "Finished";
         }
-
-        sale.transaction.push(transaction)
         await sale.save()
         return NextResponse.json({ "message": "Transaction added successfully" }, { status: 201 })
 

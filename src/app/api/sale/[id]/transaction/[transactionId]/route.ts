@@ -4,6 +4,36 @@ import { connectToDatabase } from "../../../../../../../db/connection";
 
 connectToDatabase();
 
+export const GET = async (req: NextRequest,
+  { params }: { params: { id: string; transactionId: string } },) => {
+
+  try {
+    const { id: saleId, transactionId } = params;
+
+    // check if the sale exist
+    const sale = await Sale.findById(saleId);
+    if (!sale) {
+      return NextResponse.json({ message: "Sale not found" });
+    }
+
+    // check if the transaction exist
+    let transaction = sale?.transaction.id(transactionId);
+    if (!transaction) {
+      return NextResponse.json(
+        { message: "The transaction was not found" },
+        { status: 404 },
+      );
+    }
+    return NextResponse.json(transaction);
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Something went wrong" },
+      { status: 500 },
+    );
+  }
+}
+
+// Update a transaction
 export const PUT = async (
   req: NextRequest,
   { params }: { params: { id: string; transactionId: string } },
@@ -12,12 +42,17 @@ export const PUT = async (
     const { id: saleId, transactionId } = params;
     const { note, total, date, method } = await req.json();
 
-    // check if the sale or transaction exist
+    // check if the sale exist
     const sale = await Sale.findById(saleId);
+    if (!sale) {
+      return NextResponse.json({ message: "Sale not found" });
+    }
+
+    // check if the transaction exist
     let transaction = sale?.transaction.id(transactionId);
     if (!transaction) {
       return NextResponse.json(
-        { message: "the sale or the transaction was not found" },
+        { message: "The transaction was not found" },
         { status: 404 },
       );
     }
@@ -40,11 +75,14 @@ export const PUT = async (
     if (method) transaction.method = method;
     if (date) transaction.date = date;
 
+    // the client paid the total price
+    if (sale.paid === sale.totalPrice) {
+      sale.status = "Finished";
+    }
+
     await sale.save();
     return NextResponse.json({ message: "UPDATE transaction" });
   } catch (error) {
-    console.log(error);
-
     return NextResponse.json(
       { message: "Something went wrong" },
       { status: 500 },
@@ -58,11 +96,23 @@ export const DELETE = async (
 ) => {
   try {
     const { id: saleId, transactionId } = params;
-    await Sale.findByIdAndUpdate(saleId, {
-      $pull: {
-        transaction: { _id: transactionId },
-      },
-    });
+
+    // check if the sale exist
+    const sale = await Sale.findById(saleId);
+    if (!sale) {
+      return NextResponse.json({ message: "Sale not found" });
+    }
+
+    // check if the transaction exist
+    let transaction = sale?.transaction.id(transactionId);
+    if (!transaction) {
+      return NextResponse.json(
+        { message: "The transaction was not found" },
+        { status: 404 },
+      );
+    }
+    sale.transaction.pull(transactionId)
+    await sale.save()
     return NextResponse.json({ message: "Transaction was deleted" });
   } catch (error) {
     return NextResponse.json(
