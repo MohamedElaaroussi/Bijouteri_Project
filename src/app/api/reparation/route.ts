@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Repair } from "../../../../models/Repair";
+import { Reparation } from "../../../../models/Reparation";
 import { getPaginatedResult } from "@/utils/util";
-import { getToken } from 'next-auth/jwt'
+import { getToken } from "next-auth/jwt";
 import { connectToDatabase } from "../../../../db/connection";
 
 connectToDatabase()
-
-// get All repair
+// get All Reparation
 export const GET = async (req: NextRequest, res: NextResponse) => {
     // getting the page number and limit from the url
     const url = new URL(req.url);
@@ -15,44 +14,30 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     const limit = Number(searchParams.get("limit")) || 10;
 
     try {
-        const totalRepairs = await Repair.estimatedDocumentCount()
-
+        const totalReparation = await Reparation.estimatedDocumentCount()
         // calling a method that return start index and end index, 
         // and results object that may contain next and previous page
-        const { startIndex, results } = getPaginatedResult(page, limit, totalRepairs)
+        const { startIndex, results } = getPaginatedResult(page, limit, totalReparation)
 
-        const repairs = await Repair.find().skip(startIndex).limit(limit)
-        results.total = totalRepairs;
+        const repairs = await Reparation.find().populate('repair', "username phone").skip(startIndex).limit(limit)
+        results.total = totalReparation;
         results.result = repairs;
         return NextResponse.json(results, { status: 200 })
     } catch (error) {
         return NextResponse.json({ message: "Something went wrong" }, { status: 500 })
-
     }
 }
 
-// post a repair
 export const POST = async (req: NextRequest, res: NextResponse) => {
 
     try {
         const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-        const repair = await req.json()
-        // check if email or phone exist already 
-        const phoneExistAlready = await Repair.findOne({ phone: repair?.phone })
-        const emailExistAlready = await Repair.findOne({ email: repair?.email })
-
-        if (phoneExistAlready) {
-            return NextResponse.json({ "message": "Phone already exist" }, { status: 400 })
-        }
-        if (emailExistAlready) {
-            return NextResponse.json({ "message": "email already exist" }, { status: 400 })
-        }
-
-        const createdRepair = new Repair(repair)
+        const reparation = await req.json()
+        const createdReparation = new Reparation(reparation)
         // @ts-ignore
-        createdRepair.createdBy = token.user._id;
-        await createdRepair.save()
-        return NextResponse.json({ "message": "Repair created successfully" }, { status: 201 })
+        createdReparation.createdBy = token.user._id;
+        await createdReparation.save()
+        return NextResponse.json({ "message": "Reparation created successfully" }, { status: 201 })
     } catch (error) {
         return NextResponse.json({ "message": "Something went wrong" }, { status: 500 })
     }

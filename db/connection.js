@@ -7,6 +7,7 @@ import { Article } from "../models/Article";
 import { Client } from "../models/Client";
 import { Sale } from "../models/Sale";
 import { Repair } from "../models/Repair";
+import { Reparation } from "../models/Reparation";
 
 export async function connectToDatabase() {
   if (mongoose.connection.readyState === 1) {
