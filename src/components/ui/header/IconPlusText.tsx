@@ -7,7 +7,7 @@ const DisplayDate = ({ text, icon }: { text: string, icon: string }) => {
 
 
     return (
-        <div className="hover:cursor-pointer flex items-center bg-white rounded-[60px] border-[1px] p-3 h-[3.6rem] mt-[6px]
+        <div className="hover:cursor-pointer flex items-center bg-white rounded-[60px] border-[1px] p-3 h-[3.2rem] mt-[9px]
          border-[var(--borderColor)] gap-2">
             {text === "Filter" ? (
                 <DisplayFilter text="Filter" icon="/path/to/icon.png" />            ) : (
