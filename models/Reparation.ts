@@ -12,7 +12,7 @@ const reparationSchema = new Schema({
     }],
     totalPrice: { type: Number, default: 0 },
     createdBy: { type: Schema.Types.ObjectId, ref: "User" }
-}, { toJSON: { virtuals: true } })
+}, { toJSON: { virtuals: true }, timestamps: true })
 
 type Reparation = InferSchemaType<typeof reparationSchema>;
 
