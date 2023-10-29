@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "../../../../../db/connection";
 import { Reparation } from "../../../../../models/Reparation";
 import { getPaginatedResult } from "@/utils/util";
+import { Types } from "mongoose";
 
 connectToDatabase();
 // filter repair with pagination
@@ -21,20 +22,20 @@ export const GET = async (req: NextRequest) => {
 
     try {
         // building the query
-        let query = Reparation.find();
+        let query = Reparation.find().populate({ path: "repair", select: "phone username", match: { phone: { $regex: ".*" + phone + ".*" } } });
 
         if (repair) {
             query.where("repair").equals(repair);
         }
 
         if (article) {
-            query.findOne({ "articles.article": article }).populate("")
-        }
-
-        if (phone) {
             query.where({
-                phone: { $regex: ".*" + phone + ".*" },
-            });
+                articles: {
+                    $elemMatch: {
+                        article
+                    }
+                }
+            })
         }
 
         if (date) {
@@ -54,8 +55,6 @@ export const GET = async (req: NextRequest) => {
         if (totalPrice) {
             query.where("totalPrice").equals(totalPrice);
         }
-
-        console.log(query);
 
         // see how many reparation
         let totalReparation = await Reparation.countDocuments(query);

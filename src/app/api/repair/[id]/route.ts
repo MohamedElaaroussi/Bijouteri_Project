@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from "next/server"
 import { Repair } from "../../../../../models/Repair";
+import { Reparation } from "../../../../../models/Reparation";
+import { getPaginatedResult } from "@/utils/util";
+import { connectToDatabase } from "../../../../../db/connection";
 
+
+connectToDatabase()
 // find a repair by id
 export const GET = async (req: NextRequest, { params }: { params: { id: string } }) => {
+
+    const url = new URL(req.url);
+    const searchParams = new URLSearchParams(url.search);
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || 10;
 
     try {
         const repairId = params.id;
@@ -11,8 +21,32 @@ export const GET = async (req: NextRequest, { params }: { params: { id: string }
         if (!repair) {
             return NextResponse.json({ message: "Repair not found" }, { status: 404 });
         }
-        return NextResponse.json(repair, { status: 200 });
+        // count reparation made by a repair
+        const repairReparationCount = await Reparation.find({ "repair": repairId }).populate("articles")
+        const { startIndex, results } = getPaginatedResult(page, limit, repairReparationCount.length)
+        let totalPayment = 0;
+        let totalPaid = 0;
+        let repairReparation;
+        if (repairReparationCount.length > 0) {
+            repairReparation = await Reparation.find({ "repair": repairId }).populate("articles").skip(startIndex).limit(limit)
+
+            // calculate the total payment that client made
+            totalPayment = repairReparationCount?.reduce((total, item) => {
+                return total + item.totalPrice
+            }, 0);
+
+            // calculate the total amount that the client paid
+            totalPaid = repairReparationCount?.reduce((total, item) => {
+                return total + item.paid
+            }, 0);
+        }
+        const nonPaid = (totalPayment - totalPaid);
+        results.result = repairReparation ?? []
+        results.total = repairReparationCount.length
+        return NextResponse.json({ repair, ...results, totalPayment, nonPaid }, { status: 200 });
     } catch (error) {
+        console.log(error);
+
         return NextResponse.json({ message: "Something went wrong" }, { status: 500 })
     }
 }

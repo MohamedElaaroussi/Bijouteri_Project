@@ -1,5 +1,5 @@
 import { InferSchemaType, Schema, model, models } from "mongoose";
-
+import { transactionSchema } from "./Sale";
 
 const reparationSchema = new Schema({
     status: { type: String, enum: ["Pending", "Finished"], default: "Pending" },
@@ -11,8 +11,9 @@ const reparationSchema = new Schema({
         repairPrice: { type: Number, min: 1, required: true },
     }],
     totalPrice: { type: Number, default: 0 },
+    transaction: [{ type: transactionSchema }],
     createdBy: { type: Schema.Types.ObjectId, ref: "User" }
-}, { toJSON: { virtuals: true }, timestamps: true })
+}, { toJSON: { virtuals: true }, timestamps: true, toObject: { virtuals: true } })
 
 type Reparation = InferSchemaType<typeof reparationSchema>;
 
@@ -23,6 +24,13 @@ reparationSchema.pre('save', async function () {
         }, 0);
         this.totalPrice = totalPrice;
     }
+})
+
+reparationSchema.virtual('paid',).get(function (this: any) {
+
+    return this.transaction.reduce((total: number, item: any) => {
+        return total + item.total;
+    }, 0);
 })
 
 export const Reparation =

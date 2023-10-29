@@ -30,7 +30,7 @@ export interface SaleModel extends Document {
     category: mongoose.Types.ObjectId | UserModel;
 }
 
-const transactionSchema = new Schema<Transaction>({
+export const transactionSchema = new Schema<Transaction>({
     method: { type: String },
     total: { type: Number, min: 0 },
     date: { type: Date, default: Date.now },
