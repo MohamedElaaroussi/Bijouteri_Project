@@ -1,0 +1,16 @@
+{
+    "name": "string",
+    "img": "string",
+    "buyPrice": 100,
+    "sellPrice": 150,
+    "color": "string",
+    "weight": 10,
+    "nbrOfArticles": 10,
+    "category": "mongoose.Types.ObjectId | CategoryModel",
+    "supplier": "mongoose.Types.ObjectId | SupplierModel",
+    "createdBy": "mongoose.Types.ObjectId | UserModel",
+    "description": "string",
+    "typeArticle": "string",
+    "barCode": "string",
+    "idBase": "string"
+  }
