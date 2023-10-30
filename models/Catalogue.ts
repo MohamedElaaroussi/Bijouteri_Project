@@ -1,7 +1,7 @@
 import { InferSchemaType, Schema, models, model } from "mongoose";
 
 const catalogueSchema = new Schema({
-    catalogue: { type: String, required: true },
+    catalogue: { type: String, required: true, unique: true, lowercase: true, },
     img: { type: String },
     description: { type: String }
 }, { timestamps: true });
