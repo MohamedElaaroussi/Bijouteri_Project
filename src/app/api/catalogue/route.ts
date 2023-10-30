@@ -34,18 +34,18 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     try {
         const { catalogue, description, img } = await req.json();
         if (!catalogue) return NextResponse.json(
-            { error: "Catalogue name is required" },
+            { error: "Catalog name is required" },
             { status: 400 },
         );
         const catalogueAlreadyExist = await Catalogue.findOne({ catalogue });
         if (catalogueAlreadyExist) return NextResponse.json(
-            { error: "Catalogue AlreadyExist" },
+            { error: "Catalog AlreadyExist" },
             { status: 400 },
         );
         const createCatalogue = new Catalogue({ catalogue, description, img })
         await createCatalogue.save()
         return NextResponse.json(
-            { error: "Catalogue was created successfully" },
+            { error: "Catalog was created successfully" },
             { status: 201 },
         );
     } catch (error) {
