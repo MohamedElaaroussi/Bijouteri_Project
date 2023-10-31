@@ -28,7 +28,7 @@ const Client = [
 export const Fournisseur_Info = () => {
     return (
         <div>
-            <div className="mt-6 overflow-hidden">
+            <div className="mt-[1.6rem] overflow-hidden">
                 <Table
                     aria-label="Example static collection table"
                     style={{
