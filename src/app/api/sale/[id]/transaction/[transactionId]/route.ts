@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Sale } from "../../../../../../../models/Sale";
 import { connectToDatabase } from "../../../../../../../db/connection";
+import { Bill } from "../../../../../../../models/Bill";
 
 connectToDatabase();
 
@@ -47,7 +48,7 @@ export const PUT = async (
     if (!sale) {
       return NextResponse.json({ message: "Sale not found" });
     }
-
+    const bill = await Bill.findOne({ sale: saleId })
     // check if the transaction exist
     let transaction = sale?.transaction.id(transactionId);
     if (!transaction) {
@@ -57,7 +58,7 @@ export const PUT = async (
       );
     }
     // check if the payment not above the total price
-    const paidAmountNotAboveTotal = sale.paid + total <= sale.totalPrice;
+    const paidAmountNotAboveTotal = total <= sale.totalPrice;
     if (!paidAmountNotAboveTotal) {
       const noPaidAmount = sale.totalPrice - sale.paid;
       return NextResponse.json(
@@ -78,9 +79,16 @@ export const PUT = async (
     // the client paid the total price
     if (sale.paid === sale.totalPrice) {
       sale.status = "Finished";
+      bill.status = "Finished";
+    } else {
+      sale.status = "Pending";
+      bill.status = "Pending";
     }
 
-    await sale.save();
+    const updateSale = await sale.save()
+    bill.paid = updateSale.paid;
+    bill.total = updateSale.totalPrice;
+    await bill.save()
     return NextResponse.json({ message: "UPDATE transaction" });
   } catch (error) {
     return NextResponse.json(
@@ -102,6 +110,7 @@ export const DELETE = async (
     if (!sale) {
       return NextResponse.json({ message: "Sale not found" });
     }
+    const bill = await Bill.findOne({ sale: saleId })
 
     // check if the transaction exist
     let transaction = sale?.transaction.id(transactionId);
@@ -113,6 +122,18 @@ export const DELETE = async (
     }
     sale.transaction.pull(transactionId)
     await sale.save()
+    if (sale.paid === sale.totalPrice) {
+      sale.status = "Finished";
+      bill.status = "Finished";
+    } else {
+      sale.status = "Pending";
+      bill.status = "Pending";
+    }
+    const updateSale = await sale.save()
+
+    bill.paid = updateSale.paid;
+    bill.total = updateSale.totalPrice;
+    await bill.save()
     return NextResponse.json({ message: "Transaction was deleted" });
   } catch (error) {
     return NextResponse.json(

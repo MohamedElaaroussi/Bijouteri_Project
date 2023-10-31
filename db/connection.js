@@ -1,4 +1,13 @@
 import mongoose from "mongoose";
+import { Permission } from "../models/Permission";
+import { Role } from "../models/Role";
+import { User } from "../models/User";
+import { Supplier } from "../models/Supplier";
+import { Article } from "../models/Article";
+import { Client } from "../models/Client";
+import { Sale } from "../models/Sale";
+import { Catalogue } from "../models/Catalogue";
+import { Bill } from "../models/Catalogue";
 
 export async function connectToDatabase() {
   if (mongoose.connection.readyState === 1) {

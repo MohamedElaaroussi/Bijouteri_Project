@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { Sale } from "../../../../../../models/Sale"
 import { connectToDatabase } from "../../../../../../db/connection"
+import { Bill } from "../../../../../../models/Bill"
 
 
 connectToDatabase()
@@ -12,6 +13,7 @@ export const POST = async (req: NextRequest, { params }: { params: { id: string 
         //search for the sale
         const sale = await Sale.findById(idSale)
         if (!sale) return NextResponse.json({ "message": "Sale Not Found" }, { status: 404 })
+        const bill = await Bill.findOne({ sale: idSale })
 
         // check if the payment not above the total price
         const paidAmountNotAboveTotal = sale.paid + transaction.total <= sale.totalPrice;
@@ -24,8 +26,16 @@ export const POST = async (req: NextRequest, { params }: { params: { id: string 
         // the client paid the total price
         if (sale.paid === sale.totalPrice) {
             sale.status = "Finished";
+            bill.status = "Finished";
+        } else {
+            sale.status = "Pending";
+            bill.status = "Pending";
         }
-        await sale.save()
+
+        const updateSale = await sale.save()
+        bill.paid = updateSale.paid;
+        bill.total = updateSale.totalPrice;
+        await bill.save()
         return NextResponse.json({ "message": "Transaction added successfully" }, { status: 201 })
 
     } catch (error) {

@@ -14,7 +14,7 @@ export interface ClientModel extends Document {
   createdBy: mongoose.Types.ObjectId | UserModel;
 }
 
-const clientSchema = new Schema<ClientModel>({
+export const clientSchema = new Schema<ClientModel>({
   username: { type: String, required: true },
   email: {
     type: String,

@@ -38,7 +38,7 @@ export const transactionSchema = new Schema<Transaction>({
     note: { type: String },
 })
 
-const saleSchema = new Schema<SaleModel>({
+export const saleSchema = new Schema<SaleModel>({
     description: { type: String },
     items: [
         {
