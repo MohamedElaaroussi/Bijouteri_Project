@@ -2,6 +2,7 @@ import mongoose, { Document, Schema } from "mongoose";
 import { Article, ArticleModel } from "./Article";
 import { ClientModel } from "./Client";
 import { UserModel } from "./User";
+import { Catalogue } from "./Catalogue";
 
 interface Transaction {
     _id: mongoose.Types.ObjectId;
@@ -27,7 +28,7 @@ export interface SaleModel extends Document {
     transaction: Transaction[];
     client: mongoose.Types.ObjectId | ClientModel;
     createdBy: mongoose.Types.ObjectId | UserModel;
-    category: mongoose.Types.ObjectId | UserModel;
+    catalogue: mongoose.Types.ObjectId[] | Catalogue[];
 }
 
 export const transactionSchema = new Schema<Transaction>({
@@ -50,7 +51,7 @@ const saleSchema = new Schema<SaleModel>({
     date: { type: Date, default: Date.now },
     status: { type: String, enum: ["Pending", "Finished", "Cancel"], default: "Pending" },
     createdBy: { type: Schema.Types.ObjectId, ref: "User" },
-    category: { type: Schema.Types.ObjectId, ref: "Category" },
+    catalogue: [{ type: Schema.Types.ObjectId, ref: "Catalogue" }],
     totalPrice: { type: Number, default: 0 },
     totalWeight: { type: Number, default: 0 },
     transaction: [{ type: transactionSchema }]
