@@ -52,7 +52,8 @@ export const POST = async (req: NextRequest) => {
             await Catalogue.updateMany({ _id: { $in: articleToBeAdded.catalogue } }, { $inc: { nbrOfArticles: 1 } })
         }
         const article = new Article(articleToBeAdded)
-        article.save()
+        console.log(articleToBeAdded);
+        await article.save()
         return NextResponse.json({ "message": "Article created successfully" }, { status: 201 })
     } catch (error) {
         return NextResponse.json({ "message": "Something went wrong" }, { status: 500 })
