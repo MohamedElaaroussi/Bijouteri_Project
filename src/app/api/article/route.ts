@@ -4,6 +4,7 @@ import { getPaginatedResult } from "@/utils/util";
 import { getServerSession } from "next-auth";
 import { OPTIONS } from "../auth/[...nextauth]/route";
 import { connectToDatabase } from "../../../../db/connection";
+import { Catalogue } from "../../../../models/Catalogue";
 
 
 connectToDatabase()
@@ -47,6 +48,9 @@ export const POST = async (req: NextRequest) => {
 
     try {
         const articleToBeAdded = await req.json()
+        if (articleToBeAdded.catalogue.length) {
+            await Catalogue.updateMany({ _id: { $in: articleToBeAdded.catalogue } }, { $inc: { nbrOfArticles: 1 } })
+        }
         const article = new Article(articleToBeAdded)
         article.save()
         return NextResponse.json({ "message": "Article created successfully" }, { status: 201 })

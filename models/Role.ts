@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { Permission, PermissionModel } from "./Permission";
+import { PermissionModel } from "./Permission";
 
 export interface RoleModel extends Document {
   name: string;

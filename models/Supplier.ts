@@ -1,7 +1,6 @@
 import validator from "validator"
 import mongoose, { Document, Schema } from "mongoose";
 import { UserModel } from "./User";
-import { ArticleModel } from "./Article";
 
 
 export interface SupplierModel extends Document {
@@ -12,7 +11,7 @@ export interface SupplierModel extends Document {
   status: string;
   total: number;
   createdBy: mongoose.Types.ObjectId | UserModel;
-  articles: mongoose.Types.ObjectId[] | ArticleModel[];
+  // articles: mongoose.Types.ObjectId[] | ArticleModel[];
 }
 
 const supplierSchema = new Schema<SupplierModel>({
@@ -32,7 +31,7 @@ const supplierSchema = new Schema<SupplierModel>({
   status: { type: String },
   total: { type: Number, default: 0 },
   createdBy: { type: Schema.Types.ObjectId, ref: "User" },
-  articles: [{ type: Schema.Types.ObjectId, ref: "Article" }]
+  // articles: [{ type: Schema.Types.ObjectId, ref: "Article" }]
 }, { timestamps: true });
 
 export const Supplier =
