@@ -13,10 +13,10 @@ const Sectipon_Conpt = () => {
 
     return (
         <div className="flex justify-between items-center pt-[1rem] pl-[-3px] pr-[-8rem]">
-            <div className="flex-[2] pl-[13px]">
+            <div className="flex-[2] ">
                 <InputHeader placeholder="Rechercher un catalogue"></InputHeader>
             </div>
-            <div className="flex gap-2 pr-[6px]" >
+            <div className="flex gap-2 pr-[6px] " >
                 <DropDown>
                     <ExportBtn label="Export" />
                 </DropDown>

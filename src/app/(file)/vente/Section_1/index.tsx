@@ -1,10 +1,10 @@
 import React from 'react'
-import Section1 from '../../utilisateur/USerComponent/section1/Section1'
+import Section1_vente from '@/components/Vente/Section1_Vente/Section1_vente'
 
 const Section_1 = () => {
     return (
         <div>
-            <Section1/>
+            <Section1_vente/>
         </div>
     )
 }

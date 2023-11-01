@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 const Home = () => {
   const path = usePathname().slice(1);
   return (
-    <div>
+    <div className="flex flex-col h-[100vh]">
       <Header path={path} />
       <Section1 />
       <User_Info />

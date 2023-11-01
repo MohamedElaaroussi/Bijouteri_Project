@@ -25,7 +25,7 @@ const Info_Répa = () => {
     ]
     return (
         <div>
-            <div className="mt-6 overflow-hidden">
+            <div className="mt-[1.6rem] overflow-hidden">
                 <Table
                     aria-label="Example static collection table"
                     style={{
@@ -71,7 +71,7 @@ const Info_Répa = () => {
                     <TableBody>
                         {Reparateur.slice(0,8).map((item, ) => {
                             return (
-                                <TableRow key={item.id}>
+                                <TableRow key={item.id} className='border-b-1 pt-10'>
                                     <TableCell>
                                         <div
                                             className={`ml-4 h-3 w-3 rounded-full`}

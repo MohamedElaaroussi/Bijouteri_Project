@@ -46,7 +46,7 @@ const Articles_Info = () => {
   } else {
     return (
       <div>
-        <div className="mt-6 overflow-hidden">
+        <div className="mt-[1.6rem] overflow-hidden">
           <Table
             aria-label="Example static collection table"
             style={{ height: "auto", minWidth: "100%" }}
@@ -89,6 +89,49 @@ const Articles_Info = () => {
                         // src={item.img}
                         src={"/article.png"}
                       />
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    <Link href={`/article/${item._id}`}>
+                      <div className="font-inter text-center text-sm">
+                        {" "}
+                        {item?.name}
+                      </div>
+                      <div className="text-center text-xs text-blue-300">
+                        Code Barre :
+                        <span className="font-inter text-15 font-normal text-[#D9A528] ">
+                          {item.barCode}
+                        </span>
+                      </div>
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    <Link href={`/article/${item._id}`}>
+                      <div
+                        className={`h-4 w-6 rounded-full bg-[${item.color}]`}
+                      ></div>
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    <Link href={`/article/${item._id}`}>
+                      <div className="font-inter text-14 text-var(--TEXT, #787878) text-center font-normal">
+                        {item?.typeArticle}
+                      </div>
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    <Link href={`/article/${item._id}`}>
+                      <div className="text-center">{item?.weight} g</div>
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    <Link href={`/article/${item._id}`}>
+                      <div className="text-center">{item?.sellPrice} Dhs</div>
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    <Link href={`/article/${item.id}`}>
+                      <div className="text-center">{item?.buyPrice} Dhs</div>
                     </Link>
                   </TableCell>
                   <TableCell>
