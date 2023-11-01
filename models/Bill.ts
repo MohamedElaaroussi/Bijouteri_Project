@@ -23,7 +23,6 @@ export type Bill = InferSchemaType<typeof billSchema>;
 billSchema.pre('save', function (next) {
     // Only increment when the document is new
     if (this.isNew) {
-        console.log(this);
         Bill.count().then((res) => {
             this._id = ++res; // Increment count
             next()
