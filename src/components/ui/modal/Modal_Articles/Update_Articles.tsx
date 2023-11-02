@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 
-const Update_User = () => {
+const Update_Articles = () => {
     return (
         <div className='mt-[10px]'>
             < Image
@@ -14,4 +14,4 @@ const Update_User = () => {
     )
 }
 
-export default Update_User
+export default Update_Articles

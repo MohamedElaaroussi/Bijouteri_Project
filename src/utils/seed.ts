@@ -6,9 +6,9 @@ export const menus = [
   { name: "Clients", path: "client" },
   { name: "Fournisseurs", path: "fournisseur" },
   { name: "Réparations", path: "reparation" },
-  { name: "Ensembles", path: "ensemble" },
-  { name: "Catalogues d'ensemble", path: "catalogue-ensemble" },
-  { name: "Gestion de stock", path: "gestion-stock" },
+  // { name: "Ensembles", path: "ensemble" },
+  // { name: "Catalogues d'ensemble", path: "catalogue-ensemble" },
+  // { name: "Gestion de stock", path: "gestion-stock" },
   { name: "Comptabilité", path: "comptabilite" },
   { name: "Utilisateurs", path: "utilisateur" },
 ];

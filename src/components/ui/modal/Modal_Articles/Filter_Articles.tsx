@@ -133,7 +133,7 @@ const Filter_Articles = ({ text, icon }: { text: string; icon: string }) => {
                                         id="first_name"
                                         className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg 
                                         focus:ring-blue-500 focus:border-blue-500 block w-[9rem] p-2.5"
-                                        placeholder="Poids (g)"
+                                        placeholder="Coût"
                                         required
                                     />
                                 </div>

@@ -5,7 +5,7 @@ import Section1_Articles from '@/components/articles/Section1_Articles/Section1_
 
 const Articles_Section = () => {
     return (
-        <div>
+        <div >
             <Section1_Articles/>
         </div>
     )

@@ -62,7 +62,7 @@ const SideBar = () => {
           })}
         </div>
         <div className="">
-          <div className="">
+          <div className=" fixed fixed bottom-2 left-6">
             <button onClick={handleLogout} className="flex gap-3 items-center  ">
               <MenuIcons  name="Deconnexion"/> 
               <span className="text-[#787878]">Deconnexion</span>
