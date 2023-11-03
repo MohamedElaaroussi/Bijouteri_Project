@@ -6,12 +6,14 @@ import Articles_Section from './Section_1/Articles_Section'
 import { usePathname } from 'next/navigation'
 
 const Page = () => {
-    const path=usePathname().slice(1)
+    const path = usePathname().slice(1)
     return (
         <div>
-            <Header path={path}/>
-            <Articles_Section/>
-            <Articles_Info/>
+            
+                <Header path={path} />
+                <Articles_Section />
+            
+            <Articles_Info />
         </div>
     )
 }

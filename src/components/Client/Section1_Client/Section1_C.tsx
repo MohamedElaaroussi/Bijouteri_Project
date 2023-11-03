@@ -6,9 +6,9 @@ import GoldBtn from "@/components/ui/button/GoldBtn";
 import DisplayDate from "@/components/ui/header/IconPlusText";
 import DropDown from "@/components/ui/DropDown";
 
-import Filter_Fournisseur from "@/components/ui/modal/Filter_Fournisseur";
+import Filter_Client from "@/components/ui/modal/Filter_Client";
 
-const Section1 = () => {
+const Section1_C = () => {
     const [openModal, setOpenModal] = useState(false)
 
     return (
@@ -23,10 +23,10 @@ const Section1 = () => {
 
                 <GoldBtn label="Ajouter un catalogue" setOpenModal={setOpenModal} />
                 <DisplayDate icon="/date.svg" text="Jan 6, 2023 - Jan 22, 2023"></DisplayDate>
-                <Filter_Fournisseur icon="/Filter_H.svg" text="Filter"></Filter_Fournisseur>
+                <Filter_Client icon="/Filter_H.svg" text="Filter"></Filter_Client>
             </div>
         </div>
     );
 };
 
-export default Section1;
+export default Section1_C;

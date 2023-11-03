@@ -17,53 +17,32 @@ const CardItem = () => {
 
             </div>
 
-            <div className="flex flex-col gap-2 justify-between">
+            <div className="flex flex-col gap-2 ">
                 <div className="">
-                    <p className="text-[color:var(--textColor)] text-[12px] font-medium">
-                        Bague en argent 18 carats ...
+                    <p className="text-[color:var(--textColor)] text-[12px] font-medium overflow-hidden whitespace-nowrap max-w-[9rem]">
+                        Bague en argent 18 carats et autres détails de votre texte ici...{"..."}
                     </p>
-                    <p className="text-[color:var(--softTextColor)] text-[10px] mt-1">
-                        Code Bar:{" "}
+
+                    <p className="text-[color:var(--softTextColor)] text-[11px] mt-1 font-normal font-inter">
+                        Description:{" "}
                     </p>
-                    <p className="text-[12px] text-[color:var(--textColor)]">
-                        {"#5484168168"}
+                    <p className="text-[12px] text-[color:var(--textColor)] w-[11rem] h-[3.6rem] max-h-[3.6rem] overflow-hidden">
+                        Souvent, le bijoutier-joaillier a besoin d'un petit coup de main pour finaliser les ...
+                        
                     </p>
                 </div>
 
-                <div className="flex justify-between mt-1">
-                    <div>
-                        <p className="text-[color:var(--softTextColor)] text-[10px]">
-                            Type
-                        </p>
-                        <p className="text-[12px] text-[color:var(--textColor)] font-medium">
-                            {"Type"}
-                        </p>
-                    </div>
-                    <div>
-                        <p className="text-[color:var(--softTextColor)] text-[10px]">
-                            Poids
-                        </p>
-                        <p className="text-[12px] text-[color:var(--textColor)] font-medium">
-                            {"25 g"}
-                        </p>
-                    </div>
-                    <div>
-                        <p className="text-[color:var(--softTextColor)] text-[10px]">
-                            Color
-                        </p>
-                        <p className="bg-[color:#AB5884] text-[12px] h-[15px] w-[25px] rounded-full mt-[2px]"></p>
-                    </div>
-                </div>
+
                 <div>
-                    <p className="text-[color:var(--softTextColor)] text-[10px]">Prix</p>
+                    <p className="text-[#C1C4C7] text-[10px]">Nombre d'articles</p>
                     <p className=" text-[12px] font-medium text-[color:var(--textColor)]">
-                        {"150 Dhs"}
+                        {"20"}
                     </p>
                 </div>
                 <div className="flex justify-end gap-2">
                     <Link href={"/catalogue/id"}>
                         <Image
-                            style={{paddingTop:"2px"}}
+                            style={{ paddingTop: "2px" }}
                             src={"/edit.svg"}
                             alt="edit icon"
                             width={15}

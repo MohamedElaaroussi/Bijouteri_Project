@@ -3,19 +3,19 @@ import Image from 'next/image';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, Input, Link } from "@nextui-org/react";
 import React, { useEffect, useState } from 'react'
 interface DeleteUserProps {
-    userId: string; // Vous pouvez ajuster le type en fonction de ce que renvoie votre API
-    onDelete: (userId: string) => void;
+    articleId: string; // Vous pouvez ajuster le type en fonction de ce que renvoie votre API
+    onDelete: (articleId: string) => void;
 }
 
-const Delete_user: React.FC<DeleteUserProps> = ({ userId, onDelete }) => {
+const Delete_Vente: React.FC<DeleteUserProps> = ({ articleId, onDelete }) => {
     const [isConfirmationOpen, setConfirmationOpen] = useState(false);
 
     // Start Api pour deleter les users
-    const handleDeleteUser = async (userId: string) => {
+    const handleDeleteUser = async (articleId: string) => {
         try {
-            await axios.delete(`http://localhost:3000/api/user/${userId}`);
+            await axios.delete(`http://localhost:3000/api/sale/${articleId}`);
             // Mettez à jour la liste des utilisateurs après la suppression
-            onDelete(userId);
+            onDelete(articleId);
             setConfirmationOpen(false);
         } catch (error) {
             console.error("Erreur lors de la suppression de l'utilisateur", error);
@@ -71,7 +71,7 @@ const Delete_user: React.FC<DeleteUserProps> = ({ userId, onDelete }) => {
                                             <>
                                                 <Button
                                                     onClick={() => {
-                                                        handleDeleteUser(userId);
+                                                        handleDeleteUser(articleId);
                                                         onClose();
                                                     }}
                                                     className="rounded-full bg-[#D9A528] w-[172px] h-[45px] text-[#FFF] font-somibold font-sans font-inter">
@@ -96,4 +96,4 @@ const Delete_user: React.FC<DeleteUserProps> = ({ userId, onDelete }) => {
     );
 }
 
-export default Delete_user
+export default Delete_Vente

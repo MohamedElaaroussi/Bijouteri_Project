@@ -8,7 +8,7 @@ import DisplayDate from "@/components/ui/header/IconPlusText";
 import DropDown from "@/components/ui/DropDown";
 import HeaderSection from "@/components/ui/header/HeaderSection";
 
-import Filter_Articles from "@/components/ui/modal/Filter_Articles";
+import Filter_Articles from "@/components/ui/modal/Modal_Articles/Filter_Articles";
 
 const Section1_Articles = () => {
     const [openModal, setOpenModal] = useState(false)

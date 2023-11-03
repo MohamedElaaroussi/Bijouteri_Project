@@ -24,34 +24,37 @@ export default function User_Info() {
 
 
   //  Start Api pour getter les users
-  const [users, setUser] = useState<any[]>([]); // Vous pouvez également utiliser une interface pour le typage
+  const [users, setUser] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setloading] = useState(true);
+
+  const fetchUser = async () => {
+    const URL = process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
+    try {
+      const response = await axios.get(`api/user?page=${currentPage}&limit=10`);
+      const userData = Array.isArray(response.data.result)
+        ? response.data.result
+        : [response.data.result];
+      setUser(userData);
+      setloading(false);
+      console.log("---------------");
+      console.log(userData);
+      console.log("---------------");
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données de l'utilisateur", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchUser = async () => {
-      const URL =
-        process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
-      try {
-        const response = await axios.get(
-          `api/user?page=${currentPage}&limit=10`,
-        );
-        const userData = Array.isArray(response.data.result)
-          ? response.data.result
-          : [response.data.result];
-        setUser(response.data.result);
-        console.log("---------------")
-        console.log(response.data.result);
-        console.log("---------------")
+    fetchUser(); // Charger les données initiales
 
-      } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des données de l'utilisateur",
-          error,
-        );
-      }
+    const intervalId = setInterval(fetchUser, 3000); // Actualiser toutes les 3 secondes
+
+    return () => {
+      clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté
     };
-
-    fetchUser();
   }, [currentPage]);
+  
   //  End Api pour getter les users
 
   const [page, setPage] = React.useState(1);
@@ -66,6 +69,9 @@ export default function User_Info() {
     return users.slice(start, end);
   }, [page, users]);
 
+  if (loading) {
+    return <h2>Loading...</h2>
+  }
   return (
     <div className="mb-[42vh] mt-7">
       <Table
@@ -107,24 +113,26 @@ export default function User_Info() {
               {(columnKey) => (
                 <TableCell>
                   {columnKey === "actions" ? (
-                    <div className="flex gap-4">
-                      <Update_User />
-                      <Delete_user userId={item._id} />
+                    <div className="flex  justify-end  gap-4">
+                      <Update_User  />
+                      <Delete_user 
+                      onDelete={()=>{ }}
+                      userId={item._id} />
                     </div>
-                  ): columnKey === "Nom" ? (item.username)
-                  : columnKey === "Téléphone" ? (item.phone)
-                  : columnKey === "Date_de_création" ? (format(new Date(item.createdAt), "yyyy-MM-dd"))
-                  : columnKey === "Role" ? (item.role.name)
-                   : columnKey === "Status" ?
-                    (<div
-                      className={`ml-4 h-3 w-3 rounded-full`}
-                      style={{ background: 'green' }}
-                    ></div>)
-                    : columnKey === "Nom" ? (
-                      item.name
-                    ) : (
-                      getKeyValue(item, columnKey)
-                    )}
+                  ) : columnKey === "Nom" ? (item.username)
+                    : columnKey === "Téléphone" ? (item.phone)
+                      : columnKey === "Date_de_création" ? (format(new Date(item.createdAt), "yyyy-MM-dd"))
+                        : columnKey === "Role" ? (item.role.name)
+                          : columnKey === "Status" ?
+                            (<div
+                              className={`ml-4 h-3 w-3 rounded-full`}
+                              style={{ background: 'green' }}
+                            ></div>)
+                            : columnKey === "Nom" ? (
+                              item.name
+                            ) : (
+                              getKeyValue(item, columnKey)
+                            )}
                 </TableCell>
               )}
             </TableRow>
