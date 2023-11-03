@@ -26,7 +26,7 @@ export default function RootLayout({
     status === "authenticated" && (
       <div className="flex">
         <SideBar />
-        <div className={`w-[calc(100%-250px)] bg-[color:#EDF0F8] p-8`}>
+        <div className={`h-max w-[calc(100%-250px)] bg-[color:#EDF0F8] p-8`}>
           {children}
         </div>
       </div>

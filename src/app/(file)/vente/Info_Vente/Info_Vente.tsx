@@ -206,12 +206,12 @@ function Info_Vente() {
                           </svg>
                         </span>
                         <div className="flex h-[80px] w-[5rem] flex-col justify-center">
-                          <Image
+                          <img
                             src={"/articles.svg"}
                             alt="Image"
                             className="relative relative top-[15px] h-[6rem] w-[4.5rem] rounded-[12px] pb-2"
                           />
-                          <Image
+                          <img
                             src={"/Code_Barre.svg"}
                             alt="Image"
                             className="absolute ml-2 mt-[16vh] "
