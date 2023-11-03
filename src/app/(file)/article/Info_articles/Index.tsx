@@ -22,29 +22,29 @@ function Articles_Info() {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setloading] = useState(true);
 
-  const fetchUser = async () => {
-    const URL = process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
-    try {
-      const response = await axios.get(
-        `api/article?page=${currentPage}&limit=10`,
-      );
-      const userData = Array.isArray(response.data.result)
-        ? response.data.result
-        : [response.data.result];
-      setArticles(userData);
-      setloading(false);
-      console.log("---------------");
-      console.log(userData);
-      console.log("---------------");
-    } catch (error) {
-      console.error(
-        "Erreur lors de la récupération des données de l'utilisateur",
-        error,
-      );
-    }
-  };
-
   useEffect(() => {
+    const fetchUser = async () => {
+      const URL =
+        process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
+      try {
+        const response = await axios.get(
+          `api/article?page=${currentPage}&limit=10`,
+        );
+        const userData = Array.isArray(response.data.result)
+          ? response.data.result
+          : [response.data.result];
+        setArticles(userData);
+        setloading(false);
+        console.log("---------------");
+        console.log(userData);
+        console.log("---------------");
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des données de l'utilisateur",
+          error,
+        );
+      }
+    };
     fetchUser(); // Charger les données initiales
 
     const intervalId = setInterval(fetchUser, 3000); // Actualiser toutes les 3 secondes
