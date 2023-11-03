@@ -3,6 +3,7 @@ import Image from "next/image";
 import { menus } from "@/utils/seed";
 import Link from "next/link";
 import { redirect, usePathname } from "next/navigation";
+import MenuIcons from "../Icons/MenuIcons";
 import { signOut } from "next-auth/react";
 
 const SideBar = () => {
@@ -38,21 +39,22 @@ const SideBar = () => {
             alt="Marina"></Image>
         </div>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-[1vh]">
           {menus.map(menu => {
             return (
               <Link href={`/${menu.path}`}
                 key={menu.name}
-                className={`flex gap-2 items-center py-2 pl-6 rounded-2xl hover:bg-[color:var(--goldColor)] hover:text-white ${menu.path == path ? activeMenuClass : "text-[var(--textColor)]"
+                className={`flex gap-2 items-center py-2 pl-6 rounded-2xl hover:text-[color:var(--goldColor)]  ${menu.path == path ? activeMenuClass : "text-[var(--textColor)]"
                   }`}>
-                <Image
+                {/* <Image
                   src={`/${menu.name}.svg`}
                   width={20}
                   height={20}
                   alt="dashboard"
-                  className={`${menu.path == path && activeIconClass}`}
-                />
-                <span className="text-sm font-medium">
+                  className={`${menu.path == path && activeIconClass} hover:stroke`}
+                /> */}
+                <MenuIcons name={menu.name} />
+                <span className={`text-sm font-medium hover:text-[color:var(--goldColor)] `}>
                   {menu.name}
                 </span>
               </Link>
@@ -60,9 +62,9 @@ const SideBar = () => {
           })}
         </div>
         <div className="">
-          <div className="">
+          <div className=" fixed fixed bottom-2 left-6">
             <button onClick={handleLogout} className="flex gap-3 items-center  ">
-              <Image src={"/Deconnexion.svg"} alt="Deconnexion" width={20} height={20}></Image> 
+              <MenuIcons  name="Deconnexion"/> 
               <span className="text-[#787878]">Deconnexion</span>
             </button>
           </div>

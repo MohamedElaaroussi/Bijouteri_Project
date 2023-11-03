@@ -164,7 +164,7 @@ const Info_Conpt = () => {
 
     return (
         <div >
-            <div className="overflow-hidden mt-6 ">
+            <div className="overflow-hidden  ">
                 <Table
                     aria-label="Example static collection table"
                     style={{

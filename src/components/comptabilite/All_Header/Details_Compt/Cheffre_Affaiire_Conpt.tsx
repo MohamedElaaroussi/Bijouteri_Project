@@ -3,7 +3,7 @@ import React from 'react'
 
 const Cheffre_Affaiire_Conpt = () => {
     return (
-        <div className='pl-3'>
+        <div className=''>
             <div className="flex gap-3 bg-[#fff] w-[17rem] mt-6 p-4  rounded-lg  shadow-lg">
                 <div className='relative'>
                     <Image src={"/CercleF.svg"} width={56} height={56} alt='Cercle' ></Image>

@@ -29,7 +29,7 @@ const DisplayFilter = ({ text, icon }: { text: string; icon: string }) => {
                     <Button
                         key={size}
                         onPress={() => handleOpen(size)}
-                        className="hover:cursor-pointer flex items-center bg-white rounded-[60px] h-[3rem] mt-[8px]
+                        className="hover:cursor-pointer flex items-center bg-white rounded-[60px] h-[45px] mt-[8px]
                          border-[1px] p-3 border-[var(--borderColor)] gap-2"
                     >
                         <div className="hover:cursor-pointer flex items-center bg-white

@@ -16,7 +16,7 @@ const Header = ({ path }: HeaderProps) => {
   const formattedPath = path.charAt(0).toUpperCase() + path.slice(1);
 
   return (
-    <span className="mb-[-45px] pl-[40px] flex flex-[3] justify-between px-[130px] ">
+    <div className="mb-[-40px] pl-[40px] flex flex-[3] justify-between px-[130px]  ">
       <div className="pl-4">
         <span>
           <h1
@@ -53,7 +53,7 @@ const Header = ({ path }: HeaderProps) => {
 
           <span className="ml-6 mr-[-140px] flex">
             <div>
-              <h4 className="pt-2">Hi Andrei,</h4>
+              <h4 className="pt-2 font-bold	text-[14px] font-dmsans">Hi Andrei,</h4>
             </div>
 
             <div className="ml-2 flex h-8 w-8 justify-center rounded-full bg-[white] pt-1 ">
@@ -84,7 +84,7 @@ const Header = ({ path }: HeaderProps) => {
           </span>
         </div>
       </div>
-    </span>
+    </div>
   );
 };
 

@@ -8,19 +8,21 @@ import Sectipon_Conpt from '@/components/comptabilite/All_Header/Section1_conp/S
 import Info_Conpt from '@/components/comptabilite/Info_Conpt/Info_Conpt'
 
 const Page = () => {
-    const Path=usePathname().slice(1)
+    const Path = usePathname().slice(1)
     return (
         <div>
-            <Header path={Path}/>
-            <div className='flex justify-between pt-10'>
-                <Cheffre_Affaiire_Conpt/>
-                <Nom_Payer_Conpt/>                
+            <Header path={Path} />
+            <div className='flex justify-between pt-8'>
+                <Cheffre_Affaiire_Conpt />
+                <span className='pt-2'>
+                    <Nom_Payer_Conpt />
+                </span>
             </div>
-            <div>
-            <Sectipon_Conpt />
+            <div className='pt-1'>
+                <Sectipon_Conpt />
             </div>
-            <div>
-                <Info_Conpt/>
+            <div className='mt-[1.6rem]'>
+                <Info_Conpt />
             </div>
         </div>
     )
