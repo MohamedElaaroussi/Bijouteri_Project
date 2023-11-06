@@ -27,14 +27,14 @@ const CardItem = () => {
                         Description:{" "}
                     </p>
                     <p className="text-[12px] text-[color:var(--textColor)] w-[11rem] h-[3.6rem] max-h-[3.6rem] overflow-hidden">
-                        Souvent, le bijoutier-joaillier a besoin d'un petit coup de main pour finaliser les ...
+                        Souvent, le bijoutier-joaillier a besoin d{''}un petit coup de main pour finaliser les ...
                         
                     </p>
                 </div>
 
 
                 <div>
-                    <p className="text-[#C1C4C7] text-[10px]">Nombre d'articles</p>
+                    <p className="text-[#C1C4C7] text-[10px]">Nombre d{" "}articles</p>
                     <p className=" text-[12px] font-medium text-[color:var(--textColor)]">
                         {"20"}
                     </p>

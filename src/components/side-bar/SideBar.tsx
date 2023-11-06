@@ -31,7 +31,7 @@ const SideBar = () => {
   return (
     <div className="bg-[color:white] text-black w-[250px] h-max sidebar">
       <div className="px-3 py-5 flex flex-col gap-10">
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center mr-8">
           <Image
             src={"/logo.svg"}
             width={150}

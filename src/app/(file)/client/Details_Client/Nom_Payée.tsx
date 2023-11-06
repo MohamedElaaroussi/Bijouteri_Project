@@ -2,9 +2,13 @@
 import Image from 'next/image'
 import React from 'react'
 
-const Nom_Payée = () => {
+interface NomPayéeProps {
+    data: object; // Remplacez YourDataType par le type de données attendu
+  }
+  
+  const Nom_Payée: React.FC<NomPayéeProps> = ({ data }) => {
     return (
-        <div className="flex  bg-[red] w-[17rem]  mt-6 p-4  rounded-lg  shadow-lg">
+        <div className="flex  bg-gradient-to-br from-red-600 to-pink-500 w-[17rem]  mt-6 p-4  rounded-lg  shadow-lg">
             <div>
                 <div className="w-auto h-[22px] text-[12px] ">
                     <h4 className='text-[#E9EDF7]'>Non Payée </h4>

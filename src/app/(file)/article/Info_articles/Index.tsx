@@ -6,6 +6,7 @@ import Link from "next/link";
 import Delete_Articles from "@/components/ui/modal/Modal_Articles/Delete_Articles";
 import Update_Articles from "@/components/ui/modal/Modal_Articles/Update_Articles";
 import { Spinner } from "@nextui-org/react";
+import Image from "next/image";
 
 
 function Articles_Info() {
@@ -34,13 +35,13 @@ function Articles_Info() {
 
   useEffect(() => {
     fetchUser(); // Charger les données initiales
-
+  
     const intervalId = setInterval(fetchUser, 3000); // Actualiser toutes les 3 secondes
-
+  
     return () => {
       clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté
     };
-  }, [currentPage]);
+  }, [currentPage, fetchUser]);
 
   //  End Api pour getter les Article
 
@@ -145,10 +146,10 @@ function Articles_Info() {
                               : columnKey === "Prix" ? (<div className="text-center">{item.buyPrice}</div>)
                                 : columnKey === "Image" ? (
                                   <div className="flex justify-center h-[80px]">
-                                    <img src={"/article.png"} alt="Image"
+                                    <Image src={"/article.png"} alt="Image"
                                       className="relative rounded-[12px]"
                                       width={80} height={90} />
-                                    <img src={"/Code_Barre.svg"} alt="Image"
+                                    <Image src={"/Code_Barre.svg"} alt="Image"
                                       className="absolute mt-[9.5vh]"
                                       width={60} height={40} />
                                   </div>

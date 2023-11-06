@@ -2,10 +2,17 @@
 import Image from 'next/image'
 import React from 'react'
 
-const Info_Client = () => {
+interface InfoClientProps {
+    Name: string; // Remplacez YourDataType par le type de données attendu
+    tele : number,
+  }
+
+
+  const Info_Client: React.FC<InfoClientProps> = ({ Name ,tele}) => {
+   
     return (
 
-        <div className=" mt-4   pt-14">
+        <div className=" mt-4 pt-14">
             {/* Card start */}
 
             <div className="mx-auto h-[210px] ml-[5px] mr-[&.rem] pr-8 rounded-lg bg-white  shadow-lg">
@@ -17,17 +24,16 @@ const Info_Client = () => {
                 <div className='flex-row items-center '>
                     <div className="ml-[6rem] h-20  w-20 pt-[1rem] overflow-hidden rounded-full bg-[#F4F7FE]">
                         <span className="pt-4 pl-4 text-[30px] font-medium font-normal text-[#C1C4C7] ">
-                            {/* {user.username && user.username.charAt(0).toUpperCase() + user.username.slice(1, 2)} */}
-                            Mo
+                            {Name.substring(0, 2).toUpperCase()}
                         </span>
 
                     </div>
-                    <div className="pl-[32%] pt-4">
-                        <h3 className="mb-1  font-bold text-yellow-500">
-                            khalid ibn-walid
+                    <div className="pl-[36%] pt-4">
+                        <h3 className="mb-1  font-bold text-yellow-500 text-center pr-10">
+                            {Name}
                         </h3>
                         <div className="inline-flex items-center text-[#787878]">
-                            0664-848-484
+                            {tele}
                         </div>
                     </div>
                 </div>

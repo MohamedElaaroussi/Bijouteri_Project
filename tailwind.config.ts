@@ -24,6 +24,8 @@ module.exports = {
     extend: {
       fontFamily: {
         inter: ['Inter', 'sans'], // Ajoutez la police Inter à votre configuration
+        'dm-sans': ['DM Sans', 'sans'],
+        
       },
       colors: {
         border: "hsl(var(--border))",

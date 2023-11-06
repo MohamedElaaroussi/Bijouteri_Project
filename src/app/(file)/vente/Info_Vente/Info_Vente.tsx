@@ -11,6 +11,7 @@ import Image from "next/image";
 
 
 
+
 function Info_Vente() {
 
 
@@ -41,7 +42,8 @@ function Info_Vente() {
         return () => {
             clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté
         };
-    }, [currentPage]);
+    }, [currentPage, fetchUser]);
+
 
     //  End Api pour getter les Article
 
@@ -120,9 +122,9 @@ function Info_Vente() {
                 <TableBody items={items}>
 
                     {(item) => (
-                        <TableRow key={item._id} as={Link} href={`/utilisateur/${item._id}`}>
+                        <TableRow key={item._id} as={Link} href={`/vente/${item._id}`}>
                             {(columnKey) => (
-                                <TableCell className="w-[5rem] pb-4">
+                                <TableCell className="w-[5rem] pb-8">
                                     {
                                         columnKey === "action" ? (
                                             <div className="flex  justify-end  gap-4">
@@ -131,7 +133,7 @@ function Info_Vente() {
                                                     alt="Update Icon"
                                                     width={60}
                                                     height={50}
-                                                    className="bg-[red] w-20"
+                                                    className="bg-[white] w-30"
                                                 />
                                                 <Delete_Articles onDelete={() => { }} articleId={item._id} />
                                             </div>
@@ -163,10 +165,19 @@ function Info_Vente() {
                                                             </svg>
                                                         </span>
                                                         <div className="flex flex-col justify-center h-[80px] w-[5rem]">
-                                                            <img src={"/articles.svg"} alt="Image"
-                                                                className="relative rounded-[12px] relative top-[15px] w-[4.5rem] h-[6rem] pb-2" />
-                                                            <img src={"/Code_Barre.svg"} alt="Image"
-                                                                className="absolute mt-[16vh] ml-2 " />
+
+                                                            <Image
+                                                                src="/articles.svg"
+                                                                alt="Image"
+                                                                className="relative rounded-[12px] relative top-[15px] pb-2"
+                                                                width={180} height={240}
+                                                            />
+                                                            <div className="absolute rounded-full w-[30px] h-[18px] bg-[#D9A528] mb-[5rem] 
+                                                            ml-[1.5rem] "></div>
+                                                            <Image src={"/Code_Barre.svg"} alt="Image"
+                                                                className="absolute mt-[16vh] ml-2 "
+                                                                width={60} height={30}
+                                                            />
                                                         </div>
 
                                                         <span className='pt-14 ml-[1rem]'>
@@ -185,7 +196,7 @@ function Info_Vente() {
                                                         </span>
                                                     </div>
                                                 </div>
-                                            ) 
+                                            )
                                                 : columnKey === "Client" ? (
                                                     <div>
                                                         <div className='flex justify-center'>
