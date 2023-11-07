@@ -17,18 +17,21 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     const searchParams = new URLSearchParams(url.search);
     const page = Number(searchParams.get("page")) || 1;
     const limit = Number(searchParams.get("limit")) || 10;
-    const totalSales = await Sale.estimatedDocumentCount()
 
-    // calling a method that return start index and end index, 
-    // and results object that may contain next and previous page
-    const { startIndex, results } = getPaginatedResult(page, limit, totalSales)
 
     try {
+        const totalSales = await Sale.estimatedDocumentCount()
+
+        // calling a method that return start index and end index, 
+        // and results object that may contain next and previous page
+        const { startIndex, results } = getPaginatedResult(page, limit, totalSales)
         const sales = await Sale.find().skip(startIndex).limit(limit).populate({ path: "client", select: "username" }).populate({ path: "items.article", select: 'img weight' })
         results.total = totalSales;
         results.result = sales;
         return NextResponse.json(results, { status: 200 })
     } catch (error) {
+        console.log(error);
+
         return NextResponse.json({ message: "Something went wrong" }, { status: 500 })
     }
 };
@@ -52,7 +55,6 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
         return NextResponse.json({ "message": "Sale was created" }, { status: 201 })
 
     } catch (error) {
-        console.log(error);
         return NextResponse.json({ "message": "Something went wrong" }, { status: 500 })
     }
 };

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { menus } from "@/utils/seed";
 import Link from "next/link";
@@ -10,42 +10,63 @@ const SideBar = () => {
   const handleLogout = async () => {
     try {
       // fonction signOut pour déconnecter user .
-      await signOut(); 
-      redirect('/login')
+      await signOut();
+      redirect("/login");
       // Redirigez l'utilisateur vers la page de connexion ou la page d'accueil après la déconnexion.
     } catch (error) {
-      console.error('Erreur lors de la déconnexion :', error);
+      console.error("Erreur lors de la déconnexion :", error);
     }
   };
 
   // get the path name and remove the /
-  let path = usePathname()
-  path = path.slice(1)
+  let path = usePathname();
+  path = path.slice(1);
 
   // class to be applied on the active menu
+<<<<<<< HEAD
   const activeMenuClass = "bg-[color:var(--goldColor)] text-white "
+=======
+  const activeMenuClass = "bg-[color:var(--goldColor)] text-white";
+>>>>>>> dev-rguig
 
   // class that change svg icon color to white when the specific menu is active
-  const activeIconClass = "brightness-[10]"
+  const activeIconClass = "brightness-[10]";
 
   return (
+<<<<<<< HEAD
     <div className="bg-[color:white] text-black w-[250px] h-max sidebar">
       <div className="fixed px-3 py-5 flex flex-col gap-10">
         <div className="flex items-center justify-center mr-20">
+=======
+    <div className="sidebar w-[250px] bg-[color:white] text-black">
+      <div className="flex flex-col gap-10 px-3 py-5">
+        <div className="flex items-center justify-center">
+>>>>>>> dev-rguig
           <Image
             src={"/logo.svg"}
             width={150}
             height={150}
-            alt="Marina"></Image>
+            alt="Marina"
+          ></Image>
         </div>
 
         <div className="flex flex-col gap-[1vh]">
-          {menus.map(menu => {
+          {menus.map((menu) => {
             return (
-              <Link href={`/${menu.path}`}
+              <Link
+                href={`/${menu.path}`}
                 key={menu.name}
+<<<<<<< HEAD
                 className={`flex gap-2 items-center py-2 pl-6 rounded-2xl hover:text-[color:var(--goldColor)]  ${menu.path == path ? activeMenuClass : "text-[var(--textColor)]  "
                   }`}>
+=======
+                className={`flex items-center gap-2 rounded-2xl py-2 pl-6 hover:text-[color:var(--goldColor)]  ${
+                  menu.path == path
+                    ? activeMenuClass
+                    : "text-[var(--textColor)]"
+                }`}
+              >
+>>>>>>> dev-rguig
                 {/* <Image
                   src={`/${menu.name}.svg`} 
                   //@ts-ignore
@@ -55,9 +76,16 @@ const SideBar = () => {
                   alt="dashboard"
                   className={`${menu.path == path && activeIconClass} hover:stroke`}
                 /> */}
+<<<<<<< HEAD
                 <MenuIcons  
                 name={menu.name}  />
                 <span className={`text-sm font-medium hover:text-[color:var(--goldColor)] `}>
+=======
+                <MenuIcons name={menu.name} />
+                <span
+                  className={`text-sm font-medium hover:text-[color:var(--goldColor)] `}
+                >
+>>>>>>> dev-rguig
                   {menu.name}
                 </span>
               </Link>
@@ -65,9 +93,18 @@ const SideBar = () => {
           })}
         </div>
         <div className="">
+<<<<<<< HEAD
           <div className=" fixed  bottom-2 left-6">
             <button onClick={handleLogout} className="flex gap-3 items-center  ">
               <MenuIcons  name="Deconnexion"/> 
+=======
+          <div className="bottom-2 left-6">
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-3  "
+            >
+              <MenuIcons name="Deconnexion" />
+>>>>>>> dev-rguig
               <span className="text-[#787878]">Deconnexion</span>
             </button>
           </div>

@@ -2,8 +2,9 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server"
 import { OPTIONS } from "../../auth/[...nextauth]/route";
 import { Article } from "../../../../../models/Article";
+import { connectToDatabase } from "../../../../../db/connection";
 
-
+connectToDatabase()
 // get article by id
 export const GET = async (req: NextRequest, { params }: { params: { id: string } }
 ) => {
@@ -31,7 +32,13 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
     try {
         const articleId = params.id
         const updatedField = await req.json()
-        await Article.findByIdAndUpdate(articleId, updatedField, { runValidators: true })
+        const article = await Article.findByIdAndUpdate(articleId, updatedField, { runValidators: true })
+
+        if (!article) return NextResponse.json(
+            { message: "Article not found" },
+            { status: 200 },
+        );
+
         return NextResponse.json(
             { message: "Article was updated successfully" },
             { status: 200 },

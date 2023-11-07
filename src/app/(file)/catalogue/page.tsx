@@ -14,7 +14,10 @@ import HeaderSection from "@/components/ui/header/HeaderSection";
 import Pagination from "@/components/ui/pagination/Pagination";
 import { usePathname } from "next/navigation";
 import Filter_Articles from "@/components/ui/modal/Modal_Articles/Filter_Articles";
+<<<<<<< HEAD
 import Filter_Catalogue from "@/components/ui/modal/Modal_Catalogue/Filter_Catalogue";
+=======
+>>>>>>> dev-rguig
 
 const Catalogue: NextPage = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -39,7 +42,11 @@ const Catalogue: NextPage = () => {
             icon="/date.svg"
             text="Jan 6, 2023 - Jan 22, 2023"
           ></DisplayDate>
+<<<<<<< HEAD
           <Filter_Catalogue icon="/Filter_H.svg" text="Filter"></Filter_Catalogue>
+=======
+          <Filter_Articles icon="/Filter_H.svg" text="Filter"></Filter_Articles>
+>>>>>>> dev-rguig
         </div>
       </div>
       {/* catalogue card */}

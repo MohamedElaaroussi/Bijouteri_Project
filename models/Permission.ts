@@ -7,7 +7,6 @@ export interface PermissionModel extends Document {
 
 const PermissionSchema = new Schema<PermissionModel>({
     name: { type: String, required: true, unique: true },
-
 });
 
 export const Permission =

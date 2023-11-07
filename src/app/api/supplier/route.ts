@@ -27,10 +27,10 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
 
   // calling a method that return start index and end index, 
   // and results object that may contain next and previous page
-  const { startIndex, endIndex, results } = getPaginatedResult(page, limit, totalSuppliers)
+  const { startIndex, results } = getPaginatedResult(page, limit, totalSuppliers)
 
   try {
-    const suppliers = await Supplier.find().skip(startIndex).limit(limit).populate({ path: "createdBy", select: "username" }).populate("article").exec();
+    const suppliers = await Supplier.find().skip(startIndex).limit(limit).populate({ path: "createdBy", select: "username" })
     results.total = totalSuppliers;
     results.result = suppliers;
     return NextResponse.json(results, { status: 200 })

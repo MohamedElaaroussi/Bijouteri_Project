@@ -1,5 +1,14 @@
 import React from "react";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue } from "@nextui-org/react";
+import {
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+  Pagination,
+  getKeyValue,
+} from "@nextui-org/react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -8,14 +17,13 @@ import Update_Articles from "@/components/ui/modal/Modal_Articles/Update_Article
 import { Spinner } from "@nextui-org/react";
 import Image from "next/image";
 
-
 function Articles_Info() {
-
   //  Start Api pour getter les Article
   const [Article, setArticles] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setloading] = useState(true);
 
+<<<<<<< HEAD
 
 
   useEffect(() => {
@@ -23,6 +31,16 @@ function Articles_Info() {
       const URL = process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
       try {
         const response = await axios.get(`api/article?page=${currentPage}&limit=10`);
+=======
+  useEffect(() => {
+    const fetchUser = async () => {
+      const URL =
+        process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
+      try {
+        const response = await axios.get(
+          `api/article?page=${currentPage}&limit=10`,
+        );
+>>>>>>> dev-rguig
         const userData = Array.isArray(response.data.result)
           ? response.data.result
           : [response.data.result];
@@ -32,7 +50,14 @@ function Articles_Info() {
         console.log(userData);
         console.log("---------------");
       } catch (error) {
+<<<<<<< HEAD
         console.error("Erreur lors de la récupération des données de l'utilisateur", error);
+=======
+        console.error(
+          "Erreur lors de la récupération des données de l'utilisateur",
+          error,
+        );
+>>>>>>> dev-rguig
       }
     };
     fetchUser(); // Charger les données initiales
@@ -46,7 +71,10 @@ function Articles_Info() {
 
   //  End Api pour getter les Article
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev-rguig
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 4;
 
@@ -60,20 +88,26 @@ function Articles_Info() {
   }, [page, Article]);
 
   if (loading) {
+<<<<<<< HEAD
     return (
       <div className="text-center mt-[8rem]">
         <Spinner label="Chargement des articles" color="warning" />
       </div>
     )
+=======
+    return;
+    <div className="mt-[8rem] text-center">
+      <Spinner label="Chargement des articles" color="warning" />
+    </div>;
+>>>>>>> dev-rguig
   }
   return (
-
     <div className="mb-[42vh] mt-7">
       <Table
         aria-label="Example table with client side pagination"
         bottomContent={
           <div className="flex justify-between">
-            <div className="text-sm text-[var(--textColor)] w-[30vh]">
+            <div className="w-[30vh] text-sm text-[var(--textColor)]">
               Résultats: {page} - {rowsPerPage} sur {pages}
             </div>
             <div className="flex w-full justify-end">
@@ -119,7 +153,6 @@ function Articles_Info() {
         </TableHeader>
 
         <TableBody items={items}>
-
           {(item) => (
             <TableRow key={item._id} as={Link} href={`/article/${item._id}`}>
               {(columnKey) => (
@@ -127,19 +160,25 @@ function Articles_Info() {
                   {columnKey === "action" ? (
                     <div className="flex  justify-end  gap-4">
                       <Update_Articles />
-                      <Delete_Articles onDelete={() => { }} articleId={item._id} />
+                      <Delete_Articles
+                        onDelete={() => {}}
+                        articleId={item._id}
+                      />
                     </div>
-                  )
-                    : columnKey === "Nom" ? (
-                      <div className="flex flex-col w-[9rem] ">
-                        <div className="w-[13rem] h-[1.4rem] max-h-[1.4rem] overflow-hidden "
-                        >{item.description} </div>
-                        <div className="flex flex-row gap-2">
-                          <span className="text-[#96B0C4] text-[12px] font-somibold  "> Code bar :</span>
-                          <div className=" text-[#D9A528] textè-[15px] font-bold  ">
-                            {item.barCode}
-                          </div>
+                  ) : columnKey === "Nom" ? (
+                    <div className="flex w-[9rem] flex-col ">
+                      <div className="h-[1.4rem] max-h-[1.4rem] w-[13rem] overflow-hidden ">
+                        {item.description}{" "}
+                      </div>
+                      <div className="flex flex-row gap-2">
+                        <span className="font-somibold text-[12px] text-[#96B0C4]  ">
+                          {" "}
+                          Code bar :
+                        </span>
+                        <div className=" textè-[15px] font-bold text-[#D9A528]  ">
+                          {item.barCode}
                         </div>
+<<<<<<< HEAD
                       </div>)
                       : columnKey === "Couleur" ? (<div className={`ml-4 h-3 w-3 rounded-full`} style={{ background: item.color }}></div>)
                         : columnKey === "Type" ? (<div className="text-center">{item.typeArticle}</div>)
@@ -161,14 +200,52 @@ function Articles_Info() {
                                   ) : (
                                     getKeyValue(item, columnKey)
                                   )}
+=======
+                      </div>
+                    </div>
+                  ) : columnKey === "Couleur" ? (
+                    <div
+                      className={`ml-4 h-3 w-3 rounded-full`}
+                      style={{ background: item.color }}
+                    ></div>
+                  ) : columnKey === "Type" ? (
+                    <div className="text-center">{item.typeArticle}</div>
+                  ) : columnKey === "Poids" ? (
+                    <div className="text-center">{item.weight}</div>
+                  ) : columnKey === "Cout" ? (
+                    <div className="text-center">{item.sellPrice}</div>
+                  ) : columnKey === "Prix" ? (
+                    <div className="text-center">{item.buyPrice}</div>
+                  ) : columnKey === "Image" ? (
+                    <div className="flex h-[80px] justify-center">
+                      <img
+                        src={"/article.png"}
+                        alt="Image"
+                        className="relative rounded-[12px]"
+                        width={80}
+                        height={90}
+                      />
+                      <img
+                        src={"/Code_Barre.svg"}
+                        alt="Image"
+                        className="absolute mt-[9.5vh]"
+                        width={60}
+                        height={40}
+                      />
+                    </div>
+                  ) : columnKey === "Nom" ? (
+                    item.name
+                  ) : (
+                    getKeyValue(item, columnKey)
+                  )}
+>>>>>>> dev-rguig
                 </TableCell>
               )}
             </TableRow>
           )}
-
         </TableBody>
       </Table>
     </div>
   );
 }
-export default Articles_Info
+export default Articles_Info;

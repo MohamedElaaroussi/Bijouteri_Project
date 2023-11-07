@@ -2,6 +2,7 @@ import mongoose, { Document, Schema } from "mongoose";
 import { UserModel } from "./User";
 import { CategoryModel } from "./Category";
 import { SupplierModel } from "./Supplier";
+import { Catalogue } from "./Catalogue";
 
 export interface ArticleModel extends Document {
   name: string;
@@ -11,7 +12,7 @@ export interface ArticleModel extends Document {
   color: string;
   weight: number;
   nbrOfArticles: number;
-  category: mongoose.Types.ObjectId | CategoryModel;
+  catalogue: mongoose.Types.ObjectId[] | Catalogue[];
   supplier: mongoose.Types.ObjectId | SupplierModel;
   createdBy: mongoose.Types.ObjectId | UserModel;
   description: string;
@@ -29,7 +30,7 @@ const articleSchema = new Schema<ArticleModel>({
   color: { type: String },
   description: { type: String },
   nbrOfArticles: { type: Number, min: 0 },
-  category: { type: Schema.Types.ObjectId, ref: "Category" },
+  catalogue: [{ type: Schema.Types.ObjectId, ref: "Catalog" }],
   supplier: { type: Schema.Types.ObjectId, ref: "Supplier" },
   createdBy: { type: Schema.Types.ObjectId, ref: "User" },
   typeArticle: { type: String },
