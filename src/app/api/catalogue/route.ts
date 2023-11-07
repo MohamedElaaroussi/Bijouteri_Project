@@ -7,19 +7,21 @@ connectToDatabase()
 // get all catalog with pagination
 export const GET = async (req: NextRequest) => {
 
-    // getting the page number and limit from the url
-    const url = new URL(req.url);
-    const searchParams = new URLSearchParams(url.search);
-    const page = Number(searchParams.get("page")) || 1;
-    const limit = Number(searchParams.get("limit")) || 10;
-    const totalCatalog = await Catalogue.estimatedDocumentCount()
-
-    // calling a method that return start index and end index, 
-    // and results object that may contain next and previous page
-    const { startIndex, results } = getPaginatedResult(page, limit, totalCatalog)
-
     try {
-        const catalogue = await Catalogue.find().skip(startIndex).limit(limit)
+
+        // getting the page number and limit from the url
+        const url = new URL(req.url);
+        const searchParams = new URLSearchParams(url.search);
+        const search = searchParams.get("search");
+        const page = Number(searchParams.get("page")) || 1;
+        const limit = Number(searchParams.get("limit")) || 10;
+        const totalCatalog = await Catalogue.countDocuments({ $or: [{ 'catalogue': { $regex: ".*" + search + ".*", $options: 'i' } }, { 'description': { $regex: ".*" + search + ".*", $options: 'i' } }] })
+
+        // calling a method that return start index and end index, 
+        // and results object that may contain next and previous page
+        const { startIndex, results } = getPaginatedResult(page, limit, totalCatalog)
+        const catalogue = await Catalogue.find({ $or: [{ 'catalogue': { $regex: ".*" + search + ".*", $options: 'i' } }, { 'description': { $regex: ".*" + search + ".*", $options: 'i' } }] }).skip(startIndex).limit(limit)
+
         results.total = totalCatalog;
         results.result = catalogue;
         return NextResponse.json(results, { status: 200 })
