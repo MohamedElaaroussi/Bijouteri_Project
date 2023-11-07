@@ -1,7 +1,7 @@
 "use client"
 
 import DetailBio from '@/components/detail/DetailBio'
-import DetailCategories from '@/components/detail/DetailCategories'
+import NumberArticles from '@/components/detail/NumberArticles'
 import DetailImage from '@/components/detail/DetailImage'
 import DetailStatus from '@/components/detail/DetailStatus'
 import Select from 'react-select'
@@ -48,13 +48,14 @@ const DetailCatalogue = () => {
                 <div className='flex gap-10'>
                     <div className='flex-col flex gap-5'>
                         <DetailImage src="/article.png"></DetailImage>
+                        <NumberArticles></NumberArticles>
                         <DetailStatus></DetailStatus>
-                        <DetailCategories></DetailCategories>
+                        
                     </div>
                     <div className=''>
                         <div className='flex flex-col gap-5'>
                             <DetailBio register={register} />
-                            <div className='bg-white px-10 py-8 rounded-[20px] flex gap-5'>
+                            {/* <div className='bg-white px-10 py-8 rounded-[20px] flex gap-5'>
                                 <div className=''>
                                     <p className='text-sm text-[color:var(--labelText)]'>Code bar</p>
                                     <input type="text" placeholder='564635443' className='px-5 py-3 catalogue-input mb-2 placeholder:text-black' />
@@ -63,22 +64,8 @@ const DetailCatalogue = () => {
                                     <p className='text-sm text-[color:var(--labelText)]'>Cout</p>
                                     <input type="text" placeholder='150 DH' className='px-5 py-3 catalogue-input placeholder:text-black' />
                                 </div>
-                                <div className='w-[200px]'>
+                                <div className='w-[690px]'>
                                     <p className="text-sm text-[color:var(--labelText)]">{"Couleur d'or"}</p>
-                                    <div className="flex gap-1">
-                                        {colorArr.map((color) => {
-                                            return <div onClick={() => changeColorHandler(color)
-                                            } key={color} className={`${colorObject[color]} h-[20px] w-[35px] rounded-full mt-[2px] relative`}>
-                                                {color === selectedColor && <div className="bg-green-500 absolute -right-1 -top-1 rounded-full w-[11px] h-[11px] flex justify-center items-center">
-                                                    <Image
-                                                        src={"/checked.svg"}
-                                                        alt="check mark"
-                                                        width={8}
-                                                        height={4} />
-                                                </div>}
-                                            </div>
-                                        })}
-                                    </div>
                                     <div className='mt-8'>
                                         <p className="text-sm text-[color:var(--labelText)] mb-2">{"Type"}</p>
                                         <Controller
@@ -89,8 +76,8 @@ const DetailCatalogue = () => {
                                         />
                                     </div>
                                 </div>
+                            </div> */}
 
-                            </div>
                             <button className='self-end px-3 py-2 bg-[color:var(--goldColor)] rounded-3xl hover:cursor-pointer'>
                                 <p className='text-sm text-white'>Sauvegarder les modifications</p>
                             </button>

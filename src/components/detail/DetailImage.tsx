@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 const DetailImage = ({ src }: { src: string }) => {
     return (
-        <div className='bg-white py-5 px-7 rounded-[20px] flex flex-col items-center gap-2'>
+        <div className='bg-white py-5 px-7 rounded-[20px] flex flex-col items-center gap-2 w-[350px] h-[376px]'>
             <p className='text-sm text-[color:var(--labelText)] self-start'>Image</p>
             <div className='relative'>
                 <Image src={src} alt='' width={192} height={254}></Image>

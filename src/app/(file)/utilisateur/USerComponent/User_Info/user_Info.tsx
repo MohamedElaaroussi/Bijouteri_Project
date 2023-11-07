@@ -51,9 +51,9 @@ export default function User_Info() {
     const intervalId = setInterval(fetchUser, 3000); // Actualiser toutes les 3 secondes
 
     return () => {
-      clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté
+        clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté
     };
-  }, [currentPage]);
+}, [fetchUser, currentPage]);
   
   //  End Api pour getter les users
 
@@ -86,7 +86,7 @@ export default function User_Info() {
                 isCompact
                 showControls
                 showShadow
-                color="secondary"
+                color="warning"
                 page={page}
                 total={pages}
                 onChange={(page) => setPage(page)}

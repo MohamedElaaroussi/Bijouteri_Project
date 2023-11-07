@@ -23,15 +23,15 @@ const SideBar = () => {
   path = path.slice(1)
 
   // class to be applied on the active menu
-  const activeMenuClass = "bg-[color:var(--goldColor)] text-white"
+  const activeMenuClass = "bg-[color:var(--goldColor)] text-white "
 
   // class that change svg icon color to white when the specific menu is active
   const activeIconClass = "brightness-[10]"
 
   return (
     <div className="bg-[color:white] text-black w-[250px] h-max sidebar">
-      <div className="px-3 py-5 flex flex-col gap-10">
-        <div className="flex items-center justify-center mr-8">
+      <div className="fixed px-3 py-5 flex flex-col gap-10">
+        <div className="flex items-center justify-center mr-20">
           <Image
             src={"/logo.svg"}
             width={150}
@@ -44,16 +44,19 @@ const SideBar = () => {
             return (
               <Link href={`/${menu.path}`}
                 key={menu.name}
-                className={`flex gap-2 items-center py-2 pl-6 rounded-2xl hover:text-[color:var(--goldColor)]  ${menu.path == path ? activeMenuClass : "text-[var(--textColor)]"
+                className={`flex gap-2 items-center py-2 pl-6 rounded-2xl hover:text-[color:var(--goldColor)]  ${menu.path == path ? activeMenuClass : "text-[var(--textColor)]  "
                   }`}>
                 {/* <Image
-                  src={`/${menu.name}.svg`}
+                  src={`/${menu.name}.svg`} 
+                  //@ts-ignore
+                  clasName='hover:text-[color:var(--goldColor)] '
                   width={20}
                   height={20}
                   alt="dashboard"
                   className={`${menu.path == path && activeIconClass} hover:stroke`}
                 /> */}
-                <MenuIcons name={menu.name} />
+                <MenuIcons  
+                name={menu.name}  />
                 <span className={`text-sm font-medium hover:text-[color:var(--goldColor)] `}>
                   {menu.name}
                 </span>
@@ -62,7 +65,7 @@ const SideBar = () => {
           })}
         </div>
         <div className="">
-          <div className=" fixed fixed bottom-2 left-6">
+          <div className=" fixed  bottom-2 left-6">
             <button onClick={handleLogout} className="flex gap-3 items-center  ">
               <MenuIcons  name="Deconnexion"/> 
               <span className="text-[#787878]">Deconnexion</span>

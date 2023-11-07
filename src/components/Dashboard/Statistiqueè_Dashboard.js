@@ -1,5 +1,8 @@
+
 import Image from 'next/image'
 import React from 'react'
+import { ChartBar } from './ChartBar'
+
 
 
 
@@ -23,6 +26,7 @@ const Statistiqueè_Dashboard = () => {
         </div>
       </div>
       <div>
+        {/* // <ChartBar/>    */     }
         
       </div>
     </div>

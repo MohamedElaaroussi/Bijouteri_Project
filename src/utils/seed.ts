@@ -32,7 +32,7 @@ export const colorArr = [
 ];
 
 export const numbers = [1, 2, 3, 4, 5]
-export const numberPerPage = [{ value: 1, label: 5 }, { value: 2, label: 10 }, { value: 3, label: 15 }]
+export const numberPerPage = [{ value: 3, label: 3 }, { value: 6, label: 6 }, { value: 9, label: 9 }]
 
 
 

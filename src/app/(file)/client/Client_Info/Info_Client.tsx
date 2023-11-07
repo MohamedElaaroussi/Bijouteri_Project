@@ -19,21 +19,22 @@ function Info_Client() {
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setloading] = useState(true);
 
-    const fetchUser = async () => {
-        const URL = process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
-        try {
-            const response = await axios.get(`api/client?page=${currentPage}&limit=10`);
-            setClients(response.data.result);
-            setloading(false);
-            console.log("---------------");
-            console.log(response.data.result.date);
-            console.log("---------------");
-        } catch (error) {
-            console.error("Erreur lors de la récupération des données de l'utilisateur", error);
-        }
-    };
+    
 
     useEffect(() => {
+        const fetchUser = async () => {
+            const URL = process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
+            try {
+                const response = await axios.get(`api/client?page=${currentPage}&limit=10`);
+                setClients(response.data.result);
+                setloading(false);
+                console.log("---------------");
+                console.log(response.data.result.date);
+                console.log("---------------");
+            } catch (error) {
+                console.error("Erreur lors de la récupération des données de l'utilisateur", error);
+            }
+        };
         fetchUser(); // Charger les données initiales
 
         const intervalId = setInterval(fetchUser, 3000); // Actualiser toutes les 3 secondes
@@ -41,7 +42,7 @@ function Info_Client() {
         return () => {
             clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté
         };
-    }, [currentPage, fetchUser]);
+    }, [currentPage]);
 
 
     //  End Api pour getter les Clients

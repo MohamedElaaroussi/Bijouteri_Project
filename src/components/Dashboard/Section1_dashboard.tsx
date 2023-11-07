@@ -58,7 +58,7 @@ const Section1_dashboard = () => {
                     </div>
                     <div className='ml-9 mt-2'>
                         <div className="w-auto h-[29px] text-[12px] ">
-                            <h4 className='text-[#A3AED0] font-normal text-[14px]'>Gains aujourd'hui </h4>
+                            <h4 className='text-[#A3AED0] font-normal text-[14px]'>Gains aujourd’hui </h4>
                             <div className="flex gap-1">
                                 <h3 className="text-[#4D4D4D] text-[20px] font-bold">6821.5</h3>
                                 <h5 className='text-[#4D4D4D] text-[16px] font-dm-sans font-bold'>Dhs</h5>

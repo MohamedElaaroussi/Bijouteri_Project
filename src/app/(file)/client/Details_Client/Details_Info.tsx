@@ -44,13 +44,13 @@ const Details_Info: React.FC<Details_InfoProps> = ({ idClient, status, DateC, to
 
     useEffect(() => {
         fetchUser(); // Charger les données initiales
-
+    
         const intervalId = setInterval(fetchUser, 3000); // Actualiser toutes les 3 secondes
-
+    
         return () => {
             clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté
         };
-    }, [currentPage]);
+    }, [fetchUser, currentPage]);
 
     //  End Api pour getter les users
 

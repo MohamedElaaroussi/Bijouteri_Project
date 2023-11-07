@@ -20,29 +20,29 @@ function Info_Vente() {
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setloading] = useState(true);
 
-    const fetchUser = async () => {
-        const URL = process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
-        try {
-            const response = await axios.get(`api/sale?page=${currentPage}&limit=10`);
-            setArticles(response.data.result);
-            setloading(false);
-            console.log("---------------");
-            console.log(response.data.result.date);
-            console.log("---------------");
-        } catch (error) {
-            console.error("Erreur lors de la récupération des données de l'utilisateur", error);
-        }
-    };
+    
 
     useEffect(() => {
+        const fetchUser = async () => {
+            const URL = process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
+            try {
+                const response = await axios.get(`api/sale?page=${currentPage}&limit=10`);
+                setArticles(response.data.result);
+                setloading(false);
+                console.log("---------------");
+                console.log(response.data.result.date);
+                console.log("---------------");
+            } catch (error) {
+                console.error("Erreur lors de la récupération des données de l'utilisateur", error);
+            }
+        };
         fetchUser(); // Charger les données initiales
-
         const intervalId = setInterval(fetchUser, 3000); // Actualiser toutes les 3 secondes
 
         return () => {
             clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté
         };
-    }, [currentPage, fetchUser]);
+    }, [currentPage]);
 
 
     //  End Api pour getter les Article
@@ -76,7 +76,7 @@ function Info_Vente() {
     if (loading) {
         return (
             <div className="text-center mt-[8rem]">
-                <Spinner label="Chargement des articles" color="warning" />
+                <Spinner label="Chargement des ventes" color="warning" />
             </div>
         )
     }
@@ -213,7 +213,7 @@ function Info_Vente() {
                                                             </svg>
                                                         </div>
                                                         <div>{item?.Client_Nom}</div>
-                                                        <div className='flex justify-center'>{item?.client.username}</div>
+                                                        <div className='flex justify-center'>{item.client}</div>
                                                     </div>
                                                 )
                                                     : columnKey === "Date" ? (

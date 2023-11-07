@@ -1,34 +1,58 @@
-// import { Bar } from "react-chartjs-2";
-// import Chart, { ArcElement, Legend } from "chart.js/auto";
-// import { Tooltip } from "@nextui-org/react";
+// "use client"
+// import React from 'react';
+// import {
+//   Chart as ChartJS,
+//   CategoryScale,
+//   LinearScale,
+//   BarElement,
+//   Title,
+//   Tooltip,
+//   Legend,
+// } from 'chart.js';
+// import { Bar } from 'react-chartjs-2';
 
-// const VulnChart = () => {
-//   // Register Chart.js components
-//   Chart.register(ArcElement, Tooltip, Legend);
+// import faker from "faker"
 
-//   return (
-//     <div>
-//       <Bar
-//         data={{
-//           labels: ["Sqli", "XSS", "XXE", "Open Redirect", "Broken Authentication"],
-//           datasets: [
-//             {
-//               label: "# of vulnerabilities",
-//               data: [15, 12, 6, 7, 4],
-//               backgroundColor: ["red", "yellow", "blue", "black", "green"],
-//               borderColor: "orange",
-//               borderWidth: 5
-//             },
-//           ]
-//         }}
-//         height={300}
-//         width={500}
-//         options={{
-//           maintainAspectRatio: false
-//         }}
-//       />
-//     </div>
-//   );
+// ChartJS.register(
+//   CategoryScale,
+//   LinearScale,
+//   BarElement,
+//   // Title,
+//   Tooltip,
+//   Legend
+// );
+
+// export const options = {
+//   responsive: true,
+//   plugins: {
+//     legend: {
+//       position: 'top' as const,
+//     },
+//     title: {
+//       display: true,
+//       text: 'Chart.js Bar Chart',
+//     },
+//   },
 // };
 
-// export default VulnChart;
+// const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+// export const data = {
+//   labels,
+//   datasets: [
+//     {
+//       label: 'Dataset 1',
+//       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+//       backgroundColor: 'rgba(255, 99, 132, 0.5)',
+//     },
+//     {
+//       label: 'Dataset 2',
+//       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+//       backgroundColor: 'rgba(53, 162, 235, 0.5)',
+//     },
+//   ],
+// };
+
+// export function ChartBar() {
+//   return <Bar options={options} data={data} />;
+// }
