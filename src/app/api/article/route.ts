@@ -17,12 +17,13 @@ export const GET = async (req: NextRequest) => {
     const page = Number(searchParams.get("page")) || 1;
     const limit = Number(searchParams.get("limit")) || 10;
     try {
-        const totalArticles = await Article.countDocuments({ "name": { $regex: ".*" + search + ".*", $options: 'i' } })
+        const searchByQuery = { ...(search ? { "name": { $regex: ".*" + search + ".*", $options: 'i' } } : {}) }
+        const totalArticles = await Article.countDocuments(searchByQuery)
 
         // calling a method that return start index and end index, 
         // and results object that may contain next and previous page
         const { startIndex, results } = getPaginatedResult(page, limit, totalArticles)
-        const articles = await Article.find({ "name": { $regex: ".*" + search + ".*", $options: 'i' } }).skip(startIndex).limit(limit).exec();
+        const articles = await Article.find(searchByQuery).skip(startIndex).limit(limit).exec();
         results.total = totalArticles;
         results.result = articles;
         return NextResponse.json(results, { status: 200 })
