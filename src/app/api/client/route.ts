@@ -9,17 +9,18 @@ export const GET = async (req: NextRequest) => {
     // getting the page number and limit from the url
     const url = new URL(req.url);
     const searchParams = new URLSearchParams(url.search);
+    const search = searchParams.get("search");
     const page = Number(searchParams.get("page")) || 1;
     const limit = Number(searchParams.get("limit")) || 10;
 
     try {
-        const totalClient = await Client.estimatedDocumentCount()
+        const totalClient = await Client.countDocuments({ "username": { $regex: ".*" + search + ".*", $options: 'i' } })
 
         // calling a method that return start index and end index, 
         // and results object that may contain next and previous page
         const { startIndex, results } = getPaginatedResult(page, limit, totalClient)
 
-        const clients = await Client.find().skip(startIndex).limit(limit).exec();
+        const clients = await Client.find({ "username": { $regex: ".*" + search + ".*", $options: 'i' } }).skip(startIndex).limit(limit).exec();
         results.total = totalClient;
         results.result = clients;
         return NextResponse.json(results, { status: 200 })

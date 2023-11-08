@@ -22,7 +22,7 @@ export const GET = async (req: NextRequest) => {
         // calling a method that return start index and end index, 
         // and results object that may contain next and previous page
         const { startIndex, results } = getPaginatedResult(page, limit, totalArticles)
-        const articles = await Article.find().skip(startIndex).limit(limit).exec();
+        const articles = await Article.find({ "name": { $regex: ".*" + search + ".*", $options: 'i' } }).skip(startIndex).limit(limit).exec();
         results.total = totalArticles;
         results.result = articles;
         return NextResponse.json(results, { status: 200 })
