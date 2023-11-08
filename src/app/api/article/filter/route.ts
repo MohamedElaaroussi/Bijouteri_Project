@@ -1,17 +1,12 @@
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server"
-import { OPTIONS } from "../../auth/[...nextauth]/route";
 import { getPaginatedResult } from "@/utils/util";
 import { Article } from "../../../../../models/Article";
+import { connectToDatabase } from "../../../../../db/connection";
 
 
+connectToDatabase()
 // filter article
 export const GET = async (req: NextRequest) => {
-
-    const session = await getServerSession(OPTIONS);
-    if (!session) {
-        return NextResponse.json({ message: "Not authenticated" }, { status: 403 });
-    }
 
     // getting data from the req url
     const url = new URL(req.url);
@@ -20,6 +15,8 @@ export const GET = async (req: NextRequest) => {
     const sellPrice = searchParams.get("sellPrice");
     const color = searchParams.get("color");
     const weight = searchParams.get("weight");
+    const startDate = searchParams.get("startDate");
+    const endDate = searchParams.get("endDate");
     const typeArticle = searchParams.get("typeArticle");
     const barCode = searchParams.get("barCode");
     const page = Number(searchParams.get("page")) || 1;
@@ -35,6 +32,13 @@ export const GET = async (req: NextRequest) => {
         if (weight) query.where("weight").equals(weight)
         if (typeArticle) query.where({ typeArticle: { $regex: ".*" + typeArticle + ".*", $options: "i" } });
         if (barCode) query.where("barCode").equals(barCode)
+        if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            end.setHours(23, 59, 59, 999);
+            // @ts-ignore
+            query.where("createdAt").gte(start).lte(end);
+        }
 
         // see how many Article
         let totalArticles = await Article.countDocuments(query);
@@ -71,6 +75,8 @@ export const GET = async (req: NextRequest) => {
             { status: 200 },
         );
     } catch (error) {
+        console.log(error);
+
         return NextResponse.json(
             { message: "Something went wrong" },
             { status: 500 },

@@ -11,13 +11,14 @@ export const GET = async (req: NextRequest) => {
     const searchParams = new URLSearchParams(url.search);
     const page = Number(searchParams.get("page")) || 1;
     const limit = Number(searchParams.get("limit")) || 10;
-    const totalClient = await Client.estimatedDocumentCount()
-
-    // calling a method that return start index and end index, 
-    // and results object that may contain next and previous page
-    const { startIndex, results } = getPaginatedResult(page, limit, totalClient)
 
     try {
+        const totalClient = await Client.estimatedDocumentCount()
+
+        // calling a method that return start index and end index, 
+        // and results object that may contain next and previous page
+        const { startIndex, results } = getPaginatedResult(page, limit, totalClient)
+
         const clients = await Client.find().skip(startIndex).limit(limit).exec();
         results.total = totalClient;
         results.result = clients;
@@ -29,8 +30,8 @@ export const GET = async (req: NextRequest) => {
 }
 
 export const POST = async (req: NextRequest) => {
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     try {
+        const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
         const client = await req.json()
         // check if email or phone exist already 
         const phoneExistAlready = await Client.findOne({ phone: client?.phone })

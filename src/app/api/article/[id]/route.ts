@@ -1,6 +1,4 @@
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server"
-import { OPTIONS } from "../../auth/[...nextauth]/route";
 import { Article } from "../../../../../models/Article";
 import { connectToDatabase } from "../../../../../db/connection";
 
@@ -9,10 +7,6 @@ connectToDatabase()
 export const GET = async (req: NextRequest, { params }: { params: { id: string } }
 ) => {
     const articleId = params.id
-    const session = await getServerSession(OPTIONS);
-    if (!session) {
-        return NextResponse.json({ message: "Not authenticated" }, { status: 403 });
-    }
     try {
         const article = await Article.findById(articleId);
         if (!article) {
@@ -53,10 +47,6 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
 
 // delete article by id
 export const DELETE = async (req: NextRequest, { params }: { params: { id: string } }) => {
-    const session = await getServerSession(OPTIONS);
-    if (!session) {
-        return NextResponse.json({ message: "Not authenticated" }, { status: 403 });
-    }
 
     const articleId = params.id
     try {
