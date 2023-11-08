@@ -1,7 +1,7 @@
 "use client"
 
 import DetailBio from '@/components/detail/DetailBio'
-import NumberArticles from '@/components/detail/NumberArticles'
+import NumberArticles from '@/components/detail/DetailCategories'
 import DetailImage from '@/components/detail/DetailImage'
 import DetailStatus from '@/components/detail/DetailStatus'
 import Select from 'react-select'

@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue } from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue, Spinner } from "@nextui-org/react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Image from "next/image"; // Importez le composant Image de Next.js
@@ -51,10 +51,10 @@ export default function User_Info() {
     const intervalId = setInterval(fetchUser, 3000); // Actualiser toutes les 3 secondes
 
     return () => {
-        clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté
+      clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté
     };
-}, [fetchUser, currentPage]);
-  
+  }, [fetchUser, currentPage]);
+
   //  End Api pour getter les users
 
   const [page, setPage] = React.useState(1);
@@ -70,7 +70,11 @@ export default function User_Info() {
   }, [page, users]);
 
   if (loading) {
-    return <h2>Loading...</h2>
+    return (
+      <div className="ml-[30rem] h-[450px] mt-[15rem]">
+        <Spinner label="Loading..." color="warning" />
+      </div>)
+    
   }
   return (
     <div className="mb-[42vh] mt-7">
@@ -114,10 +118,10 @@ export default function User_Info() {
                 <TableCell>
                   {columnKey === "actions" ? (
                     <div className="flex  justify-end  gap-4">
-                      <Update_User  />
-                      <Delete_user 
-                      onDelete={()=>{ }}
-                      userId={item._id} />
+                      <Update_User />
+                      <Delete_user
+                        onDelete={() => { }}
+                        userId={item._id} />
                     </div>
                   ) : columnKey === "Nom" ? (item.username)
                     : columnKey === "Téléphone" ? (item.phone)

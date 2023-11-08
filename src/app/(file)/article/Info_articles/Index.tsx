@@ -23,15 +23,6 @@ function Articles_Info() {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setloading] = useState(true);
 
-<<<<<<< HEAD
-
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const URL = process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
-      try {
-        const response = await axios.get(`api/article?page=${currentPage}&limit=10`);
-=======
   useEffect(() => {
     const fetchUser = async () => {
       const URL =
@@ -40,7 +31,6 @@ function Articles_Info() {
         const response = await axios.get(
           `api/article?page=${currentPage}&limit=10`,
         );
->>>>>>> dev-rguig
         const userData = Array.isArray(response.data.result)
           ? response.data.result
           : [response.data.result];
@@ -50,14 +40,10 @@ function Articles_Info() {
         console.log(userData);
         console.log("---------------");
       } catch (error) {
-<<<<<<< HEAD
-        console.error("Erreur lors de la récupération des données de l'utilisateur", error);
-=======
         console.error(
           "Erreur lors de la récupération des données de l'utilisateur",
           error,
         );
->>>>>>> dev-rguig
       }
     };
     fetchUser(); // Charger les données initiales
@@ -71,10 +57,6 @@ function Articles_Info() {
 
   //  End Api pour getter les Article
 
-<<<<<<< HEAD
-
-=======
->>>>>>> dev-rguig
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 4;
 
@@ -88,18 +70,10 @@ function Articles_Info() {
   }, [page, Article]);
 
   if (loading) {
-<<<<<<< HEAD
-    return (
-      <div className="text-center mt-[8rem]">
-        <Spinner label="Chargement des articles" color="warning" />
-      </div>
-    )
-=======
     return;
     <div className="mt-[8rem] text-center">
       <Spinner label="Chargement des articles" color="warning" />
     </div>;
->>>>>>> dev-rguig
   }
   return (
     <div className="mb-[42vh] mt-7">
@@ -178,29 +152,6 @@ function Articles_Info() {
                         <div className=" textè-[15px] font-bold text-[#D9A528]  ">
                           {item.barCode}
                         </div>
-<<<<<<< HEAD
-                      </div>)
-                      : columnKey === "Couleur" ? (<div className={`ml-4 h-3 w-3 rounded-full`} style={{ background: item.color }}></div>)
-                        : columnKey === "Type" ? (<div className="text-center">{item.typeArticle}</div>)
-                          : columnKey === "Poids" ? (<div className="text-center">{item.weight}</div>)
-                            : columnKey === "Cout" ? (<div className="text-center">{item.sellPrice}</div>)
-                              : columnKey === "Prix" ? (<div className="text-center">{item.buyPrice}</div>)
-                                : columnKey === "Image" ? (
-                                  <div className="flex justify-center h-[80px]">
-                                    <Image src={"/article.png"} alt="Image"
-                                      className="relative rounded-[12px]"
-                                      width={80} height={90} />
-                                    <Image src={"/Code_Barre.svg"} alt="Image"
-                                      className="absolute mt-[9.5vh]"
-                                      width={60} height={40} />
-                                  </div>
-                                )
-                                  : columnKey === "Nom" ? (
-                                    item.name
-                                  ) : (
-                                    getKeyValue(item, columnKey)
-                                  )}
-=======
                       </div>
                     </div>
                   ) : columnKey === "Couleur" ? (
@@ -238,7 +189,6 @@ function Articles_Info() {
                   ) : (
                     getKeyValue(item, columnKey)
                   )}
->>>>>>> dev-rguig
                 </TableCell>
               )}
             </TableRow>

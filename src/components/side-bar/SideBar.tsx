@@ -23,25 +23,15 @@ const SideBar = () => {
   path = path.slice(1);
 
   // class to be applied on the active menu
-<<<<<<< HEAD
-  const activeMenuClass = "bg-[color:var(--goldColor)] text-white "
-=======
-  const activeMenuClass = "bg-[color:var(--goldColor)] text-white";
->>>>>>> dev-rguig
+  const activeMenuClass = "bg-[color:var(--goldColor)] hover:text-white text-white ";
 
   // class that change svg icon color to white when the specific menu is active
   const activeIconClass = "brightness-[10]";
 
   return (
-<<<<<<< HEAD
-    <div className="bg-[color:white] text-black w-[250px] h-max sidebar">
-      <div className="fixed px-3 py-5 flex flex-col gap-10">
-        <div className="flex items-center justify-center mr-20">
-=======
     <div className="sidebar w-[250px] bg-[color:white] text-black">
-      <div className="flex flex-col gap-10 px-3 py-5">
-        <div className="flex items-center justify-center">
->>>>>>> dev-rguig
+      <div className="fixed flex flex-col gap-[20px] px-3 py-5">
+        <div className="flex items-center  justify-center mr-3">
           <Image
             src={"/logo.svg"}
             width={150}
@@ -50,23 +40,18 @@ const SideBar = () => {
           ></Image>
         </div>
 
-        <div className="flex flex-col gap-[1vh]">
+        <div className=" flex flex-col gap-[2vh]">
           {menus.map((menu) => {
             return (
               <Link
                 href={`/${menu.path}`}
                 key={menu.name}
-<<<<<<< HEAD
-                className={`flex gap-2 items-center py-2 pl-6 rounded-2xl hover:text-[color:var(--goldColor)]  ${menu.path == path ? activeMenuClass : "text-[var(--textColor)]  "
-                  }`}>
-=======
                 className={`flex items-center gap-2 rounded-2xl py-2 pl-6 hover:text-[color:var(--goldColor)]  ${
                   menu.path == path
                     ? activeMenuClass
                     : "text-[var(--textColor)]"
                 }`}
               >
->>>>>>> dev-rguig
                 {/* <Image
                   src={`/${menu.name}.svg`} 
                   //@ts-ignore
@@ -76,16 +61,10 @@ const SideBar = () => {
                   alt="dashboard"
                   className={`${menu.path == path && activeIconClass} hover:stroke`}
                 /> */}
-<<<<<<< HEAD
-                <MenuIcons  
-                name={menu.name}  />
-                <span className={`text-sm font-medium hover:text-[color:var(--goldColor)] `}>
-=======
-                <MenuIcons name={menu.name} />
+                <MenuIcons color={`${ menu.path == path ? `white`: `#787878`}`} name={menu.name} />
                 <span
-                  className={`text-sm font-medium hover:text-[color:var(--goldColor)] `}
+                  className={`text-sm font-medium hover:text-[color:var(--goldColor)] w-[25vh] ${ menu.path == path && ` hover:text-white`} `}
                 >
->>>>>>> dev-rguig
                   {menu.name}
                 </span>
               </Link>
@@ -93,18 +72,12 @@ const SideBar = () => {
           })}
         </div>
         <div className="">
-<<<<<<< HEAD
-          <div className=" fixed  bottom-2 left-6">
-            <button onClick={handleLogout} className="flex gap-3 items-center  ">
-              <MenuIcons  name="Deconnexion"/> 
-=======
-          <div className="bottom-2 left-6">
+          <div className="fixed bottom-2 left-6">
             <button
               onClick={handleLogout}
               className="flex items-center gap-3  "
             >
-              <MenuIcons name="Deconnexion" />
->>>>>>> dev-rguig
+              <MenuIcons color="#787878" name="Deconnexion" />
               <span className="text-[#787878]">Deconnexion</span>
             </button>
           </div>

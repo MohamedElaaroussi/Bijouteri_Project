@@ -5,7 +5,7 @@ const InputHeader = ({ placeholder = "Recherche" }: { placeholder?: string }) =>
         <div
         // style={{marginLeft: "-4rem",position:"fixed"}}
         className="flex items-center bg-white rounded-[10px] gap-4 h-10 w-max">
-            <Image className="ml-2" src={"/search.svg"} alt='search' width={12} height={12}></Image>
+            <Image className="ml-4 mr-3 " src={"/search.svg"} alt='search' width={12} height={12}></Image>
             <input type="text" name="search" placeholder={placeholder} className="rounded-[10px] border-none outline-none placeholder:text-[12px] h-full" />
         </div>
     )

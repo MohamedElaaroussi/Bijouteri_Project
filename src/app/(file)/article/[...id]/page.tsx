@@ -1,20 +1,5 @@
 "use client";
 
-<<<<<<< HEAD
-import DetailBio from '@/components/detail/DetailBio'
-import DetailCategories from '@/components/detail/NumberArticles'
-import DetailImage from '@/components/detail/DetailImage'
-import DetailStatus from '@/components/detail/DetailStatus'
-import Select from 'react-select'
-import { colorArr, colorObject } from '@/utils/seed'
-import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
-import catalogueSchema, { Catalogue } from '@/schema/catalogueSchema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import HeaderSection from '@/components/ui/header/HeaderSection'
-import axios from 'axios'
-=======
 import DetailBio from "@/components/detail/DetailBio";
 import DetailCategories from "@/components/detail/DetailCategories";
 import DetailImage from "@/components/detail/DetailImage";
@@ -28,7 +13,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import HeaderSection from "@/components/ui/header/HeaderSection";
 import axios from "axios";
->>>>>>> dev-rguig
 
 interface ParamsType {
   // Define the properties of the 'params' object
