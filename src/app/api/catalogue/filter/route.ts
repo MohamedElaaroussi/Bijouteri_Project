@@ -67,7 +67,7 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
 
 
 
-        // make the result equal the filtredCatalogue
+        // make the result equal the filteredCatalogue
         results.result = filteredCatalogue;
 
         return NextResponse.json(
