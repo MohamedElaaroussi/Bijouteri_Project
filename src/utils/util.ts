@@ -22,3 +22,4 @@ export const getPaginatedResult = (page: number, limit: number, total: number): 
     return { results, startIndex, endIndex };
 }
 
+
