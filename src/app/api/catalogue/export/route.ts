@@ -1,19 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs, { Stats } from "fs";
+import fs from "fs";
 import { connectToDatabase } from "../../../../../db/connection";
 import excelJS from 'exceljs'
 import { Catalogue } from "../../../../../models/Catalogue";
 import { ReadableOptions } from "stream";
 
 connectToDatabase()
-
-function streamFile(path: string, options?: ReadableOptions): ReadableStream<Uint8Array> {
+export function streamFile(path: string, options?: ReadableOptions): ReadableStream<Uint8Array> {
     const downloadStream = fs.createReadStream(path, options);
 
     return new ReadableStream({
         start(controller) {
             downloadStream.on("data", (chunk: Buffer) => controller.enqueue(new Uint8Array(chunk)));
-            downloadStream.on("end", () => controller.close());
+            downloadStream.on("end", async () => {
+                await fs.promises.unlink(path)
+                return controller.close()
+            });
             downloadStream.on("error", (error: NodeJS.ErrnoException) => controller.error(error));
         },
         cancel() {
@@ -58,7 +60,6 @@ export const GET = async (req: NextRequest) => {
 
         await workBook.csv.writeFile("catalogue.csv")
 
-        const stats: Stats = await fs.promises.stat("catalogue.csv");
         const data: ReadableStream<Uint8Array> = streamFile("catalogue.csv");
         const res = new NextResponse(data, {
             status: 200,
@@ -67,7 +68,6 @@ export const GET = async (req: NextRequest) => {
                 "Content-Type": "text/csv",
             }),
         });
-        await fs.promises.unlink("catalogue.csv")
         return res
     } catch (error) {
         return NextResponse.json({ "message": "Something went wrong" }, { status: 500 })

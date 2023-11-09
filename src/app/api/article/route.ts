@@ -14,11 +14,20 @@ export const GET = async (req: NextRequest) => {
     const url = new URL(req.url);
     const searchParams = new URLSearchParams(url.search);
     const search = searchParams.get("search");
+    let startDate = searchParams.get("startDate");
+    let endDate: string | Date | null = searchParams.get("endDate");
     const page = Number(searchParams.get("page")) || 1;
     const limit = Number(searchParams.get("limit")) || 10;
+
+    if (endDate) {
+        endDate = new Date(endDate);
+        endDate.setHours(23, 59, 59, 999);
+    }
+
     try {
         const searchByQuery = { ...(search ? { "name": { $regex: ".*" + search + ".*", $options: 'i' } } : {}) }
-        const totalArticles = await Article.countDocuments(searchByQuery)
+        const searchBtwDate = { ...(startDate && endDate ? { $and: [{ "createdAt": { $gte: startDate } }, { "createdAt": { $lte: endDate } }] } : {}) }
+        const totalArticles = await Article.countDocuments({ ...searchByQuery, ...searchBtwDate })
 
         // calling a method that return start index and end index, 
         // and results object that may contain next and previous page
