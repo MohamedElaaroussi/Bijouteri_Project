@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Article } from "../../../../../models/Article";
 import excelJS from 'exceljs'
-import { streamFile } from "../../catalogue/export/route";
-import fs, { Stats } from "fs";
 import { connectToDatabase } from "../../../../../db/connection";
 
 
@@ -46,10 +44,8 @@ export const GET = async (req: NextRequest) => {
             workSheet.addRow(formattedArticle)
         }
 
-        await workBook.csv.writeFile("article.csv")
-
-        const data: ReadableStream<Uint8Array> = streamFile("article.csv");
-        const res = new NextResponse(data, {
+        const articleBuffer = await workBook.csv.writeBuffer()
+        const res = new NextResponse(articleBuffer, {
             status: 200,
             headers: new Headers({
                 "content-disposition": `attachment; filename=article.csv`,

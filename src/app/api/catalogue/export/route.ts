@@ -1,29 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
 import { connectToDatabase } from "../../../../../db/connection";
 import excelJS from 'exceljs'
 import { Catalogue } from "../../../../../models/Catalogue";
-import { ReadableOptions } from "stream";
 
 connectToDatabase()
-export function streamFile(path: string, options?: ReadableOptions): ReadableStream<Uint8Array> {
-    const downloadStream = fs.createReadStream(path, options);
-
-    return new ReadableStream({
-        start(controller) {
-            downloadStream.on("data", (chunk: Buffer) => controller.enqueue(new Uint8Array(chunk)));
-            downloadStream.on("end", async () => {
-                await fs.promises.unlink(path)
-                return controller.close()
-            });
-            downloadStream.on("error", (error: NodeJS.ErrnoException) => controller.error(error));
-        },
-        cancel() {
-            downloadStream.destroy();
-        },
-    });
-}
-
 export const GET = async (req: NextRequest) => {
 
     try {
@@ -58,10 +38,8 @@ export const GET = async (req: NextRequest) => {
             workSheet.addRow(formattedCat)
         }
 
-        await workBook.csv.writeFile("catalogue.csv")
-
-        const data: ReadableStream<Uint8Array> = streamFile("catalogue.csv");
-        const res = new NextResponse(data, {
+        const catBuffer = await workBook.csv.writeBuffer()
+        const res = new NextResponse(catBuffer, {
             status: 200,
             headers: new Headers({
                 "content-disposition": `attachment; filename=catalogue.csv`,
