@@ -5,7 +5,6 @@ const catalogueSchema = new Schema({
     img: { type: String },
     description: { type: String },
     status: { type: String },
-    discount: { type: String, default: 0, min:0},
     nbrOfArticles: { type: Number, default: 0 }
 }, { timestamps: true });
 

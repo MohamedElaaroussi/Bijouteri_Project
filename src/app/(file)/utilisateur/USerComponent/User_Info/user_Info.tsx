@@ -126,6 +126,7 @@ export default function User_Info() {
                       <Update_User />
                       <Delete_user
                         onDelete={() => { }}
+                        //@ts-ignore
                         setcheck={setcheck}
                         userId={item._id} />
                     </div>

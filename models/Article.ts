@@ -1,6 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
 import { UserModel } from "./User";
-import { CategoryModel } from "./Category";
 import { SupplierModel } from "./Supplier";
 import { Catalogue } from "./Catalogue";
 

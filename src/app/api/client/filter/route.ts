@@ -15,6 +15,8 @@ export const GET = async (req: NextRequest) => {
     const date = searchParams.get("date");
     const total = searchParams.get("total");
     const status = searchParams.get("status");
+    const startDate = searchParams.get("startDate");
+    const endDate = searchParams.get("endDate");
     const purchase = searchParams.get("purchase");
     const page = Number(searchParams.get("page")) || 1;
     const limit = Number(searchParams.get("limit")) || 10;
@@ -55,6 +57,14 @@ export const GET = async (req: NextRequest) => {
             query.where({
                 status: { $regex: status, $options: "i" },
             });
+        }
+
+        if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            end.setHours(23, 59, 59, 999);
+            // @ts-ignore
+            query.where("createdAt").gte(start).lte(end);
         }
 
         // see how many client

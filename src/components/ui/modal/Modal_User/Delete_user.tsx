@@ -21,6 +21,7 @@ const Delete_user: React.FC<DeleteUserProps> = ({ userId, onDelete,setcheck }) =
             // Mettez à jour la liste des utilisateurs après la suppression
             onDelete(userId);
             setConfirmationOpen(false);
+            //@ts-ignore
             setcheck(true) 
                 
         } catch (error) {

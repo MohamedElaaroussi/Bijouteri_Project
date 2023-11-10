@@ -21,6 +21,8 @@ export const GET = async (req: NextRequest) => {
     const phone = searchParams.get("phone");
     const date = searchParams.get("date");
     const total = searchParams.get("total");
+    const startDate = searchParams.get("startDate");
+    const endDate = searchParams.get("endDate");
     const status = searchParams.get("status");
     const article = searchParams.get("article");
     const page = Number(searchParams.get("page")) || 1;
@@ -46,6 +48,15 @@ export const GET = async (req: NextRequest) => {
             const start = new Date(date);
             const end = new Date(date);
             end.setHours(23, 59, 59, 999);
+            // @ts-ignore
+            query.where("createdAt").gte(start).lte(end);
+        }
+
+        if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            end.setHours(23, 59, 59, 999);
+
             // @ts-ignore
             query.where("createdAt").gte(start).lte(end);
         }

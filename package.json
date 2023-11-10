@@ -24,7 +24,11 @@
     "date-fns": "^2.30.0",
     "eslint": "8.50.0",
     "eslint-config-next": "13.5.3",
+<<<<<<< HEAD
     "faker": "^6.6.6",
+=======
+    "exceljs": "^4.4.0",
+>>>>>>> dev-rguig
     "flowbite": "^2.0.0",
     "lucide-react": "^0.284.0",
     "mongoose": "^7.5.3",

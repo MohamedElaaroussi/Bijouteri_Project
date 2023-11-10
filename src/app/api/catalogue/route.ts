@@ -8,19 +8,28 @@ connectToDatabase()
 export const GET = async (req: NextRequest) => {
 
     try {
-
         // getting the page number and limit from the url
         const url = new URL(req.url);
         const searchParams = new URLSearchParams(url.search);
         const search = searchParams.get("search");
+        let startDate = searchParams.get("startDate");
+        let endDate: string | Date | null = searchParams.get("endDate");
         const page = Number(searchParams.get("page")) || 1;
         const limit = Number(searchParams.get("limit")) || 10;
-        const totalCatalog = await Catalogue.countDocuments({ $or: [{ 'catalogue': { $regex: ".*" + search + ".*", $options: 'i' } }, { 'description': { $regex: ".*" + search + ".*", $options: 'i' } }] })
+
+        if (endDate) {
+            endDate = new Date(endDate);
+            endDate.setHours(23, 59, 59, 999);
+        }
+
+        const searchByQuery = { ...(search ? { $or: [{ 'catalogue': { $regex: ".*" + search + ".*", $options: 'i' } }, { 'description': { $regex: ".*" + search + ".*", $options: 'i' } }] } : {}) }
+        const searchBtwDate = { ...(startDate && endDate ? { $and: [{ "createdAt": { $gte: startDate } }, { "createdAt": { $lte: endDate } }] } : {}) }
+        const totalCatalog = await Catalogue.countDocuments({ ...searchByQuery, ...searchBtwDate })
 
         // calling a method that return start index and end index, 
         // and results object that may contain next and previous page
         const { startIndex, results } = getPaginatedResult(page, limit, totalCatalog)
-        const catalogue = await Catalogue.find({ $or: [{ 'catalogue': { $regex: ".*" + search + ".*", $options: 'i' } }, { 'description': { $regex: ".*" + search + ".*", $options: 'i' } }] }).skip(startIndex).limit(limit)
+        const catalogue = await Catalogue.find({ ...searchByQuery, ...searchBtwDate }).skip(startIndex).limit(limit)
 
         results.total = totalCatalog;
         results.result = catalogue;

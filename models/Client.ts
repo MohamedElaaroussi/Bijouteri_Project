@@ -28,7 +28,7 @@ export const clientSchema = new Schema<ClientModel>({
     type: String, unique: true, minlength: 10, maxlength: 10,
   },
   address: { type: String },
-  status: { type: String, enum: ["Enable", "Disable"], default: "Enable" },
+  status: { type: String },
   clientType: { type: String },
   createdBy: { type: Schema.Types.ObjectId, ref: "User" },
   purchase: { type: Number, min: 0, default: 0 },
