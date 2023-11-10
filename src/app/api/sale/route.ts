@@ -59,13 +59,20 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
             });
             await Article.updateMany({ _id: { $in: itemsId } }, { $inc: { nbrOfArticles: -1 } })
         }
+        const client = await Client.findById({ _id: saleToBeAdded.client })
         const sale = new Sale(saleToBeAdded)
         // @ts-ignore
         sale.createdBy = token.user._id
         await sale.save()
+        console.log(sale);
+        client.total += 1;
+        client.purchase += sale.totalPrice;
+        await client.save()
         return NextResponse.json({ "message": "Sale was created" }, { status: 201 })
 
     } catch (error) {
+        console.log(error);
+
         return NextResponse.json({ "message": "Something went wrong" }, { status: 500 })
     }
 };
