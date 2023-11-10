@@ -12,7 +12,7 @@ const CardItem = () => {
   const lenCatalogue = Catalogue.length;
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setloading] = useState(true);
-  
+
 
 
 
@@ -20,7 +20,7 @@ const CardItem = () => {
     const fetchCatalogue = async () => {
       const URL = process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000/';
       try {
-        const response = await axios.get(`api/catalogue?page=${currentPage}&limit=10`);
+        const response = await axios.get(`api/catalogue?search=&page=${currentPage}&limit=10`);
         const CatalogueData = Array.isArray(response.data.result)
           ? response.data.result
           : [response.data.result];
@@ -31,11 +31,6 @@ const CardItem = () => {
       }
     };
 
-    const intervalId = setInterval(fetchCatalogue, 1000); // Actualiser toutes les 1 secondes
-
-    return () => {
-      clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté
-    };
   }, [currentPage]);
 
   const [page, setPage] = React.useState(1);
