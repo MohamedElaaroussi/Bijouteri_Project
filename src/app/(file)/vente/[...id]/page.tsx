@@ -2,7 +2,7 @@ import React from 'react'
 import Details_Status from '../details/Details_Status'
 import Detils_Categories from '../details/Detils_Categories'
 import Historique_Payment from '../details/Historique_Payment'
-import Detils_Client from '../details/Detils_Client'
+import Detils_Client from '../details/details_client_V/Detils_Client'
 import Details_Articles from '../details/Details_Articles'
 
 

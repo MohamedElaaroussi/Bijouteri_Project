@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "build/types/**/*.ts"
-, "src/app/(file)/vente/details/Modal.js"  ],
+, "src/app/(file)/vente/details/Modal.js", "src/components/Dashboard/Statistiqueè_Dashboard.js"  ],
   "exclude": [
     "node_modules"
   ]

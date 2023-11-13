@@ -15,6 +15,7 @@ import Link from "next/link";
 import Delete_Articles from "@/components/ui/modal/Modal_Articles/Delete_Articles";
 import Update_Articles from "@/components/ui/modal/Modal_Articles/Update_Articles";
 import { Spinner } from "@nextui-org/react";
+import Image from "next/image";
 
 function Articles_Info() {
   //  Start Api pour getter les Article

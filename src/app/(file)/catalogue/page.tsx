@@ -14,6 +14,7 @@ import HeaderSection from "@/components/ui/header/HeaderSection";
 import Pagination from "@/components/ui/pagination/Pagination";
 import { usePathname } from "next/navigation";
 import Filter_Articles from "@/components/ui/modal/Modal_Articles/Filter_Articles";
+import Filter_Catalogue from "@/components/ui/modal/Modal_Catalogue/Filter_Catalogue";
 
 const Catalogue: NextPage = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -33,19 +34,18 @@ const Catalogue: NextPage = () => {
             <ExportBtn label="Export" />
           </DropDown>
 
-          <GoldBtn label="Ajouter un catalogue" setOpenModal={setOpenModal} />
+          <GoldBtn label="Ajouter un catalogue"  />
           <DisplayDate
             icon="/date.svg"
             text="Jan 6, 2023 - Jan 22, 2023"
           ></DisplayDate>
-          <Filter_Articles icon="/Filter_H.svg" text="Filter"></Filter_Articles>
+          <Filter_Catalogue icon="/Filter_H.svg" text="Filter"></Filter_Catalogue>
         </div>
       </div>
       {/* catalogue card */}
       <CatalogueCardItem />
       {/* modal for creating a catalogue */}
       {openModal && <Modal setCloseModal={setOpenModal} />}
-      <Pagination />
     </div>
   );
 };

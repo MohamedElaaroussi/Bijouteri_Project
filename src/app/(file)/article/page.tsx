@@ -9,10 +9,8 @@ const Page = () => {
     const path = usePathname().slice(1)
     return (
         <div>
-            
-                <Header path={path} />
-                <Articles_Section />
-            
+            <Header path={path} />
+            <Articles_Section />
             <Articles_Info />
         </div>
     )
