@@ -9,7 +9,6 @@ import { Client } from "../../../../models/Client";
 
 
 connectToDatabase()
-
 // get sales + pagination
 export const GET = async (req: NextRequest, res: NextResponse) => {
 
@@ -31,7 +30,6 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
         const client = await Client.find({ "username": { $regex: ".*" + search + ".*", $options: 'i' } }, "id")
         const clientFilter = { ...(client ? { "client": { $in: client } } : {}) }
         const searchByQuery = { ...(search ? { $or: [clientFilter, { 'description': { $regex: ".*" + search ? search : "" + ".*", $options: 'i' } }] } : {}) }
-
         const searchBtwDate = { ...(startDate && endDate ? { $and: [{ "createdAt": { $gte: startDate } }, { "createdAt": { $lte: endDate } }] } : {}) }
 
         const totalSales = await Sale.countDocuments({ ...searchByQuery, ...searchBtwDate })
