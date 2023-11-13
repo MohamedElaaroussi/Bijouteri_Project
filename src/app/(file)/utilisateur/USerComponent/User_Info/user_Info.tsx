@@ -1,12 +1,14 @@
-import React from "react";
+
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue, Spinner } from "@nextui-org/react";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect } from "react";
 import Image from "next/image"; // Importez le composant Image de Next.js
 import Link from "next/link";
 import { format } from "date-fns"; // Importez la fonction format de date-fns
 import Update_User from "@/components/ui/modal/Modal_User/Update_User";
 import Delete_user from "@/components/ui/modal/Modal_User/Delete_user";
+
+
 
 // const users = [
 //   {
@@ -27,8 +29,11 @@ export default function User_Info() {
   const [users, setUser] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setloading] = useState(true);
+  const [check,setcheck]=useState(false)
 
   const fetchUser = async () => {
+    
+   
     const URL = process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
     try {
       const response = await axios.get(`api/user?page=${currentPage}&limit=10`);
@@ -37,23 +42,23 @@ export default function User_Info() {
         : [response.data.result];
       setUser(userData);
       setloading(false);
-      console.log("---------------");
-      console.log(userData);
-      console.log("---------------");
     } catch (error) {
       console.error("Erreur lors de la récupération des données de l'utilisateur", error);
     }
   };
+   
 
+  // if(check){
+  //   router.reload
+    
+
+
+  // }
   useEffect(() => {
     fetchUser(); // Charger les données initiales
 
-    const intervalId = setInterval(fetchUser, 3000); // Actualiser toutes les 3 secondes
 
-    return () => {
-      clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté
-    };
-  }, [fetchUser, currentPage]);
+  }, []);
 
   //  End Api pour getter les users
 
@@ -74,7 +79,7 @@ export default function User_Info() {
       <div className="ml-[30rem] h-[450px] mt-[15rem]">
         <Spinner label="Loading..." color="warning" />
       </div>)
-    
+
   }
   return (
     <div className="mb-[42vh] mt-7">
@@ -121,6 +126,8 @@ export default function User_Info() {
                       <Update_User />
                       <Delete_user
                         onDelete={() => { }}
+                        //@ts-ignore
+                        setcheck={setcheck}
                         userId={item._id} />
                     </div>
                   ) : columnKey === "Nom" ? (item.username)

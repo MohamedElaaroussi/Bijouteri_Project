@@ -1,13 +1,17 @@
 import axios from 'axios';
 import Image from 'next/image';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, Input, Link } from "@nextui-org/react";
-import React, { useEffect, useState } from 'react'
+
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+
 interface DeleteUserProps {
     userId: string; // Vous pouvez ajuster le type en fonction de ce que renvoie votre API
     onDelete: (userId: string) => void;
+    setcheck:boolean
 }
 
-const Delete_user: React.FC<DeleteUserProps> = ({ userId, onDelete }) => {
+const Delete_user: React.FC<DeleteUserProps> = ({ userId, onDelete,setcheck }) => {
     const [isConfirmationOpen, setConfirmationOpen] = useState(false);
 
     // Start Api pour deleter les users
@@ -17,6 +21,9 @@ const Delete_user: React.FC<DeleteUserProps> = ({ userId, onDelete }) => {
             // Mettez à jour la liste des utilisateurs après la suppression
             onDelete(userId);
             setConfirmationOpen(false);
+            //@ts-ignore
+            setcheck(true) 
+                
         } catch (error) {
             console.error("Erreur lors de la suppression de l'utilisateur", error);
         }

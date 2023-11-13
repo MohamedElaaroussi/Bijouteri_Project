@@ -10,7 +10,6 @@ type PaginationProps = {
 const Pagination: React.FC<PaginationProps> = ({ lenPAge, setCurrentPage }) => {
   const [page, setPage] = useState<number>(1);
   const itemsPerPage = 9;
-  console.log('voici lenght pagination' + lenPAge)
   const totalPages = Math.ceil(lenPAge / itemsPerPage);
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
   const startItem = (page);

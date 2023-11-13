@@ -12,7 +12,11 @@ import {
   Input,
   Link,
 } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
+
 import React, { useEffect, useState, useMemo } from 'react';
+
+
 
 interface DeleteUserProps {
   catalogueId: string;
@@ -20,6 +24,8 @@ interface DeleteUserProps {
 }
 
 const Delete_Catalogue: React.FC<DeleteUserProps> = ({ catalogueId, onDelete }) => {
+  
+  
   const [isConfirmationOpen, setConfirmationOpen] = useState(false);
 
   // Start Api pour deleter les users
@@ -28,7 +34,10 @@ const Delete_Catalogue: React.FC<DeleteUserProps> = ({ catalogueId, onDelete }) 
       await axios.delete(`http://localhost:3000/api/catalogue/${catalogueId}`);
       onDelete(catalogueId);
       setConfirmationOpen(false);
+
       
+
+
     } catch (error) {
       console.error("Erreur lors de la suppression de l'utilisateur", error);
     }
@@ -56,7 +65,7 @@ const Delete_Catalogue: React.FC<DeleteUserProps> = ({ catalogueId, onDelete }) 
                   onClick={() => {
                     handleDeleteUser(catalogueId);
                     //@ts-ignore
-                    onOpenChange(false);    
+                    onOpenChange(false);
                   }}
                   className="rounded-full bg-[#D9A528] w-[172px] h-[45px] text-[#FFF] font-somibold font-sans font-inter"
                 >
@@ -83,7 +92,7 @@ const Delete_Catalogue: React.FC<DeleteUserProps> = ({ catalogueId, onDelete }) 
     <div className=''>
       <>
         <button onClick={() => { onOpen(); setConfirmationOpen(true); }}
-        //@ts-ignore
+          //@ts-ignore
           color="white"
           className='pt-3'>
           <Image
