@@ -1,14 +1,11 @@
 "use client";
 import React, { useState } from "react";
-
 import InputHeader from "@/components/ui/Input/InputHeader";
 import ExportBtn from "@/components/ui/button/ExportBtn";
 import GoldBtn from "@/components/ui/button/GoldBtn";
 import DisplayDate from "@/components/ui/header/IconPlusText";
-import DropDown from "@/components/ui/DropDown";
-import HeaderSection from "@/components/ui/header/HeaderSection";
-
 import Filter_Articles from "@/components/ui/modal/Modal_Articles/Filter_Articles";
+import DropdownArticles from "@/components/ui/dropdown/DropdownArticles";
 
 const Section1_Articles = () => {
     const [openModal, setOpenModal] = useState(false)
@@ -19,11 +16,11 @@ const Section1_Articles = () => {
                 <InputHeader placeholder="Rechercher un catalogue"></InputHeader>
             </div>
             <div className="flex gap-2 pr-[6px] " >
-                <DropDown>
+                <DropdownArticles>
                     <ExportBtn label="Export" />
-                </DropDown>
+                </DropdownArticles>
 
-                <GoldBtn label="Ajouter un catalogue" setOpenModal={setOpenModal} />
+                <GoldBtn label="Ajouter un catalogue"  />
                 <DisplayDate icon="/date.svg" text="Jan 6, 2023 - Jan 22, 2023"></DisplayDate>
                 <Filter_Articles icon="/Filter_H.svg" text="Filter"></Filter_Articles>
             </div>

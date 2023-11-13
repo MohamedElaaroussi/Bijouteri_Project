@@ -66,7 +66,9 @@ const Page = ({ params }: { params: ParamsType }) => {
             <Header path={path} />
 
             {       
-               client ?  client.map((clientData: ClientData,) =>
+               client ? 
+               //@ts-ignore
+               client.map((clientData: ClientData,) =>
                 (
                     <div key={clientData._id} className='flex'>
                         <div className='flex-col mr-6'>

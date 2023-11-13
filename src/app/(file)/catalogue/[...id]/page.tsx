@@ -5,57 +5,54 @@ import NumberArticles from '@/components/detail/DetailCategories'
 import DetailImage from '@/components/detail/DetailImage'
 import DetailStatus from '@/components/detail/DetailStatus'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HeaderSection from '@/components/ui/header/HeaderSection'
+import axios from 'axios'
 
 
 // Edit or show a catalogue
-const DetailCatalogue = () => {
-    const [imageData, setImageData] = useState('');
-    const [statusData, setStatusData] = useState('');
-    const [bioData, setBioData] = useState('');
-    const updateData = async () => {
-        // Create an object with the data to send to the API
-        const dataToUpdate = {
-            image: imageData,
-            status: statusData,
-            bio: bioData,
-        };
+interface ParamsType {
+    id: string;
+}
 
-        // Send the data to the API using a fetch or Axios request
-        try {
-            const response = await fetch('your-update-api-endpoint', {
-                method: 'PUT', // or 'POST' or 'PATCH' based on your API
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataToUpdate),
-            });
+const DetailCatalogue = ({ params }: { params: ParamsType }) => {
+    // console.log(params.id)
+    // const [imageData, setImageData] = useState('');
+    // const [statusData, setStatusData] = useState('');
+    // const [bioData, setBioData] = useState('');
+    const [Catalogue, setCatalogue] = useState<any>([])
+    const [Image,setImlage]=useState([])
 
-            // Handle the API response, e.g., show a success message or handle errors
-            // You can also update the state to reflect the changes made on the server
-        } catch (error) {
-            // Handle API request errors
-        }
-    };
+    
+    useEffect(() => {
 
+        axios.get(`http://localhost:3000/api/catalogue/${params.id}`)
+          .then(response => {
+            // console.log("Voici data ", response.data);
+            setCatalogue(response.data)
+            setImlage(response.data.img)
+          })
+          .catch(error => {
+            console.error('Erreur lors de la récupération des données de l\'utilisateur :', error);
+          });
+      },[params.id]);
     return (
         <>
             <HeaderSection pageTitle='Détails du catalogue'></HeaderSection>
             <form >
                 <div className='flex gap-10'>
                     <div className='flex-col flex gap-5'>
-                        <DetailImage src="/article.png"
-                        
+                        <DetailImage  CatalogueImage={Catalogue}
+
                         // setImageData={setImageData}
                         ></DetailImage>
-                        <NumberArticles></NumberArticles>
-                        <DetailStatus></DetailStatus>
+                        <NumberArticles AllCatalogue={Catalogue}></NumberArticles>
+                        <DetailStatus AllCatalogue2={Catalogue}></DetailStatus>
 
                     </div>
                     <div className=''>
                         <div className='flex flex-col gap-5'>
-                            <DetailBio />
+                            <DetailBio AllCatalogue3={Catalogue} />
                             {/* <div className='bg-white px-10 py-8 rounded-[20px] flex gap-5'>
                                 <div className=''>
                                     <p className='text-sm text-[color:var(--labelText)]'>Code bar</p>
@@ -79,8 +76,9 @@ const DetailCatalogue = () => {
                                 </div>
                             </div> */}
 
-                            <button  onClick={updateData}
-                            className='self-end px-3 py-2 bg-[color:var(--goldColor)] rounded-3xl hover:cursor-pointer'>
+                            <button
+                                //  onClick={updateData}
+                                className='self-end px-3 py-2 bg-[color:var(--goldColor)] rounded-3xl hover:cursor-pointer'>
                                 <p className='text-sm text-white'>Sauvegarder les modifications</p>
                             </button>
                         </div>

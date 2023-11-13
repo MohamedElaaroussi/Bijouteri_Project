@@ -1,9 +1,8 @@
 "use client";
 
-import CatalogueCardItem from "@/components/catalogue/CatalogueCardItem";
 import Modal from "@/components/ui/modal/Modal";
 import { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputHeader from "@/components/ui/Input/InputHeader";
 import ExportBtn from "@/components/ui/button/ExportBtn";
 import DisplayDate from "@/components/ui/header/IconPlusText";
@@ -14,35 +13,61 @@ import Filter_Catalogue from "@/components/ui/modal/Modal_Catalogue/Filter_Catal
 import Ajouter_Catalogue from "@/components/ui/modal/Modal_Catalogue/Ajouter_Catalogue";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import DropDownCatalogue from "@/components/ui/dropdown/DropDownCatalogue";
+import CardItem from "@/components/catalogue/CatalogueCard";
+import { any } from "zod";
+import PathName from "@/components/ui/header/PathName";
+import Image from "next/image";
 
-const Catalogue: NextPage = () => {
+
+const Catalogue = ({ pageTitle }: { pageTitle: string }) => {
   const [openModal, setOpenModal] = useState(false);
-  const [check, setCheck] = useState<boolean>()
+  const [check, setCheck] = useState<any>(false)
   const path = usePathname().slice(1);
+  const [forceRender, setForceRender] = useState<number>(0);
+  const [Icons, setIcons] = useState<any>(false)
+  const [Search,setSearch] = useState<string>("");
+  console.log(Search)
 
 
 
-  const notify = () => toast.success('Information ajouter avec success !', {
-    position: toast.POSITION.BOTTOM_RIGHT
-  });
+  useEffect(() => {
+    setForceRender(0);
+    setIcons(false);
+    setCheck(false)
+    if (check) {
+      setForceRender((prev) => prev + 1);
+    }
+    if (Icons) {
+      setForceRender((prev) => prev + 1);
+    }
+  }, [check, Icons]);
   return (
-    <div>
+    <div key={forceRender}>
       {/* Header Section */}
+      <PathName pageTitle={pageTitle}></PathName>
       <HeaderSection pageTitle={path}></HeaderSection>
-
       {/* Section 1 */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex-[2]">
-          <InputHeader placeholder="Rechercher un catalogue"></InputHeader>
+          {/* <InputHeader placeholder="Rechercher un catalogue"></InputHeader> */}
+          <div
+            // style={{marginLeft: "-4rem",position:"fixed"}}
+            className="flex items-center bg-white rounded-[10px] gap-4 h-10 w-max">
+            <Image className="ml-4 mr-3 " src={"/search.svg"} alt='search' width={12} height={12}></Image>
+            <input type="text" name="search" placeholder={"Rechercher un catalogue"}
+            onChange={(e)=>setSearch(e.target.value)}
+              className="rounded-[10px] border-none outline-none placeholder:text-[12px] h-full" />
+          </div>
         </div>
         <div className="flex gap-2">
-          <DropDown>
+          <DropDownCatalogue>
             <ExportBtn label="Export" />
-          </DropDown>
+          </DropDownCatalogue>
 
           <Ajouter_Catalogue label="Ajouter un catalogue"
-          //@ts-ignore
-          setCheck={setCheck} />
+            //@ts-ignore
+            setCheck={setCheck} />
           <DisplayDate
             icon="/date.svg"
             text="Jan 6, 2023 - Jan 22, 2023"
@@ -51,17 +76,18 @@ const Catalogue: NextPage = () => {
         </div>
       </div>
       {/* catalogue card */}
-      <CatalogueCardItem />
+      <CardItem catalogueId="" onDelete={() => { }} setIcons={setIcons} Recherche={Search} />
       {/* modal for creating a catalogue */}
       {openModal && <Modal setCloseModal={setOpenModal} />}
 
       {
-        check ? (<span className='mt-[10rem] '>
-          <ToastContainer position='bottom-right' />
-        </span>) : ("")
+        !check || !Icons ? (
+          <span className='mt-[10rem] '>
+            <ToastContainer position='bottom-right' />
+          </span>
+        ) : null
       }
-
-    </div>
+    </div >
   );
 };
 

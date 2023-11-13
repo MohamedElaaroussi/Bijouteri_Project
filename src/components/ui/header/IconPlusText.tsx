@@ -1,13 +1,29 @@
-import Image from "next/image"
-import DisplayFilter from "./DisplayFilter"
+import React, { useState } from "react";
+import Datepicker from "react-tailwindcss-datepicker";
 
 const DisplayDate = ({ text, icon }: { text: string, icon: string }) => {
-    const composant = null
+    const [value, setValue] = useState({
+        startDate: new Date(),
+        endDate: new Date().setMonth(11)
+    });
 
-
+    const handleValueChange = (newValue:any) => {
+        console.log("newValue:", newValue);
+        setValue(newValue);
+    
+    };
 
     return (
-        <div className="hover:cursor-pointer flex items-center bg-white rounded-[60px]
+        <div className="mt-3 ">
+            <Datepicker 
+            // @ts-ignore
+            value={value} 
+            onChange={handleValueChange} 
+        
+            />
+
+
+            {/* <div className="hover:cursor-pointer flex items-center bg-white rounded-[60px]
          border-[1px] p-3 h-[45px] mt-[9px]
          border-[var(--borderColor)] gap-2">
             {text === "Filter" ? (
@@ -17,8 +33,9 @@ const DisplayDate = ({ text, icon }: { text: string, icon: string }) => {
                     <p className="text-xs text-[var(--textColor)] font-medium">{text}</p>
                 </>
             )}
+        </div> */}
         </div>
-    )
-}
+    );
+};
 
-export default DisplayDate
+export default DisplayDate;
