@@ -58,7 +58,7 @@ export default function User_Info() {
     fetchUser(); // Charger les données initiales
 
 
-  }, []);
+  },[]);
 
   //  End Api pour getter les users
 

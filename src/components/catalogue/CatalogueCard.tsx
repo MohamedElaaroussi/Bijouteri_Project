@@ -6,24 +6,51 @@ import Link from 'next/link';
 import React, { useEffect, useState, useMemo } from 'react';
 import Delete_Catalogue from '../ui/modal/Modal_Catalogue/Delete_Catalogue';
 import Pagination from '@/components/ui/pagination/Pagination';
+import { any } from 'zod';
 
-const CardItem = () => {
+interface DeleteUserProps {
+  catalogueId: string;
+  onDelete: () => void;
+  setIcons: React.Dispatch<React.SetStateAction<boolean>>;
+  Recherche: string
+}
+
+
+
+const CardItem: React.FC<DeleteUserProps> = ({ setIcons, Recherche }) => {
   const [Catalogue, setCatalogue] = useState<any[]>([]);
   const lenCatalogue = Catalogue.length;
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setloading] = useState(true);
+  const [DeleteCatalogueIcon, setDeleteCatalogueIcon] = useState<boolean>(false);
 
+  setIcons(DeleteCatalogueIcon)
 
 
 
   useEffect(() => {
     const fetchCatalogue = async () => {
-      const URL = process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000/';
+      const baseURL = process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000/';
+
       try {
-        const response = await axios.get(`api/catalogue?search=&page=${currentPage}&limit=10`);
+        let url = `api/catalogue?page=${currentPage}&limit=10`;
+
+        // Ajoutez la recherche à l'URL si la recherche n'est pas vide
+        if (Recherche.trim() !== '') {
+          // Divisez la recherche en mots clés séparés par des espaces
+          const keywords = Recherche.trim().split(' ');
+
+          // Ajoutez chaque mot-clé à la requête pour chercher dans le catalogue et la description
+          keywords.forEach((keyword) => {
+            url += `&search=${keyword}`;
+          });
+        }
+
+        const response = await axios.get(url);
         const CatalogueData = Array.isArray(response.data.result)
           ? response.data.result
           : [response.data.result];
+
         setCatalogue(CatalogueData);
         setloading(false);
       } catch (error) {
@@ -31,7 +58,8 @@ const CardItem = () => {
       }
     };
 
-  }, [currentPage]);
+    fetchCatalogue();
+  }, [currentPage, Recherche]);
 
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 9;
@@ -49,6 +77,14 @@ const CardItem = () => {
     return (
       <div className="ml-[30rem] h-[450px] mt-[15rem]">
         <Spinner label="Loading..." color="warning" />
+      </div>
+    );
+  }
+  if (Recherche.trim() !== '' && Catalogue.length === 0) {
+    // Affiche un message lorsque la recherche n'est pas vide et aucun élément n'est trouvé
+    return (
+      <div className="ml-[30rem] mt-[15rem] text-[color:var(--textColor)]">
+        Aucun élément trouvé.
       </div>
     );
   }
@@ -101,7 +137,10 @@ const CardItem = () => {
                     className="hover:cursor-pointer  mt-[10px] "
                   />
                 </Link>
-                <Delete_Catalogue catalogueId={item._id} onDelete={() => { }} />
+                <Delete_Catalogue catalogueId={item._id} onDelete={() => { }}
+                  //@ts-ignore
+                  setDeleteCatalogueIcon={setDeleteCatalogueIcon}
+                />
               </div>
             </div>
           </div>

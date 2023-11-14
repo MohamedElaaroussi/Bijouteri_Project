@@ -1,0 +1,19 @@
+[33mfd8aaf7[m[33m ([m[1;36mHEAD -> [m[1;32mdev-laaroussi[m[33m, [m[1;31morigin/dev-laaroussi[m[33m)[m HEAD@{0}: commit (merge): CataloguePage finie
+[33macfd6ff[m HEAD@{1}: checkout: moving from dev-rguig to dev-laaroussi
+[33md09e6c1[m[33m ([m[1;31morigin/dev-rguig[m[33m, [m[1;32mdev-rguig[m[33m)[m HEAD@{2}: pull origin dev-rguig: Fast-forward
+[33m8844987[m HEAD@{3}: checkout: moving from dev-laaroussi to dev-rguig
+[33macfd6ff[m HEAD@{4}: commit: CataloguePage finie
+[33mcd16624[m HEAD@{5}: merge dev-rguig: Merge made by the 'ort' strategy.
+[33mca2a59e[m HEAD@{6}: checkout: moving from dev-rguig to dev-laaroussi
+[33m8844987[m HEAD@{7}: pull origin dev-rguig: Fast-forward
+[33m2079f91[m HEAD@{8}: checkout: moving from dev-laaroussi to dev-rguig
+[33mca2a59e[m HEAD@{9}: commit: Catalogue info
+[33m7830b2c[m HEAD@{10}: reset: moving to HEAD
+[33m7830b2c[m HEAD@{11}: commit (merge): Fusion de dev-rguig dans dev-laaroussi
+[33ma279abf[m HEAD@{12}: checkout: moving from dev-rguig to dev-laaroussi
+[33m2079f91[m HEAD@{13}: checkout: moving from dev-laaroussi to dev-rguig
+[33ma279abf[m HEAD@{14}: commit: merge
+[33m7dac5b5[m HEAD@{15}: commit: catalogue
+[33maba3d82[m HEAD@{16}: commit: liaison back-end
+[33maea704c[m HEAD@{17}: commit: Api front
+[33m82b8c5e[m HEAD@{18}: commit (initial): finishing comtabilite page

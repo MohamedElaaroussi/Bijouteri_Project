@@ -9,51 +9,55 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
+
+
 const Ajouter_Catalogue = ({ label, setCheck }: { label: string, setCheck: boolean }): ReactNode => {
     // const [ApiPassed, setApiPassed] = useState<boolean>()
+
     const [catalogueName, setCatalogueName] = useState('');
     const [status, setStatus] = useState('');
     const [description, setDescription] = useState('');
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [formSubmitted, setFormSubmitted] = useState(false);
 
-    // Track whether the form has been submitted
-    // console.log("Nom catalogue " + catalogueName + " Staus" + status + "description" + description)
-    // console.log("/n Image " + selectedImage)
     const PostData = async () => {
         setFormSubmitted(true);
 
-        if (catalogueName && status && description) {
-            const formData = new FormData();
-            const jsonData = {
-                catalogue: catalogueName,
-                status: status,
-                description: description,
-                img: "base64"
-            };
-            // const imageBlob = new Blob([imageBytes], { type: 'image/jpeg' }); // Assurez-vous de spécifier le type correct
-
-            // formData.append('json_data', JSON.stringify(jsonData));
-
-            // if (selectedImage) {
-            //     formData.append('image', selectedImage);
-            // }
-
+        if (catalogueName && status && description && selectedImage) {
             try {
-                const response = await axios.post('http://localhost:3000/api/catalogue', jsonData);
+                const imageData = await convertImageToBase64(selectedImage);
+                const jsonData = {
+                    catalogue: catalogueName,
+                    status: status,
+                    description: description,
+                    img: imageData,
+                };
 
-                // Traitez la réponse ici (par exemple, affichez un message de succès).
+                const response = await axios.post('http://localhost:3000/api/catalogue', jsonData);
                 console.log('Réponse du serveur :', response.data);
-                notify(); // Affichez un toast pour indiquer que l'information a été ajoutée avec succès.
+                notify();
                 setSelectedImage(null);
-                //@ts-ignore
-                setCheck(true);
+                // @ts-ignore
                 onClose();
+
             } catch (error) {
                 console.error("Une erreur s'est produite lors de l'insertion des données", error);
-                // Traitez les erreurs ici (par exemple, affichez un message d'erreur).
             }
         }
+    };
+
+    const convertImageToBase64 = (image: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const base64String = reader.result?.toString().split(',')[1] || '';
+                resolve(base64String);
+            };
+            reader.onerror = (error) => {
+                reject(error);
+            };
+            reader.readAsDataURL(image);
+        });
     };
 
     const notify = () => toast.success('Information ajouter avec success !', {

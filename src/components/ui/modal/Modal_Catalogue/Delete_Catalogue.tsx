@@ -21,9 +21,10 @@ import React, { useEffect, useState, useMemo } from 'react';
 interface DeleteUserProps {
   catalogueId: string;
   onDelete: (catalogueId: string) => void;
+  setDeleteCatalogueIcon:boolean
 }
 
-const Delete_Catalogue: React.FC<DeleteUserProps> = ({ catalogueId, onDelete }) => {
+const Delete_Catalogue: React.FC<DeleteUserProps> = ({ catalogueId, onDelete,setDeleteCatalogueIcon}) => {
   
   
   const [isConfirmationOpen, setConfirmationOpen] = useState(false);
@@ -34,10 +35,6 @@ const Delete_Catalogue: React.FC<DeleteUserProps> = ({ catalogueId, onDelete }) 
       await axios.delete(`http://localhost:3000/api/catalogue/${catalogueId}`);
       onDelete(catalogueId);
       setConfirmationOpen(false);
-
-      
-
-
     } catch (error) {
       console.error("Erreur lors de la suppression de l'utilisateur", error);
     }
@@ -66,6 +63,8 @@ const Delete_Catalogue: React.FC<DeleteUserProps> = ({ catalogueId, onDelete }) 
                     handleDeleteUser(catalogueId);
                     //@ts-ignore
                     onOpenChange(false);
+                    //@ts-ignore
+                    setDeleteCatalogueIcon(true)
                   }}
                   className="rounded-full bg-[#D9A528] w-[172px] h-[45px] text-[#FFF] font-somibold font-sans font-inter"
                 >

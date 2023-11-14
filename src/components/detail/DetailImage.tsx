@@ -1,8 +1,15 @@
 import Image from 'next/image';
 import { useState } from 'react';
+interface CatalogueDisplayProps {
+    CatalogueImage: {
+      // Adjust the types based on the actual structure of your Catalogue data
+      AllCatalogue2: string
+      // ... other properties
+    };
+  }
 
-const DetailImage = ({ src }: { src: string }) => {
-    const [imagePreview, setImagePreview] = useState<string | null>(src);
+const DetailImage: React.FC<CatalogueDisplayProps> =  ({ CatalogueImage }) => {
+    const [imagePreview, setImagePreview] = useState<string | null>("");
     // console.log('Voici Iimage '+imagePreview)
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +34,7 @@ const DetailImage = ({ src }: { src: string }) => {
             <div className='relative'>
                 <label htmlFor="fileInput" className="cursor-pointer">
                     <div style={{ maxHeight: '40rem', overflow: 'hidden' }}>
-                        <Image src={imagePreview || src} alt='' width={192} height={254} />
+                        <Image src={imagePreview || ""} alt='image Catalogue' width={192} height={254} />
                     </div>
                     <div className='bg-white p-2 rounded-full w-max absolute -top-2 -right-2 border-[1px]'>
                         <input
