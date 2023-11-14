@@ -43,7 +43,6 @@ export const GET = async (req: NextRequest) => {
         const { startIndex, results } = getPaginatedResult(page, limit, totalBills)
 
         const bill = await Bill.find({ ...searchByQuery, ...searchBtwDate }).skip(startIndex).limit(limit)
-        console.log(bill);
 
         const calRevenueAndPaidAmount = await Bill.aggregate([{
             $group: { _id: "_id", revenue: { $sum: "$total" }, paid: { $sum: "$paid" } },
