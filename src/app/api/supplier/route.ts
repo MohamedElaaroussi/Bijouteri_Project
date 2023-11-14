@@ -14,20 +14,30 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
   const url = new URL(req.url);
   const searchParams = new URLSearchParams(url.search);
   const search = searchParams.get("search");
+  let startDate = searchParams.get("startDate");
+  let endDate: string | Date | null = searchParams.get("endDate");
   const page = Number(searchParams.get("page")) || 1;
   const limit = Number(searchParams.get("limit")) || 10;
 
+  if (endDate) {
+    endDate = new Date(endDate);
+    endDate.setHours(23, 59, 59, 999);
+  }
+
   try {
     const searchByQuery = { ...(search ? { $or: [{ 'username': { $regex: ".*" + search + ".*", $options: 'i' } }, { 'phone': { $regex: ".*" + search + ".*", $options: 'i' } }] } : {}) }
+    const searchBtwDate = { ...(startDate && endDate ? { $and: [{ "createdAt": { $gte: startDate } }, { "createdAt": { $lte: endDate } }] } : {}) }
     const totalSuppliers = await Supplier
-      .countDocuments(searchByQuery)
+      .countDocuments({ ...searchByQuery, ...searchBtwDate })
+
     // calling a method that return start index and end index, 
     // and results object that may contain next and previous page
     const { startIndex, results } = getPaginatedResult(page, limit, totalSuppliers)
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    const suppliers = await Supplier.find(searchByQuery)
+    const suppliers = await Supplier.find({ ...searchByQuery, ...searchBtwDate }).skip(startIndex).limit(limit).exec();
+
     results.total = totalSuppliers;
     results.result = suppliers;
+
     return NextResponse.json(results, { status: 200 })
   } catch (error) {
     return NextResponse.json({ message: "Something went wrong" }, { status: 500 })

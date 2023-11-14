@@ -7,7 +7,7 @@ export interface RoleModel extends Document {
 }
 
 const roleSchema = new Schema<RoleModel>({
-  name: { type: String, required: true, unique: true },
+  name: { type: String, required: true, unique: true, trim: true, },
   permission: [{ type: Schema.Types.ObjectId, ref: "Permission" }],
 });
 

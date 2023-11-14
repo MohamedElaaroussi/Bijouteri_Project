@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { Catalogue } from "../../../../models/Catalogue";
 import { connectToDatabase } from "../../../../db/connection";
 import { getPaginatedResult } from "@/utils/util";
+import path from "path";
+import fs from "fs";
 
 connectToDatabase()
 // get all catalog with pagination
@@ -53,13 +55,25 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
             { error: "Catalog AlreadyExist" },
             { status: 400 },
         );
-        const createCatalogue = new Catalogue({ catalogue, description, img, status })
+
+        const base64Data = img.replace(/^data:image\/\w+;base64,/, '');
+
+        // Create a buffer from the base64 data
+        const buffer = Buffer.from(base64Data, 'base64');
+
+        const imgName = catalogue + ".png"
+        // Save the base64 image to the public directory
+        const filePath = path.join(process.cwd(), 'public/uploads', imgName);
+        fs.writeFileSync(filePath, buffer);
+        const createCatalogue = new Catalogue({ catalogue, description, img: imgName, status })
         await createCatalogue.save()
         return NextResponse.json(
             { message: "Catalog was created successfully" },
             { status: 201 },
         );
     } catch (error) {
+        console.log(error);
+
         NextResponse.json(
             { error: "An error occurred while fetching catalogues" },
             { status: 500 },

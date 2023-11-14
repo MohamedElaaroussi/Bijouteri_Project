@@ -1,7 +1,7 @@
+import { Reparation } from './../../../../../models/Reparation';
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "../../../../../db/connection";
 import excelJS from 'exceljs'
-import { Client } from "../../../../../models/Client";
 
 connectToDatabase()
 export const GET = async (req: NextRequest) => {
@@ -20,35 +20,32 @@ export const GET = async (req: NextRequest) => {
         }
 
         const searchBtwDate = { ...(startDate && endDate ? { $and: [{ "createdAt": { $gte: startDate } }, { "createdAt": { $lte: endDate } }] } : {}) }
-        const client = await Client.find(searchBtwDate).lean()
+        const reparation = await Reparation.find(searchBtwDate).populate("articles").lean()
 
         const workBook = new excelJS.Workbook()
-        const workSheet = workBook.addWorksheet("client")
+        const workSheet = workBook.addWorksheet("reparation")
 
         workSheet.columns = [
-            { header: "id", key: "_id" },
-            { header: "Username", key: "username" },
-            { header: "Email", key: "email" },
-            { header: "Phone", key: "phone" },
-            { header: "Address", key: "address" },
             { header: "Status", key: "status" },
-            { header: "Client Type", key: "clientType" },
-            { header: "Purchase", key: "purchase" },
-            { header: "Total", key: "total" },
+            { header: "Paid By Us", key: "paidByUs" },
+            { header: "Repair", key: "repair" },
+            { header: "Articles", key: "articles" },
+            { header: "Total Price", key: "totalPrice" },
+            { header: "Transaction", key: "transaction" },
             { header: "Created At", key: "createdAt" },
         ];
 
-        for (let i = 1; i <= client.length; i++) {
-            const selectedClient = client[i - 1]
-            const formattedCat = { ...selectedClient, _id: i, createdAt: selectedClient.createdAt.toString() }
-            workSheet.addRow(formattedCat)
+        for (let i = 1; i <= reparation.length; i++) {
+            const selectedReparation = reparation[i - 1]
+            const formatted = { ...selectedReparation, _id: i, createdAt: selectedReparation.createdAt.toString() }
+            workSheet.addRow(formatted)
         }
 
-        const catBuffer = await workBook.csv.writeBuffer()
-        const res = new NextResponse(catBuffer, {
+        const buffer = await workBook.csv.writeBuffer()
+        const res = new NextResponse(buffer, {
             status: 200,
             headers: new Headers({
-                "content-disposition": `attachment; filename=client.csv`,
+                "content-disposition": `attachment; filename=reparation.csv`,
                 "Content-Type": "text/csv",
             }),
         });

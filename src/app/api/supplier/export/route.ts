@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "../../../../../db/connection";
 import excelJS from 'exceljs'
-import { Client } from "../../../../../models/Client";
+import { Supplier } from "../../../../../models/Supplier";
 
 connectToDatabase()
 export const GET = async (req: NextRequest) => {
@@ -20,10 +20,10 @@ export const GET = async (req: NextRequest) => {
         }
 
         const searchBtwDate = { ...(startDate && endDate ? { $and: [{ "createdAt": { $gte: startDate } }, { "createdAt": { $lte: endDate } }] } : {}) }
-        const client = await Client.find(searchBtwDate).lean()
+        const supplier = await Supplier.find(searchBtwDate).lean()
 
         const workBook = new excelJS.Workbook()
-        const workSheet = workBook.addWorksheet("client")
+        const workSheet = workBook.addWorksheet("supplier")
 
         workSheet.columns = [
             { header: "id", key: "_id" },
@@ -32,23 +32,21 @@ export const GET = async (req: NextRequest) => {
             { header: "Phone", key: "phone" },
             { header: "Address", key: "address" },
             { header: "Status", key: "status" },
-            { header: "Client Type", key: "clientType" },
-            { header: "Purchase", key: "purchase" },
             { header: "Total", key: "total" },
             { header: "Created At", key: "createdAt" },
         ];
 
-        for (let i = 1; i <= client.length; i++) {
-            const selectedClient = client[i - 1]
-            const formattedCat = { ...selectedClient, _id: i, createdAt: selectedClient.createdAt.toString() }
+        for (let i = 1; i <= supplier.length; i++) {
+            const selectedSupplier = supplier[i - 1]
+            const formattedCat = { ...selectedSupplier, _id: i, createdAt: selectedSupplier.createdAt.toString() }
             workSheet.addRow(formattedCat)
         }
 
-        const catBuffer = await workBook.csv.writeBuffer()
-        const res = new NextResponse(catBuffer, {
+        const buffer = await workBook.csv.writeBuffer()
+        const res = new NextResponse(buffer, {
             status: 200,
             headers: new Headers({
-                "content-disposition": `attachment; filename=client.csv`,
+                "content-disposition": `attachment; filename=supplier.csv`,
                 "Content-Type": "text/csv",
             }),
         });

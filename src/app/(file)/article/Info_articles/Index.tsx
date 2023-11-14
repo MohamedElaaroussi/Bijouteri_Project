@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableHeader,
@@ -8,73 +8,39 @@ import {
   TableCell,
   Pagination,
   getKeyValue,
+  Spinner,
 } from "@nextui-org/react";
-import axios from "axios";
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import Delete_Articles from "@/components/ui/modal/Modal_Articles/Delete_Articles";
 import Update_Articles from "@/components/ui/modal/Modal_Articles/Update_Articles";
-import { Spinner } from "@nextui-org/react";
-import Image from "next/image";
+import { useQuery, useQueryClient } from "react-query";
+import { getArticle } from "../../../../api/article";
 
 function Articles_Info() {
-  //  Start Api pour getter les Article
-  const [Article, setArticles] = useState<any[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setloading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const URL =
-        process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/";
-      try {
-        const response = await axios.get(
-          `api/article?page=${currentPage}&limit=10`,
-        );
-        const userData = Array.isArray(response.data.result)
-          ? response.data.result
-          : [response.data.result];
-        setArticles(userData);
-        setloading(false);
-        console.log("---------------");
-        console.log(userData);
-        console.log("---------------");
-      } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des données de l'utilisateur",
-          error,
-        );
-      }
-    };
-    fetchUser(); // Charger les données initiales
+  // Access the client
+  const queryClient = useQueryClient();
 
-    const intervalId = setInterval(fetchUser, 3000); // Actualiser toutes les 3 secondes
+  // Queries
+  const { isLoading, isSuccess, isError, data } = useQuery(
+    ["articles", page, limit],
+    () => getArticle(page, limit),
+  );
 
-    return () => {
-      clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté
-    };
-  }, [currentPage]);
-
-  //  End Api pour getter les Article
-
-  const [page, setPage] = React.useState(1);
-  const rowsPerPage = 4;
-
-  const pages = Math.ceil(Article.length / rowsPerPage);
-
-  const items = React.useMemo(() => {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-
-    return Article.slice(start, end);
-  }, [page, Article]);
-
-  if (loading) {
-    return;
-    <div className="mt-[8rem] text-center">
-      <Spinner label="Chargement des articles" color="warning" />
-    </div>;
+  if (isLoading) {
+    return (
+      <div className="mt-[8rem] text-center">
+        <Spinner label="Chargement des articles" color="warning" />
+      </div>
+    );
   }
+
+  if (isError) {
+    return <p>Something went wrong!</p>;
+  }
+  const totalPages = Math.ceil(data.total / limit);
   return (
     <div className="mb-[42vh] mt-7">
       <Table
@@ -82,17 +48,20 @@ function Articles_Info() {
         bottomContent={
           <div className="flex justify-between">
             <div className="w-[30vh] text-sm text-[var(--textColor)]">
-              Résultats: {page} - {rowsPerPage} sur {pages}
+              Résultats: {page} - {limit} sur {totalPages}
             </div>
             <div className="flex w-full justify-end">
               <Pagination
                 isCompact
                 showControls
                 showShadow
-                color="secondary"
+                color="warning"
                 page={page}
-                total={pages}
-                onChange={(page) => setPage(page)}
+                initialPage={1}
+                total={totalPages}
+                onChange={(page) => {
+                  setPage(() => page);
+                }}
               />
             </div>
           </div>
@@ -126,7 +95,7 @@ function Articles_Info() {
           <TableColumn key={"action"}>{""} </TableColumn>
         </TableHeader>
 
-        <TableBody items={items}>
+        <TableBody items={data.result}>
           {(item) => (
             <TableRow key={item._id} as={Link} href={`/article/${item._id}`}>
               {(columnKey) => (

@@ -1,12 +1,10 @@
 "use client";
 
 import Modal from "@/components/ui/modal/Modal";
-import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import InputHeader from "@/components/ui/Input/InputHeader";
 import ExportBtn from "@/components/ui/button/ExportBtn";
 import DisplayDate from "@/components/ui/header/IconPlusText";
-import DropDown from "@/components/ui/DropDown";
 import HeaderSection from "@/components/ui/header/HeaderSection";
 import { usePathname } from "next/navigation";
 import Filter_Catalogue from "@/components/ui/modal/Modal_Catalogue/Filter_Catalogue";
@@ -15,7 +13,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DropDownCatalogue from "@/components/ui/dropdown/DropDownCatalogue";
 import CardItem from "@/components/catalogue/CatalogueCard";
-import { any } from "zod";
 import PathName from "@/components/ui/header/PathName";
 import Image from "next/image";
 

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "../../../../../db/connection";
 import excelJS from 'exceljs'
-import { Client } from "../../../../../models/Client";
+import { Bill } from "../../../../../models/Bill";
 
 connectToDatabase()
 export const GET = async (req: NextRequest) => {
@@ -20,40 +20,41 @@ export const GET = async (req: NextRequest) => {
         }
 
         const searchBtwDate = { ...(startDate && endDate ? { $and: [{ "createdAt": { $gte: startDate } }, { "createdAt": { $lte: endDate } }] } : {}) }
-        const client = await Client.find(searchBtwDate).lean()
+        const bill = await Bill.find(searchBtwDate).lean()
 
         const workBook = new excelJS.Workbook()
-        const workSheet = workBook.addWorksheet("client")
+        const workSheet = workBook.addWorksheet("bill")
 
         workSheet.columns = [
             { header: "id", key: "_id" },
-            { header: "Username", key: "username" },
-            { header: "Email", key: "email" },
-            { header: "Phone", key: "phone" },
-            { header: "Address", key: "address" },
-            { header: "Status", key: "status" },
-            { header: "Client Type", key: "clientType" },
-            { header: "Purchase", key: "purchase" },
+            { header: "Delivery Method", key: "deliveryMethod" },
+            { header: "Payment Method", key: "paymentMethod" },
+            { header: "Client", key: "client" },
+            { header: "Sale", key: "sale" },
+            { header: "Paid", key: "paid" },
             { header: "Total", key: "total" },
+            { header: "Status", key: "status" },
             { header: "Created At", key: "createdAt" },
         ];
 
-        for (let i = 1; i <= client.length; i++) {
-            const selectedClient = client[i - 1]
-            const formattedCat = { ...selectedClient, _id: i, createdAt: selectedClient.createdAt.toString() }
-            workSheet.addRow(formattedCat)
+        for (let i = 1; i <= bill.length; i++) {
+            const selectedBill = bill[i - 1]
+            const formatted = { ...selectedBill, _id: i, createdAt: selectedBill.createdAt.toString(), client: selectedBill.client.username }
+            workSheet.addRow(formatted)
         }
 
-        const catBuffer = await workBook.csv.writeBuffer()
-        const res = new NextResponse(catBuffer, {
+        const buffer = await workBook.csv.writeBuffer()
+        const res = new NextResponse(buffer, {
             status: 200,
             headers: new Headers({
-                "content-disposition": `attachment; filename=client.csv`,
+                "content-disposition": `attachment; filename=bill.csv`,
                 "Content-Type": "text/csv",
             }),
         });
         return res
     } catch (error) {
+        console.log(error);
+
         return NextResponse.json({ "message": "Something went wrong" }, { status: 500 })
     }
 }

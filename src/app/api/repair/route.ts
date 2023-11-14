@@ -11,17 +11,38 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     // getting the page number and limit from the url
     const url = new URL(req.url);
     const searchParams = new URLSearchParams(url.search);
+    const search = searchParams.get("search");
+    let startDate = searchParams.get("startDate");
+    let endDate: string | Date | null = searchParams.get("endDate");
     const page = Number(searchParams.get("page")) || 1;
     const limit = Number(searchParams.get("limit")) || 10;
 
+    if (endDate) {
+        endDate = new Date(endDate);
+        endDate.setHours(23, 59, 59, 999);
+    }
+
     try {
-        const totalRepairs = await Repair.estimatedDocumentCount()
+        const searchByQuery = {
+            ...(search ? {
+                $or: [
+                    { username: { $regex: ".*" + search + ".*", $options: 'i' } },
+                    { email: { $regex: ".*" + search + ".*", $options: 'i' } },
+                    { phone: { $regex: ".*" + search + ".*" } },
+                    { status: { $regex: ".*" + search + ".*", $options: 'i' } },
+                    { address: { $regex: ".*" + search + ".*", $options: 'i' } },
+                ]
+            } : {})
+        }
+        const searchBtwDate = { ...(startDate && endDate ? { $and: [{ "createdAt": { $gte: startDate } }, { "createdAt": { $lte: endDate } }] } : {}) }
+
+        const totalRepairs = await Repair.countDocuments({ ...searchByQuery, ...searchBtwDate })
 
         // calling a method that return start index and end index, 
         // and results object that may contain next and previous page
         const { startIndex, results } = getPaginatedResult(page, limit, totalRepairs)
 
-        const repairs = await Repair.find().skip(startIndex).limit(limit)
+        const repairs = await Repair.find({ ...searchByQuery, ...searchBtwDate }).skip(startIndex).limit(limit)
         results.total = totalRepairs;
         results.result = repairs;
         return NextResponse.json(results, { status: 200 })
