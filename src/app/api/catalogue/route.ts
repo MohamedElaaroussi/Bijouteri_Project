@@ -56,6 +56,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
             { status: 400 },
         );
 
+        // replace the data:image 
         const base64Data = img.replace(/^data:image\/\w+;base64,/, '');
 
         // Create a buffer from the base64 data
@@ -65,6 +66,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
         // Save the base64 image to the public directory
         const filePath = path.join(process.cwd(), 'public/uploads', imgName);
         fs.writeFileSync(filePath, buffer);
+
         const createCatalogue = new Catalogue({ catalogue, description, img: imgName, status })
         await createCatalogue.save()
         return NextResponse.json(
@@ -72,8 +74,6 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
             { status: 201 },
         );
     } catch (error) {
-        console.log(error);
-
         NextResponse.json(
             { error: "An error occurred while fetching catalogues" },
             { status: 500 },
