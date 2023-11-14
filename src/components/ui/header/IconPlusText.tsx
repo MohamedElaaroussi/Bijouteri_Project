@@ -19,7 +19,7 @@ const DisplayDate = ({ text, icon }: { text: string, icon: string }) => {
             // @ts-ignore
             value={value} 
             onChange={handleValueChange} 
-        
+            primaryColor="orange"
             />
 
 
