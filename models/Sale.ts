@@ -2,7 +2,6 @@ import mongoose, { Document, Schema } from "mongoose";
 import { Article, ArticleModel } from "./Article";
 import { ClientModel } from "./Client";
 import { UserModel } from "./User";
-import { Catalogue } from "./Catalogue";
 
 interface Transaction {
     _id: mongoose.Types.ObjectId;
