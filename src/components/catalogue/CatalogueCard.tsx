@@ -98,7 +98,7 @@ const CardItem: React.FC<DeleteUserProps> = ({ setIcons, Recherche }) => {
               <Link href={`/catalogue/${item._id}`}>
                 <Image
                   className="rounded-lg object-cover"
-                  src={'/article.png'}
+                  src={`/uploads/${item.img}`}
                   alt="article"
                   style={{ border: '1px solid #EBF1FF' }}
                   fill
