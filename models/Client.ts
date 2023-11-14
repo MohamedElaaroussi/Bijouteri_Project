@@ -15,7 +15,7 @@ export interface ClientModel extends Document {
 }
 
 export const clientSchema = new Schema<ClientModel>({
-  username: { type: String, required: true },
+  username: { type: String, required: true, trim: true, },
   email: {
     type: String,
     required: true,
@@ -25,11 +25,11 @@ export const clientSchema = new Schema<ClientModel>({
     validate: [validator.isEmail, "Please enter valid email address"],
   },
   phone: {
-    type: String, unique: true, minlength: 10, maxlength: 10,
+    type: String, unique: true, minlength: 10, maxlength: 10, trim: true,
   },
-  address: { type: String },
-  status: { type: String },
-  clientType: { type: String },
+  address: { type: String, trim: true, },
+  status: { type: String, trim: true, },
+  clientType: { type: String, trim: true, },
   createdBy: { type: Schema.Types.ObjectId, ref: "User" },
   purchase: { type: Number, min: 0, default: 0 },
   total: { type: Number, min: 0, default: 0 },

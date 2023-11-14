@@ -30,14 +30,14 @@ export interface SaleModel extends Document {
 }
 
 export const transactionSchema = new Schema<Transaction>({
-    method: { type: String },
+    method: { type: String, trim: true },
     total: { type: Number, min: 0 },
     date: { type: Date, default: Date.now },
-    note: { type: String },
+    note: { type: String, trim: true },
 })
 
 export const saleSchema = new Schema<SaleModel>({
-    description: { type: String },
+    description: { type: String, trim: true, },
     items: [
         {
             article: { type: mongoose.Schema.Types.ObjectId, ref: 'Article', required: true },

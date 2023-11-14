@@ -15,7 +15,7 @@ export interface SupplierModel extends Document {
 }
 
 const supplierSchema = new Schema<SupplierModel>({
-  username: { type: String, required: true },
+  username: { type: String, required: true, trim: true, },
   email: {
     type: String,
     required: true,
@@ -25,10 +25,10 @@ const supplierSchema = new Schema<SupplierModel>({
     validate: [validator.isEmail, "Please enter valid email address"],
   },
   phone: {
-    type: String, unique: true, minlength: 10, maxlength: 10
+    type: String, unique: true, minlength: 10, maxlength: 10, trim: true,
   },
-  address: { type: String },
-  status: { type: String },
+  address: { type: String, trim: true, },
+  status: { type: String, trim: true, },
   total: { type: Number, default: 0 },
   createdBy: { type: Schema.Types.ObjectId, ref: "User" },
   // articles: [{ type: Schema.Types.ObjectId, ref: "Article" }]

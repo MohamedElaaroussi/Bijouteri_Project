@@ -1,15 +1,15 @@
 import { model, models, InferSchemaType, Schema, Types } from "mongoose";
 
 const clientSchema = new Schema({
-    username: { type: String },
-    email: { type: String },
-    phone: { type: String }
+    username: { type: String, trim: true, },
+    email: { type: String, trim: true, },
+    phone: { type: String, trim: true, }
 })
 
 const billSchema = new Schema({
     _id: { type: Number },
-    deliveryMethod: { type: String },
-    paymentMethod: { type: String },
+    deliveryMethod: { type: String, trim: true, },
+    paymentMethod: { type: String, trim: true, },
     client: { type: clientSchema },
     sale: { type: Types.ObjectId, ref: "Sale" },
     paid: { type: Number },

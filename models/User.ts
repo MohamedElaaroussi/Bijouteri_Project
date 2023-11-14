@@ -12,7 +12,7 @@ export interface UserModel extends Document {
 }
 
 const userSchema = new Schema<UserModel>({
-  username: { type: String, required: true },
+  username: { type: String, required: true, trim: true },
   email: {
     type: String,
     required: true,
@@ -21,8 +21,9 @@ const userSchema = new Schema<UserModel>({
     unique: true,
     validate: [validator.isEmail, "Please enter valid email address"],
   },
-  phone: { type: String, unique: true },
-  password: { type: String, required: true, select: false },
+  phone: {
+    type: String, unique: true, minlength: 10, maxlength: 10, trim: true,
+  }, password: { type: String, required: true, select: false },
   role: { type: Schema.Types.ObjectId, ref: "Role", required: true },
 }, { timestamps: true });
 
