@@ -42,9 +42,7 @@ const DetailCatalogue = ({ params }: { params: ParamsType }) => {
     console.log(data);
   };
   const [Articles_ID, setArticles_ID] = useState<any[]>([]);
-  console.log("-------------");
-  console.log(Articles_ID);
-  console.log("-------------");
+  
 
   useEffect(() => {
     const fetchArticlesBy_Id = async () => {
