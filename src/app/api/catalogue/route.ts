@@ -45,7 +45,7 @@ export const GET = async (req: NextRequest) => {
 export const POST = async (req: NextRequest, res: NextResponse) => {
 
     try {
-        const { catalogue, description, img, status } = await req.json();
+        let { catalogue, description, img, status } = await req.json();
         if (!catalogue) return NextResponse.json(
             { error: "Catalog name is required" },
             { status: 400 },
@@ -56,18 +56,22 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
             { status: 400 },
         );
 
-        // replace the data:image 
-        const base64Data = img.replace(/^data:image\/\w+;base64,/, '');
+        if (img) {
+            // replace the data:image 
+            const base64Data = img.replace(/^data:image\/\w+;base64,/, '');
 
-        // Create a buffer from the base64 data
-        const buffer = Buffer.from(base64Data, 'base64');
+            // Create a buffer from the base64 data
+            const buffer = Buffer.from(base64Data, 'base64');
+            const imgName = catalogue + ".png"
 
-        const imgName = catalogue + ".png"
-        // Save the base64 image to the public directory
-        const filePath = path.join(process.cwd(), 'public/uploads', imgName);
-        fs.writeFileSync(filePath, buffer);
+            // replace the colon from the img name
+            img = imgName.replace(/:/g, '-')
+            // Save the base64 image to the public directory
+            const filePath = path.join(process.cwd(), 'public/uploads', img);
+            fs.writeFileSync(filePath, buffer);
+        }
 
-        const createCatalogue = new Catalogue({ catalogue, description, img: imgName, status })
+        const createCatalogue = new Catalogue({ catalogue, description, img, status })
         await createCatalogue.save()
         return NextResponse.json(
             { message: "Catalog was created successfully" },

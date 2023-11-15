@@ -1,9 +1,11 @@
+import fs from 'fs';
 import { NextRequest, NextResponse } from "next/server"
 import { Article } from "../../../../models/Article";
 import { getPaginatedResult } from "@/utils/util";
 import { getToken } from "next-auth/jwt"
 import { connectToDatabase } from "../../../../db/connection";
 import { Catalogue } from "../../../../models/Catalogue";
+import path from "path";
 
 
 connectToDatabase()
@@ -49,6 +51,22 @@ export const POST = async (req: NextRequest) => {
         const articleToBeAdded = await req.json()
         if (articleToBeAdded.catalogue.length) {
             await Catalogue.updateMany({ _id: { $in: articleToBeAdded.catalogue } }, { $inc: { nbrOfArticles: 1 } })
+        }
+
+        if (articleToBeAdded.img) {
+            // replace the data:image 
+            const base64Data = articleToBeAdded.img.replace(/^data:image\/\w+;base64,/, '');
+
+            // Create a buffer from the base64 data
+            const buffer = Buffer.from(base64Data, 'base64');
+            const imgName = articleToBeAdded.name + ".png"
+
+            // replace the colon from the img name
+            articleToBeAdded.img = imgName.replace(/:/g, '-')
+
+            // Save the base64 image to the public directory
+            const filePath = path.join(process.cwd(), 'public/uploads', articleToBeAdded.img);
+            fs.writeFileSync(filePath, buffer);
         }
         const article = new Article(articleToBeAdded)
         // @ts-ignore

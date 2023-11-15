@@ -33,17 +33,18 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
             );
         }
 
-        if (catalogReqData?.img) {
+        if (catalogReqData.img) {
             // replace the data:image 
             const base64Data = catalogReqData.img.replace(/^data:image\/\w+;base64,/, '');
 
             // Create a buffer from the base64 data
             const buffer = Buffer.from(base64Data, 'base64');
-
             const imgName = catalogReqData.catalogue + ".png"
-            catalogReqData.img = imgName;
+
+            // replace the colon from the img name
+            catalogReqData.img = imgName.replace(/:/g, '-')
             // Save the base64 image to the public directory
-            const filePath = path.join(process.cwd(), 'public/uploads', imgName);
+            const filePath = path.join(process.cwd(), 'public/uploads', catalogReqData.img);
             fs.writeFileSync(filePath, buffer);
         }
         const catalogue = await Catalogue.findByIdAndUpdate({ _id: catalogId }, catalogReqData)

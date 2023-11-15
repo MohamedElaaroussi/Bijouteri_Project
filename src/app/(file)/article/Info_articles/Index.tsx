@@ -14,7 +14,7 @@ import Link from "next/link";
 import Delete_Articles from "@/components/ui/modal/Modal_Articles/Delete_Articles";
 import Update_Articles from "@/components/ui/modal/Modal_Articles/Update_Articles";
 import { useQuery, useQueryClient } from "react-query";
-import { getArticle } from "../../../../api/article";
+import { getArticle } from "../../../../client-api/article";
 
 function Articles_Info() {
   const [page, setPage] = useState(1);
