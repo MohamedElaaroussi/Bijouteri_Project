@@ -118,7 +118,7 @@ function Articles_Info() {
                           {" "}
                           Code bar :
                         </span>
-                        <div className=" textè-[15px] font-bold text-[#D9A528]  ">
+                        <div className=" text-[15px] font-bold text-[#D9A528]  ">
                           {item.barCode}
                         </div>
                       </div>
