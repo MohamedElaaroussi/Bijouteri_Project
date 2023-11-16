@@ -1,5 +1,5 @@
-import axios from 'axios';
-import Image from 'next/image';
+import axios from "axios";
+import Image from "next/image";
 import {
   Modal,
   ModalContent,
@@ -8,54 +8,55 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
-  Checkbox,
-  Input,
-  Link,
 } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
 
-import React, { useEffect, useState, useMemo } from 'react';
-
-
+import React, { useState, useMemo } from "react";
 
 interface DeleteUserProps {
   catalogueId: string;
   onDelete: (catalogueId: string) => void;
-  setDeleteCatalogueIcon:boolean
+  setDeleteCatalogueIcon: boolean;
 }
 
-const Delete_Catalogue: React.FC<DeleteUserProps> = ({ catalogueId, onDelete,setDeleteCatalogueIcon}) => {
-  
-  
+const Delete_Catalogue: React.FC<DeleteUserProps> = ({
+  catalogueId,
+  onDelete,
+  setDeleteCatalogueIcon,
+}) => {
   const [isConfirmationOpen, setConfirmationOpen] = useState(false);
-
-  // Start Api pour deleter les users
-  const handleDeleteUser = async (catalogueId: string) => {
-    try {
-      await axios.delete(`http://localhost:3000/api/catalogue/${catalogueId}`);
-      onDelete(catalogueId);
-      setConfirmationOpen(false);
-    } catch (error) {
-      console.error("Erreur lors de la suppression de l'utilisateur", error);
-    }
-  };
 
   // End Api pour deleter les users
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const modalContent = useMemo(() => {
+    // Start Api pour deleter les users
+    const handleDeleteUser = async (catalogueId: string) => {
+      try {
+        await axios.delete(
+          `http://localhost:3000/api/catalogue/${catalogueId}`,
+        );
+        onDelete(catalogueId);
+        setConfirmationOpen(false);
+      } catch (error) {
+        console.error("Erreur lors de la suppression de l'utilisateur", error);
+      }
+    };
     return (
       <>
         <ModalHeader className="flex gap-1"></ModalHeader>
         <ModalBody>
-          <div className='flex justify-center text-[#787878] text-[22px] font-semibold font-sans font-inter'>
-            {isConfirmationOpen ? "Confirmez-vous la suppression ?" : "Cliquez à nouveau pour confirmer la suppression"}
+          <div className="flex justify-center text-[22px] font-semibold text-[#787878]">
+            {isConfirmationOpen
+              ? "Confirmez-vous la suppression ?"
+              : "Cliquez à nouveau pour confirmer la suppression"}
           </div>
-          <div className='text-center text-[14px] text-[#787878] font-normal ml-[4rem] w-[285px] h-[53px]'>
-            {isConfirmationOpen ? "Si vous confirmez, votre dossier sera définitivement effacé" : "Veuillez cliquer à nouveau pour confirmer la suppression"}
+          <div className="ml-[4rem] h-[53px] w-[285px] text-center text-[14px] font-normal text-[#787878]">
+            {isConfirmationOpen
+              ? "Si vous confirmez, votre dossier sera définitivement effacé"
+              : "Veuillez cliquer à nouveau pour confirmer la suppression"}
           </div>
-          <div className='flex flex-row justify-center gap-6 text-center'>
+          <div className="flex flex-row justify-center gap-6 text-center">
             {isConfirmationOpen ? (
               <>
                 <Button
@@ -64,17 +65,18 @@ const Delete_Catalogue: React.FC<DeleteUserProps> = ({ catalogueId, onDelete,set
                     //@ts-ignore
                     onOpenChange(false);
                     //@ts-ignore
-                    setDeleteCatalogueIcon(true)
+                    setDeleteCatalogueIcon(true);
                   }}
-                  className="rounded-full bg-[#D9A528] w-[172px] h-[45px] text-[#FFF] font-somibold font-sans font-inter"
+                  className="font-somibold h-[45px] w-[172px] rounded-full bg-[#D9A528] text-[#FFF]"
                 >
                   Je confirme
                 </Button>
                 <Button
                   onPress={() =>
                     //@ts-ignore
-                    onOpenChange(false)}
-                  className="rounded-full bg-[#D62832] w-[172px] h-[45px] text-[#FFF] font-somibold font-sans font-inter"
+                    onOpenChange(false)
+                  }
+                  className="font-somibold h-[45px] w-[172px] rounded-full bg-[#D62832] text-[#FFF]"
                 >
                   Annuler
                 </Button>
@@ -85,34 +87,41 @@ const Delete_Catalogue: React.FC<DeleteUserProps> = ({ catalogueId, onDelete,set
         <ModalFooter></ModalFooter>
       </>
     );
-  }, [isConfirmationOpen, catalogueId, onOpenChange, handleDeleteUser]);
+  }, [
+    isConfirmationOpen,
+    catalogueId,
+    onOpenChange,
+    onDelete,
+    setDeleteCatalogueIcon,
+  ]);
 
   return (
-    <div className=''>
-      <>
-        <button onClick={() => { onOpen(); setConfirmationOpen(true); }}
-          //@ts-ignore
-          color="white"
-          className='pt-3'>
-          <Image
-            src="/delete.svg"
-            alt="delete icon"
-            width={15}
-            height={15}
-            className="hover:cursor-pointer"
-          />
-        </button>
-        <Modal
-          isOpen={isOpen}
-          onOpenChange={onOpenChange}
-          placement="top-center"
-          className='h-[13.4rem]'
-        >
-          <ModalContent>
-            {(onClose) => modalContent}
-          </ModalContent>
-        </Modal>
-      </>
+    <div className="">
+      <button
+        onClick={() => {
+          onOpen();
+          setConfirmationOpen(true);
+        }}
+        //@ts-ignore
+        color="white"
+        className="pt-3"
+      >
+        <Image
+          src="/delete.svg"
+          alt="delete icon"
+          width={15}
+          height={15}
+          className="hover:cursor-pointer"
+        />
+      </button>
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        placement="top-center"
+        className="h-[13.4rem]"
+      >
+        <ModalContent>{(onClose) => modalContent}</ModalContent>
+      </Modal>
     </div>
   );
 };

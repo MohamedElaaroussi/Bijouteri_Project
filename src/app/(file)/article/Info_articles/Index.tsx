@@ -138,14 +138,14 @@ function Articles_Info() {
                     <div className="text-center">{item.buyPrice}</div>
                   ) : columnKey === "Image" ? (
                     <div className="flex h-[80px] justify-center">
-                      <img
+                      <Image
                         src={"/article.png"}
                         alt="Image"
                         className="relative rounded-[12px]"
                         width={80}
                         height={90}
                       />
-                      <img
+                      <Image
                         src={"/Code_Barre.svg"}
                         alt="Image"
                         className="absolute mt-[9.5vh]"

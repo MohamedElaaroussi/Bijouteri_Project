@@ -22,23 +22,21 @@ function Info_Vente() {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const fetchUser = async () => {
-    const URL = process.env.NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000";
-    try {
-      const response = await axios.get(`api/sale?page=${currentPage}&limit=10`);
-      setArticles(response.data.result);
-      setLoading(false);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des données de l'utilisateur", error);
-    }
-  };
-
   useEffect(() => {
-    fetchUser();
-    const intervalId = setInterval(fetchUser, 3000);
-
-    return () => {
-      clearInterval(intervalId);
+    const fetchUser = async () => {
+      const URL = process.env.NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000";
+      try {
+        const response = await axios.get(
+          `api/sale?page=${currentPage}&limit=10`,
+        );
+        setArticles(response.data.result);
+        setLoading(false);
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des données de l'utilisateur",
+          error,
+        );
+      }
     };
   }, [currentPage]);
 
@@ -119,7 +117,7 @@ function Info_Vente() {
           <TableColumn className="text-center" key={"total"}>
             Total
           </TableColumn>
-          <TableColumn key={"action"}>{ }</TableColumn>
+          <TableColumn key={"action"}>{}</TableColumn>
         </TableHeader>
 
         <TableBody items={items}>
@@ -143,10 +141,11 @@ function Info_Vente() {
                         className="w-20 bg-[red]"
                       />
                       <Delete_Articles
-                        onDelete={() => { }}
+                        onDelete={() => {}}
                         articleId={
                           // @ts-ignore
-                          item._id}
+                          item._id
+                        }
                       />
                     </div>
                   ) : columnKey === "id" ? (
@@ -154,7 +153,8 @@ function Info_Vente() {
                       <div className="text-center text-[#D9A528]">
                         {
                           // @ts-ignore
-                          item._id}
+                          item._id
+                        }
                       </div>
                       <div className="flex justify-start pl-3">
                         {"1"} articles
@@ -198,12 +198,16 @@ function Info_Vente() {
                           </svg>
                         </span>
                         <div className="flex h-[80px] w-[5rem] flex-col justify-center">
-                          <img
+                          <Image
+                            width={20}
+                            height={20}
                             src={"/articles.svg"}
                             alt="Image"
                             className="relative relative top-[15px] h-[6rem] w-[4.5rem] rounded-[12px] pb-2"
                           />
-                          <img
+                          <Image
+                            width={20}
+                            height={20}
                             src={"/Code_Barre.svg"}
                             alt="Image"
                             className="absolute ml-2 mt-[16vh] "
@@ -273,29 +277,38 @@ function Info_Vente() {
                           </defs>
                         </svg>
                       </div>
-                      <div>{
-                        // @ts-ignore
-                        item?.Client_Nom}</div>
+                      <div>
+                        {
+                          // @ts-ignore
+                          item?.Client_Nom
+                        }
+                      </div>
                       <div className="flex justify-center">
                         {
                           // @ts-ignore
-                          item?.client}
+                          item?.client
+                        }
                       </div>
                     </div>
                   ) : columnKey === "Date" ? (
                     <div className="w-[5rem]">
                       {
                         // @ts-ignore
-                        format(new Date(item.date), "yyyy-MM-dd")}
+                        format(new Date(item.date), "yyyy-MM-dd")
+                      }
                     </div>
                   ) : columnKey === "Etat" ? (
                     <div>
                       <div
                         //@ts-ignore
-                        className={getColorClass(item.status)}>
-                        <div>{
-                          // @ts-ignore
-                          item.status}</div>
+                        className={getColorClass(item.status)}
+                      >
+                        <div>
+                          {
+                            // @ts-ignore
+                            item.status
+                          }
+                        </div>
                       </div>
                     </div>
                   ) : columnKey === "poid" ? (
@@ -318,4 +331,4 @@ function Info_Vente() {
   );
 }
 
-export default Info_Vente
+export default Info_Vente;
