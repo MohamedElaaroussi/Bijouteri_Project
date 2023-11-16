@@ -67,14 +67,6 @@ const Login = (): JSX.Element | undefined => {
     );
   }
 
-  if (isLoading) {
-    return (
-      <div className="mt-[8rem] text-center">
-        <Spinner label="Loading..." color="warning" />
-      </div>
-    );
-  }
-
   if (status === "unauthenticated") {
     return (
       <div className="flex h-screen overflow-x-hidden">
@@ -147,8 +139,11 @@ const Login = (): JSX.Element | undefined => {
                   <hr className="mb-5" />
                 </div>
 
-                <button className="w-full rounded-[10px] bg-[color:var(--goldColor)] p-2 text-sm text-white hover:bg-[color:var(--softGoldColor)]">
-                  Se Connecter
+                <button
+                  disabled={isLoading}
+                  className="w-full rounded-[10px] bg-[color:var(--goldColor)] p-2 text-sm text-white hover:bg-[color:var(--softGoldColor)]"
+                >
+                  {isLoading ? <Spinner color="white" /> : "Se Connecter"}
                 </button>
                 <div className="my-4 flex items-center gap-2">
                   <input
