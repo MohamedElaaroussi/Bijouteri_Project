@@ -8,15 +8,7 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
-<<<<<<< HEAD
-  
 } from "@nextui-org/react";
-
-import React, {  useState, useMemo } from 'react';
-
-=======
-} from "@nextui-org/react";
->>>>>>> cd86eaf299dccf9aff2c1c69f77848f93f852995
 
 import React, { useState, useMemo } from "react";
 
