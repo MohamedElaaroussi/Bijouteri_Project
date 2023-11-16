@@ -49,17 +49,6 @@ const Catalogue = ({ pageTitle }: { pageTitle: string }) => {
     return () => clearTimeout(timeoutId);
   }, [check, Icons, setSearch]);
 
-  useEffect(() => {
-    // Logic to refresh the component when Icons is true
-    if (Icons) {
-      refreshComponent();
-    }
-  }, [Icons]);
-
-  const refreshComponent = () => {
-     
-
-  };
   return (
     <div key={forceRender}>
       {/* Header Section */}

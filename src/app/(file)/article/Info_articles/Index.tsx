@@ -15,6 +15,7 @@ import Delete_Articles from "@/components/ui/modal/Modal_Articles/Delete_Article
 import Update_Articles from "@/components/ui/modal/Modal_Articles/Update_Articles";
 import { useQuery, useQueryClient } from "react-query";
 import { getArticle } from "../../../../api/article";
+import Image from "next/image";
 
 function Articles_Info() {
   const [page, setPage] = useState(1);
@@ -138,14 +139,14 @@ function Articles_Info() {
                     <div className="text-center">{item.buyPrice}</div>
                   ) : columnKey === "Image" ? (
                     <div className="flex h-[80px] justify-center">
-                      <img
+                      <Image
                         src={"/article.png"}
                         alt="Image"
                         className="relative rounded-[12px]"
                         width={80}
                         height={90}
                       />
-                      <img
+                      <Image
                         src={"/Code_Barre.svg"}
                         alt="Image"
                         className="absolute mt-[9.5vh]"
