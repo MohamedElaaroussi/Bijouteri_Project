@@ -8,13 +8,10 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
-  Checkbox,
-  Input,
-  Link,
+  
 } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, {  useState, useMemo } from 'react';
 
 
 

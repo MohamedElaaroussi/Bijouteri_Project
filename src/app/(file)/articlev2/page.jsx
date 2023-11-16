@@ -6,6 +6,6 @@ const Article = () => {
       <ArticleTable></ArticleTable>
     </>
   );
-};
+};         
 
 export default Article;
