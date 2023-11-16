@@ -42,9 +42,6 @@ const DetailCatalogue = ({ params }: { params: ParamsType }) => {
     console.log(data);
   };
   const [Articles_ID, setArticles_ID] = useState<any[]>([]);
-  console.log("-------------");
-  console.log(Articles_ID);
-  console.log("-------------");
 
   useEffect(() => {
     const fetchArticlesBy_Id = async () => {
@@ -74,7 +71,7 @@ const DetailCatalogue = ({ params }: { params: ParamsType }) => {
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <div className="flex gap-10">
           <div className="flex flex-col gap-5">
-            <DetailImage src="/article.png"></DetailImage>
+            <DetailImage catalogueImage="/article.png"></DetailImage>
             <DetailStatus></DetailStatus>
             <DetailCategories></DetailCategories>
           </div>

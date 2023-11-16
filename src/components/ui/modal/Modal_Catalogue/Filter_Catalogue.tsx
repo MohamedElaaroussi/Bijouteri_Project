@@ -11,17 +11,27 @@ import {
     Button,
     useDisclosure,
 } from "@nextui-org/react";
-import { colorArr, colorObject } from '@/utils/seed'
 
 
 
-const Filter_Catalogue = ({ text, icon }: { text: string; icon: string }) => {
-    const [selectedColor, SetSelectedColor] = useState("yellow")
-    const changeColorHandler = (color: string) => {
-        SetSelectedColor(color)
-    }
+const Filter_Catalogue = ({ text, icon, setRechercheNom_F1 }: { text: string; icon: string, setRechercheNom_F1: string }) => {
+
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [size, setSize] = React.useState("md");
+    const [Nom, setNom] = useState<string | null>('')
+    const [NbrArticles, setNbrArticles] = useState('')
+
+    console.log("voici Nom ", Nom, "Voici Nbarticles ", NbrArticles)
+
+
+
+    const PassPArams = () => {
+        // alert('success') 
+
+        setRechercheNom_F1(Nom)
+    }
+
+
 
     const sizes = ["4xl"];
 
@@ -65,6 +75,7 @@ const Filter_Catalogue = ({ text, icon }: { text: string; icon: string }) => {
                                         className="bg-white border border-gray-300 text-[#C1C4C7] text-[14px] font-somibold rounded-lg 
                                             focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-2.5"
                                         placeholder="Nom"
+                                        onChange={(e) => setNom(e.target.value)}
                                         required
                                     />
                                 </div>
@@ -75,11 +86,16 @@ const Filter_Catalogue = ({ text, icon }: { text: string; icon: string }) => {
                                         className="bg-white border border-gray-300 text-[#C1C4C7] text-[14px] font-somibold rounded-lg 
                                             focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-2.5"
                                         placeholder="Nombre d'articles ..."
+                                        onChange={(e) => setNbrArticles(e.target.value)}
                                         required
                                     />
                                 </div>
                                 <div>
                                     <button
+                                        onClick={() => {
+                                            PassPArams();
+                                            onClose()
+                                        }}
                                         type="button"
                                         className="text-white bg-[#D9A528] from-purple-600 to-blue-500 rounded-full  ml-[1.3rem]
                                          text-[#EBF1FF] border-1 border-[#EBF1FF] px-5 py-2.5 text-center mr-2  w-[172px] h-[45px]"

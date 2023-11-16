@@ -21,6 +21,7 @@ const Section1_Articles = () => {
         </DropdownArticles>
 
         <GoldBtn label="Ajouter un article" />
+        
         <DisplayDate
           icon="/date.svg"
           text="Jan 6, 2023 - Jan 22, 2023"

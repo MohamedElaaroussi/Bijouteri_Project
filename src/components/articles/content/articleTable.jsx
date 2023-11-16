@@ -1,4 +1,5 @@
 "use client";
+
 import { deleteArticle, getArticle } from "@/client-api/article";
 import {
   Pagination,
@@ -30,10 +31,11 @@ const ArticleTable = () => {
   const queryClient = useQueryClient();
 
   // fetch articles
-  const { isLoading, isSuccess, isError, data } = useQuery(
-    ["articles", page, limit],
-    () => getArticle(page, limit),
+  const { isLoading, isError, data } = useQuery(["articles", page, limit], () =>
+    getArticle(page, limit),
   );
+
+  // delete article
   const deleteArticleMut = useMutation(deleteArticle, {
     onSuccess: () => {
       queryClient.invalidateQueries("articles");
