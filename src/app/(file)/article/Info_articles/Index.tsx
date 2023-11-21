@@ -14,7 +14,8 @@ import Link from "next/link";
 import Delete_Articles from "@/components/ui/modal/Modal_Articles/Delete_Articles";
 import Update_Articles from "@/components/ui/modal/Modal_Articles/Update_Articles";
 import { useQuery, useQueryClient } from "react-query";
-import { getArticle } from "../../../../api/article";
+import { getArticle } from "../../../../client-api/article";
+import Image from "next/image";
 import Image from "next/image";
 
 function Articles_Info() {
@@ -119,7 +120,7 @@ function Articles_Info() {
                           {" "}
                           Code bar :
                         </span>
-                        <div className=" textè-[15px] font-bold text-[#D9A528]  ">
+                        <div className=" text-[15px] font-bold text-[#D9A528]  ">
                           {item.barCode}
                         </div>
                       </div>

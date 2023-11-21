@@ -26,8 +26,7 @@ const Filter_Catalogue = ({ text, icon, setRechercheNom_F1 }: { text: string; ic
 
 
     const PassPArams = () => {
-        // alert('success') 
-
+        //@ts-ignore
         setRechercheNom_F1(Nom)
     }
 

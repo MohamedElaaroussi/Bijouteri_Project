@@ -21,7 +21,7 @@ export interface ArticleModel extends Document {
 }
 
 const articleSchema = new Schema<ArticleModel>({
-  name: { type: String, trim: true, },
+  name: { type: String, trim: true, required: true },
   img: { type: String },
   buyPrice: { type: Number, min: 1 },
   sellPrice: { type: Number, min: 1 },

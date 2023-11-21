@@ -6,19 +6,14 @@ import { usePathname } from 'next/navigation'
 import Header from '../utilisateur/USerComponent/Header/Header'
 
 const Page = () => {
-    const path = usePathname().slice(1) // Rename the variable to pathname
-
-    console.log('====================================');
-    console.log(path);
-    console.log('====================================');
+    const path = usePathname().slice(1)
     return (
         <>
-            
-                <Header path={path} />
-                <Section_1 />
-                <Info_Vente />
-            
-            
+            <Header path={path} />
+            <Section_1 />
+            <Info_Vente />
+
+
         </>
     )
 }

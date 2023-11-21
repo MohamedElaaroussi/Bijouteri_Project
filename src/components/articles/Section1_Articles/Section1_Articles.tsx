@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { Children, useState } from "react";
 import InputHeader from "@/components/ui/Input/InputHeader";
 import ExportBtn from "@/components/ui/button/ExportBtn";
-import GoldBtn from "@/components/ui/button/GoldBtn";
 import DisplayDate from "@/components/ui/header/IconPlusText";
 import Filter_Articles from "@/components/ui/modal/Modal_Articles/Filter_Articles";
 import DropdownArticles from "@/components/ui/dropdown/DropdownArticles";
+import ModalAjoute from "@/components/ui/modal/Modal_Articles/ModalAjoute";
+import StatiqueModalAjoute from "./StatiqueModalAjoute";
 
 const Section1_Articles = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -20,8 +21,10 @@ const Section1_Articles = () => {
           <ExportBtn label="Export" />
         </DropdownArticles>
 
-        <GoldBtn label="Ajouter un article" />
-        
+        <ModalAjoute label="Ajouter un article"  >
+          <StatiqueModalAjoute />
+        </ModalAjoute>
+
         <DisplayDate
           icon="/date.svg"
           text="Jan 6, 2023 - Jan 22, 2023"
